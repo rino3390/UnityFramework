@@ -1,1 +1,1 @@
-# com.rinoweeb.dddcore
+# DDDCore Template By Rino
