@@ -1,6 +1,6 @@
 {
     dependency:{
         "jp.hadashikick.vcontainer": "https://github.com/hadashiA/VContainer.git?path=VContainer/Assets/VContainer#1.13.2",
-        "tw.rinoweeb.dddcore": "https://github.com/rino3390/UnityPackage.git?path=DDDCore",
+        "tw.rinoweeb.dddcore": "https://github.com/rino3390/UnityPackage.git?path=DDDCore"
     }
 }
