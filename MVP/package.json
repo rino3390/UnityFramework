@@ -16,7 +16,7 @@
     "email": "purinnya3390@gmail.com"
   },
   "dependencies": {
-    "jp.hadashikick.vcontainer": "",
-    "tw.rinoweeb.dddcore": ""
+    "jp.hadashikick.vcontainer": "1.13.2",
+    "tw.rinoweeb.dddcore": "0.1.0"
   }
 }
