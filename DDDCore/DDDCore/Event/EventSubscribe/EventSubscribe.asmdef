@@ -1,0 +1,17 @@
+{
+    "name": "EventSubscribe",
+    "rootNamespace": "",
+    "references": [
+        "GUID:59846425f584c3c438f9b4983e612b23",
+        "GUID:33a5e60e6f14c8e459c100fd4c800ac6"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

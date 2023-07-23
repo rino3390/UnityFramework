@@ -1,6 +1,6 @@
 {
   "name": "tw.rinoweeb.dddcore",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "displayName": "Rino DDDCore",
   "description": "Framework built based on DDD by Rino",
   "unity": "2021.3",
