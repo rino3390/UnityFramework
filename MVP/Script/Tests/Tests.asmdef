@@ -6,14 +6,18 @@
         "UnityEditor.TestRunner",
         "Controller",
         "Model",
-        "Presenter"
+        "Presenter",
+        "TestFrameWork",
+        "CoreEvent",
+        "Event"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": true,
     "precompiledReferences": [
-        "nunit.framework.dll"
+        "nunit.framework.dll",
+        "NSubstitute.dll"
     ],
     "autoReferenced": false,
     "defineConstraints": [
