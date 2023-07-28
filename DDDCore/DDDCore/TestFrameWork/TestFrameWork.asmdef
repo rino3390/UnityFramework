@@ -5,8 +5,8 @@
         "UnityEditor.TestRunner",
         "CoreEvent",
         "EventBus",
-        "EventPublish",
-        "EventSubscribe"
+        "Publisher",
+        "Subscriber"
     ],
     "includePlatforms": [
         "Editor"

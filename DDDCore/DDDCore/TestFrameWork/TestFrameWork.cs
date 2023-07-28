@@ -9,16 +9,16 @@ namespace DDDCore.TestFrameWork
 {
 	public class TestFrameWork
 	{
-		protected EventPublish eventPublish;
-		protected EventSubscribe eventSubscribe;
+		protected Publisher eventPublish;
+		protected Subscriber Subscriber;
 		protected IEventBus eventBus;
 
 		[SetUp]
 		public virtual void Setup()
 		{
 			eventBus = Substitute.For<IEventBus>();
-			eventPublish = new EventPublish(eventBus);
-			eventSubscribe = new EventSubscribe(eventBus);
+			eventPublish = new Publisher(eventBus);
+			Subscriber = new Subscriber(eventBus);
 		}
 
 		protected string NewGuid()
