@@ -2,17 +2,17 @@
 
 namespace DDDCore.Domain
 {
-	public interface IRepository<T, EntityT> where T: Entity<EntityT>
+	public interface IRepository<TEntity, EntityId> where TEntity: Entity<EntityId>
 	{
-		T this[EntityT Id] { get; set; }
+		TEntity this[EntityId Id] { get; set; }
 		int Count { get; }
-		IEnumerable<EntityT> Keys { get; }
-		IEnumerable<T> Values { get; }
+		IEnumerable<EntityId> Keys { get; }
+		IEnumerable<TEntity> Values { get; }
 
-		void                  AddOrSet(T entity);
+		void                  AddOrSet(TEntity entity);
 		void                  DeleteAll();
-		void                  DeleteById(EntityT Id);
-		T                     FindById(EntityT Id);
-		(bool exist, T value) GetExistEntity(EntityT Id);
+		void                  DeleteById(EntityId Id);
+		TEntity                     FindById(EntityId Id);
+		(bool exist, TEntity value) GetExistEntity(EntityId Id);
 	}
 }
