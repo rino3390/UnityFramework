@@ -5,9 +5,9 @@ using NSubstitute;
 using NUnit.Framework;
 using System;
 
-namespace DDDCore.TestFrameWork
+namespace DDDCore.TestFramework
 {
-	public class TestFrameWork
+	public class TestFramework
 	{
 		protected Publisher eventPublish;
 		protected Subscriber Subscriber;

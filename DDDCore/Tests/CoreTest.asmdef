@@ -7,7 +7,7 @@
         "Domain",
         "EventBus",
         "CoreEvent",
-        "TestFrameWork"
+        "TestFramework"
     ],
     "includePlatforms": [
         "Editor"

@@ -1,5 +1,5 @@
 {
-    "name": "TestFrameWork",
+    "name": "TestFramework",
     "rootNamespace": "",
     "references": [
         "UnityEditor.TestRunner",
@@ -19,9 +19,7 @@
         "NSubstitute.dll"
     ],
     "autoReferenced": false,
-    "defineConstraints": [
-        "UNITY_INCLUDE_TESTS"
-    ],
+    "defineConstraints": [],
     "versionDefines": [],
     "noEngineReferences": false
 }

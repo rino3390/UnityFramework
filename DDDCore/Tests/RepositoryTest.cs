@@ -1,5 +1,5 @@
 ﻿using DDDCore.Domain;
-using DDDCore.TestFrameWork;
+using DDDCore.TestFramework;
 using NSubstitute;
 using NUnit.Framework;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Linq;
 namespace Script.DDDCore.Tests
 {
 	[TestFixture]
-	public class RepositoryTest: TestFrameWork
+	public class RepositoryTest: TestFramework
 	{
 		[SetUp]
 		public override void Setup() { }
