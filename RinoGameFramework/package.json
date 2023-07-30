@@ -1,0 +1,18 @@
+{
+  "name": "tw.rinoweeb.gameframework",
+  "version": "0.1.0",
+  "displayName": "Rino Game Framework",
+  "description": "Unity Game Framework by Rino",
+  "unity": "2022.3",
+  "unityRelease": "0b5",
+  "keywords": [
+    "Rino",
+    "rinoweeb",
+    "DDD",
+    "Framework"
+  ],
+  "author": {
+    "name": "Rino",
+    "email": "purinnya3390@gmail.com"
+  }
+}

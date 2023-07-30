@@ -1,0 +1,12 @@
+﻿using System;
+
+namespace RinoGameFramework.RinoUtility
+{
+	public class GUID
+	{
+		public static string NewGuid()
+		{
+			return Guid.NewGuid().ToString();
+		}
+	}
+}
