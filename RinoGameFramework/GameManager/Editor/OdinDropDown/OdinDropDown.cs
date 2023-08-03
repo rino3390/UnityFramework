@@ -1,4 +1,4 @@
-﻿using RinoGameFramework.GameManager.DataScript.Language;
+﻿using RinoGameFramework.Localize.DataScript;
 using System.Collections;
 using System.Linq;
 using UnityEditor;
@@ -12,7 +12,7 @@ namespace RinoGameFramework.GameManager.Editor.OdinDropDown
 
 		public static IEnumerable Languages()
 		{
-			var data = GetDataOverview<LanguageDataOverview>();
+			var data = GetDataOverview<LocalizeDataSet>();
 			if(data != null) return data.LanguageDropDown();
 
 			return null;

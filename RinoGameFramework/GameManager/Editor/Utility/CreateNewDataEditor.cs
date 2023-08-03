@@ -5,6 +5,7 @@ using Sirenix.OdinInspector;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
+using GUID = RinoGameFramework.Utility.GUID;
 
 namespace RinoGameFramework.GameManager.Editor.Utility
 {
@@ -69,7 +70,7 @@ namespace RinoGameFramework.GameManager.Editor.Utility
 		private void SetNewData()
 		{
 			Data = ScriptableObject.CreateInstance<T>();
-			Data.Id = GUID.Generate().ToString();
+			Data.Id = GUID.NewGuid();
 			var root = _dataRoot.Split('/');
 			Data.AssetName = root[^2] + " - " + Data.Id;
 		}

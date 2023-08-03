@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RinoGameFramework.RinoUtility
+namespace RinoGameFramework.Utility
 {
 	public class GUID
 	{

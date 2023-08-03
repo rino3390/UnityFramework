@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 154ae6b7afe345e08b71b8cfdf5cf5f0, type: 3}
-  m_Name: LanguageType
+  m_Script: {fileID: 11500000, guid: 2d0fe96614804b128d5345d7e9719c71, type: 3}
+  m_Name: LocalizeDataSet
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -21,6 +21,15 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  LanguageName:
-  - Language: "\u7E41\u9AD4\u4E2D\u6587"
-  - Language: English
+  LocalizeStringDatas: []
+  Create:
+    Id: 
+    LanguageId: 
+    Root: 
+    LocalizeString:
+    - LanguageType:
+        Language: "\u7E41\u9AD4\u4E2D\u6587"
+      StringValue: 
+    - LanguageType:
+        Language: English
+      StringValue: 

@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace RinoGameFramework.Utility.Editor
 {
-	public class EditorUtility
+	public class RinoEditorUtility
 	{
 		public static List<T> FindAssets<T>() where T: UnityEngine.Object
 		{
