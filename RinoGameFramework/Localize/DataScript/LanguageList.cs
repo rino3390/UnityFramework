@@ -3,6 +3,7 @@ using RinoGameFramework.Utility.Editor.Validate;
 using Sirenix.OdinInspector;
 using Sirenix.OdinInspector.Editor;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -17,8 +18,9 @@ namespace RinoGameFramework.Localize.DataScript
 		[ListDrawerSettings(AlwaysAddDefaultValue = true)]
 		public List<LanguageType> LanguageName;
 		
-		// [ValidateInput("@string.IsNullOrEmpty(DefaultLanguage)")]
-		// public string DefaultLanguage;
+		[HideLabel,Header("預設語言")]
+		[ValueDropdown(nameof(LanguageNameDropDown))]
+		public string DefaultLanguage;
 
 		public void Reset()
 		{
@@ -85,6 +87,11 @@ namespace RinoGameFramework.Localize.DataScript
 				OnLanguageRemove?.Invoke(value);
 				tempList = currentLanguageList;
 			}
+		}
+		
+		public IEnumerable LanguageNameDropDown()
+		{
+			return LanguageName.Select(x => new ValueDropdownItem(x.Language, x.Id));
 		}
 	#endif
 	}
