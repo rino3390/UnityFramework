@@ -2,7 +2,8 @@
     "name": "Rino.Localize",
     "rootNamespace": "",
     "references": [
-        "GUID:1869d6e0ebc79c5439d156300d47fa4e"
+        "GUID:1869d6e0ebc79c5439d156300d47fa4e",
+        "GUID:b0214a6008ed146ff8f122a6a9c2f6cc"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

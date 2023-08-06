@@ -1,5 +1,8 @@
-﻿using RinoGameFramework.Utility;
+﻿using NUnit.Framework;
+using RinoGameFramework.Localize.Common;
+using RinoGameFramework.Localize.Editor;
 using RinoGameFramework.Utility.Editor;
+using RinoGameFramework.Utility.Editor.Validate;
 using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,85 +13,215 @@ namespace RinoGameFramework.Localize.DataScript
 {
 	public class LocalizeDataSet: SerializedScriptableObject
 	{
-		[SerializeField,LabelText("本地化文字資料")]
-		[ListDrawerSettings(HideAddButton = true, ListElementLabelName = "LanguageId", NumberOfItemsPerPage = 20,CustomRemoveElementFunction = "RemoveElement")]
-		[DisableContextMenu, Searchable]
-		private List<LocalizeData> LocalizeStringDatas;
+		[SerializeField, LabelText("本地化文字資料"), TabGroup("文字資料")]
+		[ListDrawerSettings(HideAddButton = true, ListElementLabelName = "DisplayName", NumberOfItemsPerPage = 20)]
+		[DisableContextMenu(true, true), Searchable, LocalizeTable, UniqueList("含有相同路徑的重複ID")]
+		public List<LocalizeData> LocalizeStringDatas;
 
-		// public LanguageStringValue GetString(string Id)
-		// {
-		// 	var data = LocalizeStringDatas.Find(x=> x.Id == Id);
-		//
-		// 	if(data == null)
-		// 	{
-		// 		throw new MissingReferenceException($"Language{Id} 不存在");
-		// 	}
-		//
-		// 	return data.Language;
-		// }
-		
-	#if UNITY_EDITOR
-		[SerializeField,PropertyOrder(-1)]
-		[HideLabel, Title("新增本地化文字")]
-		private LocalizeData Create;
+		[SerializeField, LabelText("本地化圖片資料"), TabGroup("圖片資料")]
+		[ListDrawerSettings(HideAddButton = true, ListElementLabelName = "DisplayName", NumberOfItemsPerPage = 20)]
+		[DisableContextMenu(true, true), Searchable, LocalizeTable, UniqueList("含有相同路徑的重複ID")]
+		public List<LocalizeData> LocalizeImageDatas;
 
-		private LanguageType languageType;
+		[SerializeField, LabelText("本地化音效資料"), TabGroup("音效資料")]
+		[ListDrawerSettings(HideAddButton = true, ListElementLabelName = "DisplayName", NumberOfItemsPerPage = 20)]
+		[DisableContextMenu(true, true), Searchable, LocalizeTable, UniqueList("含有相同路徑的重複ID")]
+		public List<LocalizeData> LocalizeAudioDatas;
 
-		[Button, PropertyOrder(-1)]
-		[PropertySpace(10, 10)]
-		public void CreateLanguage()
+		public void AddStringData(LocalizeData data)
 		{
-			Create.Id = GUID.NewGuid();
+			LocalizeStringDatas.Add(data);
+		}
 
-			if(string.IsNullOrEmpty(Create.LanguageId))
+		public void AddImageData(LocalizeData data)
+		{
+			LocalizeImageDatas.Add(data);
+		}
+
+		public void AddAudioData(LocalizeData data)
+		{
+			LocalizeAudioDatas.Add(data);
+		}
+
+		public List<LocalizeString> GetStringByGUID(string Id)
+		{
+			var data = LocalizeStringDatas.Find(x => x.Id == Id);
+
+			if(data == null)
 			{
-				return;
+				throw new MissingReferenceException($"{Id} 字串資料不存在");
 			}
 
-			LocalizeStringDatas.Add(Create);
-			languageType.OnListValueChange += Create.ModifyLanguageList;
-			
-			SetNewCreate();
+			var value = data.LocalizeValue.Select(x => new LocalizeString
+							{
+								Value = (x.LanguageType.Language, x.StringValue)
+							})
+							.ToList();
+
+			return value;
 		}
+		public List<LocalizeString> GetString(string Id)
+		{
+			var data = LocalizeStringDatas.Find(x => RootId(x) == Id);
+
+			if(data == null)
+			{
+				throw new MissingReferenceException($"{Id} 字串資料不存在");
+			}
+
+			var value = data.LocalizeValue.Select(x => new LocalizeString
+							{
+								Value = (x.LanguageType.Language, x.StringValue)
+							})
+							.ToList();
+
+			return value;
+		}
+
+		public List<LocalizeImage> GetImageByGUID(string Id)
+		{
+			var data = LocalizeImageDatas.Find(x => x.Id == Id);
+
+			if(data == null)
+			{
+				throw new MissingReferenceException($"{Id} 圖片資料不存在");
+			}
+
+			var value = data.LocalizeValue.Select(x => new LocalizeImage
+							{
+								Value = (x.LanguageType.Language, x.ImageValue)
+							})
+							.ToList();
+
+			return value;
+		}
+		
+		public List<LocalizeImage> GetImage(string Id)
+		{
+			var data = LocalizeImageDatas.Find(x => RootId(x) == Id);
+
+			if(data == null)
+			{
+				throw new MissingReferenceException($"{Id} 圖片資料不存在");
+			}
+
+			var value = data.LocalizeValue.Select(x => new LocalizeImage
+							{
+								Value = (x.LanguageType.Language, x.ImageValue)
+							})
+							.ToList();
+
+			return value;
+		}
+
+		public List<LocalizeAudio> GetAudioByGUID(string Id)
+		{
+			var data = LocalizeAudioDatas.Find(x => x.Id == Id);
+
+			if(data == null)
+			{
+				throw new MissingReferenceException($"{Id} 音效資料不存在");
+			}
+
+			var value = data.LocalizeValue.Select(x => new LocalizeAudio
+							{
+								Value = (x.LanguageType.Language, x.AudioValue)
+							})
+							.ToList();
+
+			return value;
+		}
+
+		public List<LocalizeAudio> GetAudio(string Id)
+		{
+			var data = LocalizeAudioDatas.Find(x => RootId(x) == Id);
+
+			if(data == null)
+			{
+				throw new MissingReferenceException($"{Id} 音效資料不存在");
+			}
+
+			var value = data.LocalizeValue.Select(x => new LocalizeAudio
+							{
+								Value = (x.LanguageType.Language, x.AudioValue)
+							})
+							.ToList();
+
+			return value;
+		}
+
+	#if UNITY_EDITOR
+		private LanguageList languageList;
 
 		private void OnEnable()
 		{
-			languageType = RinoEditorUtility.FindAsset<LanguageType>();
-			SetNewCreate();
-			LocalizeStringDatas.ForEach(x => x.RegisterEvent(languageType));
+			languageList = RinoEditorUtility.FindAsset<LanguageList>();
+
+			languageList.OnLanguageAdd += OnLanguageAdd;
+			languageList.OnLanguageChange += OnLanguageChange;
+			languageList.OnLanguageRemove += OnLanguageRemove;
+			languageList.OnLanguageInsert += OnLanguageInsert;
 		}
 
-		private void OnDisable()
+		public List<(string id, string root)> StringDataIdList =>
+			LocalizeStringDatas.Select(languageData => (languageData.Id, RootId(languageData))).ToList();
+
+		public List<(string id, string root)> ImageDataIdList =>
+			LocalizeImageDatas.Select(languageData => (languageData.Id, RootId(languageData))).ToList();
+
+		public List<(string id, string root)> AudioDataIdList =>
+			LocalizeAudioDatas.Select(languageData => (languageData.Id, RootId(languageData))).ToList();
+
+		public IEnumerable LocalizeStringDropDown()
 		{
-			Create = null;
+			return LocalizeStringDatas.Select(languageData => new ValueDropdownItem(RootId(languageData) + languageData.LanguageId, languageData.Id));
 		}
 
-		private void SetNewCreate()
+		public IEnumerable LocalizeImageDropDown()
 		{
-			Create = new LocalizeData();
-			Create.RegisterEvent(languageType);
-			Create.ModifyLanguageList();
+			return LocalizeImageDatas.Select(languageData => new ValueDropdownItem(RootId(languageData), languageData.Id));
 		}
 
-		public List<(string id, string root)> LanguageIdList =>
-			LocalizeStringDatas.Select(languageData => (languageData.Id, ArgRoot(languageData) + languageData.LanguageId)).ToList();
-
-		public IEnumerable LanguageDropDown()
+		public IEnumerable LocalizeAudioDropDown()
 		{
-			return LocalizeStringDatas.Select(languageData => new ValueDropdownItem(ArgRoot(languageData) + languageData.LanguageId, languageData.Id));
+			return LocalizeAudioDatas.Select(languageData => new ValueDropdownItem(RootId(languageData), languageData.Id));
 		}
 
-		private static string ArgRoot(LocalizeData localize)
+		private static string RootId(LocalizeData localize)
 		{
-			return string.IsNullOrEmpty(localize.Root) ? "" : localize.Root + "/";
+			return ( string.IsNullOrEmpty(localize.Root) ? "" : localize.Root + "/" ) + localize.LanguageId;
 		}
 
-		private void RemoveElement(object obj)
+	#region LanguageChangeEvent
+		private void OnLanguageChange(string id, string language)
 		{
-			var data = (LocalizeData)obj;
-			languageType.OnListValueChange -= data.ModifyLanguageList;
-			LocalizeStringDatas.Remove(data);
+			LocalizeStringDatas.ForEach(x => x.LocalizeValue.Find(y => y.LanguageType.Id == id).LanguageType.Language = language);
+			LocalizeImageDatas.ForEach(x => x.LocalizeValue.Find(y => y.LanguageType.Id == id).LanguageType.Language = language);
+			LocalizeAudioDatas.ForEach(x => x.LocalizeValue.Find(y => y.LanguageType.Id == id).LanguageType.Language = language);
 		}
+
+		private void OnLanguageAdd(LanguageType addLanguage)
+		{
+			LocalizeStringDatas.ForEach(x => x.LocalizeValue.Add(new LocalizeStruct { LanguageType = addLanguage }));
+			LocalizeImageDatas.ForEach(x => x.LocalizeValue.Add(new LocalizeStruct { LanguageType = addLanguage }));
+			LocalizeAudioDatas.ForEach(x => x.LocalizeValue.Add(new LocalizeStruct { LanguageType = addLanguage }));
+		}
+
+		private void OnLanguageRemove(string language)
+		{
+			LocalizeStringDatas.ForEach(x => x.LocalizeValue.RemoveAll(y => y.LanguageType.Language == language));
+			LocalizeImageDatas.ForEach(x => x.LocalizeValue.RemoveAll(y => y.LanguageType.Language == language));
+			LocalizeAudioDatas.ForEach(x => x.LocalizeValue.RemoveAll(y => y.LanguageType.Language == language));
+		}
+
+		private void OnLanguageInsert(int i, LanguageType languageType)
+		{
+			LocalizeStringDatas.ForEach(x => { x.LocalizeValue.Insert(i, new LocalizeStruct { LanguageType = languageType }); });
+			LocalizeImageDatas.ForEach(x => { x.LocalizeValue.Insert(i, new LocalizeStruct { LanguageType = languageType }); });
+			LocalizeAudioDatas.ForEach(x => { x.LocalizeValue.Insert(i, new LocalizeStruct { LanguageType = languageType }); });
+		}
+	#endregion
+
 	#endif
 	}
 }

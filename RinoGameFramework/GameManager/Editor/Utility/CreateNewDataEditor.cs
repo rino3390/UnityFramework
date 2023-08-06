@@ -1,11 +1,11 @@
 ﻿#if UNITY_EDITOR
 using JetBrains.Annotations;
 using RinoGameFramework.GameManager.DataScript;
+using RinoGameFramework.Utility;
 using Sirenix.OdinInspector;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
-using GUID = RinoGameFramework.Utility.GUID;
 
 namespace RinoGameFramework.GameManager.Editor.Utility
 {
@@ -70,7 +70,7 @@ namespace RinoGameFramework.GameManager.Editor.Utility
 		private void SetNewData()
 		{
 			Data = ScriptableObject.CreateInstance<T>();
-			Data.Id = GUID.NewGuid();
+			Data.Id = RinoUtility.NewGuid();
 			var root = _dataRoot.Split('/');
 			Data.AssetName = root[^2] + " - " + Data.Id;
 		}

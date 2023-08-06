@@ -1,21 +1,17 @@
 ﻿using RinoGameFramework.Utility;
 using Sirenix.OdinInspector;
 using System;
+using UnityEngine;
 
-namespace RinoGameFramework.Localize
+namespace RinoGameFramework.Localize.Common
 {
 	[Serializable]
 	public class LanguageType
 	{
-		public string Id { get; private set; }
+		public string Id { get; private set; } = RinoUtility.NewGuid();
 
-		[HideLabel]
-		public string Language;
-
-		public LanguageType()
-		{
-			Id = GUID.NewGuid();
-		}
+		[HideLabel, Required("語言類型不能為空"),Delayed]
+		public string Language = string.Empty;
 
 		public override bool Equals(object obj)
 		{

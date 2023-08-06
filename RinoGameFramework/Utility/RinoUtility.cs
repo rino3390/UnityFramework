@@ -2,7 +2,7 @@
 
 namespace RinoGameFramework.Utility
 {
-	public class GUID
+	public class RinoUtility
 	{
 		public static string NewGuid()
 		{

@@ -13,7 +13,7 @@ namespace RinoGameFramework.GameManager.Editor.OdinDropDown
 		public static IEnumerable Languages()
 		{
 			var data = GetDataOverview<LocalizeDataSet>();
-			if(data != null) return data.LanguageDropDown();
+			if(data != null) return data.LocalizeStringDropDown();
 
 			return null;
 		}
