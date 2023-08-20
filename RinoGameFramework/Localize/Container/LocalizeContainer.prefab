@@ -49,3 +49,4 @@ MonoBehaviour:
   autoRun: 1
   autoInjectGameObjects: []
   localizeDataSet: {fileID: 11400000, guid: 70a9ec4bcee118445a6299c6dd244bf8, type: 2}
+  languageList: {fileID: 11400000, guid: 45394d25c9c16de468132e2ee5d45398, type: 2}

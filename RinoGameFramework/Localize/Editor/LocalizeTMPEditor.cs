@@ -1,24 +1,44 @@
-﻿using TMPro.EditorUtilities;
+﻿using Sirenix.OdinInspector.Editor;
+using Sirenix.OdinInspector.Editor.Windows;
+using Sirenix.Utilities.Editor;
+using TMPro.EditorUtilities;
 using UnityEditor;
+using UnityEngine;
 
 namespace RinoGameFramework.Localize.Editor
 {
 	[CustomEditor(typeof(LocalizeTMP))]
-	public class LocalizeTMPEditor: TMP_BaseEditorPanel
+	public class LocalizeTMPEditor: TMP_EditorPanelUI
 	{
-		protected override void DrawExtraSettings()
+		SerializedProperty customTextProp;
+
+		protected override void OnEnable()
 		{
-			throw new System.NotImplementedException();
+			base.OnEnable();
+			customTextProp = serializedObject.FindProperty("LocalizeStingId");
+			DrawSingle();
 		}
 
-		protected override bool IsMixSelectionTypes()
+		public override void OnInspectorGUI()
 		{
-			throw new System.NotImplementedException();
+			myObjectTree.BeginDraw(true);
+			property1.Draw();
+			myObjectTree.EndDraw();
+
+			base.OnInspectorGUI();
 		}
 
-		protected override void OnUndoRedo()
+		PropertyTree myObjectTree;
+		private InspectorProperty property1;
+
+		void DrawSingle()
 		{
-			throw new System.NotImplementedException();
+			if (this.myObjectTree == null)
+			{
+				this.myObjectTree = PropertyTree.Create(serializedObject);
+			}
+			property1 = myObjectTree.GetPropertyAtPath("LocalizeStingId");
+
 		}
 	}
 }
