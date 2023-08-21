@@ -1,8 +1,8 @@
-﻿using NUnit.Framework;
+﻿using RinoGameFramework.Attribute;
 using RinoGameFramework.Localize.Common;
-using RinoGameFramework.Localize.Editor;
+#if UNITY_EDITOR
 using RinoGameFramework.Utility.Editor;
-using RinoGameFramework.Utility.Editor.Validate;
+#endif
 using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
@@ -60,6 +60,7 @@ namespace RinoGameFramework.Localize.DataScript
 
 			return value;
 		}
+
 		public List<LocalizeString> GetString(string Id)
 		{
 			var data = LocalizeStringDatas.Find(x => RootId(x) == Id);
@@ -95,7 +96,7 @@ namespace RinoGameFramework.Localize.DataScript
 
 			return value;
 		}
-		
+
 		public List<LocalizeImage> GetImage(string Id)
 		{
 			var data = LocalizeImageDatas.Find(x => RootId(x) == Id);
@@ -150,7 +151,13 @@ namespace RinoGameFramework.Localize.DataScript
 			return value;
 		}
 
+		private static string RootId(LocalizeData localize)
+		{
+			return ( string.IsNullOrEmpty(localize.Root) ? "" : localize.Root + "/" ) + localize.LanguageId;
+		}
+
 	#if UNITY_EDITOR
+
 		private LanguageList languageList;
 
 		private void OnEnable()
@@ -185,11 +192,6 @@ namespace RinoGameFramework.Localize.DataScript
 		public IEnumerable LocalizeAudioDropDown()
 		{
 			return LocalizeAudioDatas.Select(languageData => new ValueDropdownItem(RootId(languageData), languageData.Id));
-		}
-
-		private static string RootId(LocalizeData localize)
-		{
-			return ( string.IsNullOrEmpty(localize.Root) ? "" : localize.Root + "/" ) + localize.LanguageId;
 		}
 
 	#region LanguageChangeEvent

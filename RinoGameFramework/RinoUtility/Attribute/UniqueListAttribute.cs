@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace RinoGameFramework.Utility.Editor.Validate
+﻿namespace RinoGameFramework.Attribute
 {
-	public class UniqueListAttribute: Attribute
+	public class UniqueListAttribute: System.Attribute
 	{
 		public string ErrorMessage { get; }
 

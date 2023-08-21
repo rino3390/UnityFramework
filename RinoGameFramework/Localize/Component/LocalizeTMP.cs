@@ -1,7 +1,8 @@
 ﻿using Sirenix.OdinInspector;
-using Sirenix.Serialization;
 using TMPro;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using UnityEngine;
 using VContainer;
 
@@ -11,7 +12,7 @@ namespace RinoGameFramework.Localize
 	{
 		public bool UseLocalize = true;
 
-		[ShowIf(nameof(UseLocalize))]
+		[ShowIf("UseLocalize")]
 		public string LocalizeStingId;
 
 		[Inject]
@@ -21,10 +22,12 @@ namespace RinoGameFramework.Localize
 		{
 			base.Awake();
 
-			if(EditorApplication.isPlaying)
+		#if UNITY_EDITOR
+			if (EditorApplication.isPlaying)
 			{
 				localizeManager.OnLanguageChange += OnLanguageChange;
 			}
+		#endif
 		}
 
 		private void OnLanguageChange(string obj)

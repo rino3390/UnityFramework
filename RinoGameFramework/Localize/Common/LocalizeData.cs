@@ -1,5 +1,7 @@
 ﻿using RinoGameFramework.Localize.DataScript;
+#if UNITY_EDITOR
 using RinoGameFramework.Utility.Editor;
+#endif
 using Sirenix.OdinInspector;
 using System;
 using System.Collections.Generic;
@@ -23,15 +25,17 @@ namespace RinoGameFramework.Localize.Common
 
 		[LabelText("本地化資料"), Space(5)]
 		[ListDrawerSettings(HideAddButton = true, HideRemoveButton = true, DraggableItems = false)]
-		[HideInTables,DisableContextMenu(true,true)]
+		[HideInTables, DisableContextMenu(true, true)]
 		public List<LocalizeStruct> LocalizeValue = new();
 
 		[HideInInspector]
 		public LocalizeDataType DataType;
 
+		public string DisplayName => string.IsNullOrEmpty(Root) ? LanguageId : Root + "/ " + LanguageId;
+
 		public override bool Equals(object obj)
 		{
-			if(obj == null || GetType() != obj.GetType())
+			if (obj == null || GetType() != obj.GetType())
 			{
 				return false;
 			}
@@ -45,9 +49,7 @@ namespace RinoGameFramework.Localize.Common
 			return DisplayName == other.DisplayName;
 		}
 
-
 	#if UNITY_EDITOR
-		public string DisplayName => string.IsNullOrEmpty(Root)? LanguageId : Root + "/ " + LanguageId;
 		public bool CheckId
 		{
 			get
@@ -55,7 +57,7 @@ namespace RinoGameFramework.Localize.Common
 				var data = RinoEditorUtility.FindAsset<LocalizeDataSet>();
 				var root = string.IsNullOrEmpty(Root) ? "" : Root + "/";
 
-				switch(DataType)
+				switch (DataType)
 				{
 					case LocalizeDataType.String:
 						return data != null && !data.StringDataIdList.Any(x => x.root == root + LanguageId && x.id != Id);

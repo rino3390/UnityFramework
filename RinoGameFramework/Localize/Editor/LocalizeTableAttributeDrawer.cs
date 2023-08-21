@@ -1,15 +1,15 @@
 ﻿using RinoGameFramework.Localize.Common;
 using RinoGameFramework.Localize.DataScript;
 using RinoGameFramework.Utility.Editor;
-using Sirenix.OdinInspector;
 using Sirenix.OdinInspector.Editor;
 using Sirenix.OdinInspector.Editor.Drawers;
-using Sirenix.Utilities;
 using Sirenix.Utilities.Editor;
+using UnityEditor;
+using Sirenix.OdinInspector;
+using Sirenix.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor;
 using UnityEngine;
 using Object = UnityEngine.Object;
 using SerializationUtility = Sirenix.Serialization.SerializationUtility;
@@ -45,12 +45,12 @@ namespace RinoGameFramework.Localize.Editor
 		protected override void Initialize()
 		{
 			languageList = RinoEditorUtility.FindAsset<LanguageList>();
-			
+
 			languageList.OnLanguageAdd += _ => Repaint();
-			languageList.OnLanguageChange += (_,_) => Repaint();
-			languageList.OnLanguageInsert += (_,_) => Repaint();
+			languageList.OnLanguageChange += (_, _) => Repaint();
+			languageList.OnLanguageInsert += (_, _) => Repaint();
 			languageList.OnLanguageRemove += _ => Repaint();
-			
+
 			Repaint();
 		}
 
@@ -80,24 +80,24 @@ namespace RinoGameFramework.Localize.Editor
 			paging.CurrentPage = currPage.Value;
 
 			Property.ValueEntry.OnChildValueChanged += OnChildValueChanged;
-			if(Attribute.AlwaysExpanded) Property.State.Expanded = true;
+			if (Attribute.AlwaysExpanded) Property.State.Expanded = true;
 			int cellPadding = Attribute.CellPadding;
-			if(cellPadding > 0)
+			if (cellPadding > 0)
 				table.CellStyle = new GUIStyle
 				{
 					padding = new RectOffset(cellPadding, cellPadding, cellPadding, cellPadding)
 				};
 			GUIHelper.RequestRepaint();
 
-			if(Attribute.ShowIndexLabels)
+			if (Attribute.ShowIndexLabels)
 			{
 				++colOffset;
 				columns.Add(new Column(indexLabelWidth, true, false, null, ColumnType.Index));
 			}
 
-			if(isReadOnly) return;
+			if (isReadOnly) return;
 
-			foreach(var language in languageName)
+			foreach (var language in languageName)
 			{
 				var col = new Column(80, false, true, language, ColumnType.Language);
 				columns.Add(col);
@@ -110,23 +110,23 @@ namespace RinoGameFramework.Localize.Editor
 		/// <summary>Draws the property layout.</summary>
 		protected override void DrawPropertyLayout(GUIContent label)
 		{
-			if(drawAsList)
+			if (drawAsList)
 			{
-				if(GUILayout.Button("以表格呈現")) drawAsList = false;
+				if (GUILayout.Button("以表格呈現")) drawAsList = false;
 				CallNextDrawer(label);
 			}
 			else
 			{
-				if(GUILayout.Button("以清單呈現")) drawAsList = !drawAsList;
+				if (GUILayout.Button("以清單呈現")) drawAsList = !drawAsList;
 
 				picker = ObjectPicker.GetObjectPicker(this, resolver.ElementType);
 				paging.Update(resolver.MaxCollectionLength);
 				currPage.Value = paging.CurrentPage;
 				isPagingExpanded.Value = paging.IsExpanded;
 				Rect rect = SirenixEditorGUI.BeginIndentedVertical(SirenixGUIStyles.PropertyMargin);
-				if(!Attribute.HideToolbar) DrawToolbar(label);
+				if (!Attribute.HideToolbar) DrawToolbar(label);
 
-				if(Attribute.AlwaysExpanded)
+				if (Attribute.AlwaysExpanded)
 				{
 					Property.State.Expanded = true;
 					DrawColumnHeaders();
@@ -134,7 +134,7 @@ namespace RinoGameFramework.Localize.Editor
 				}
 				else
 				{
-					if(SirenixEditorGUI.BeginFadeGroup(this, Property.State.Expanded) && Property.Children.Count > 0)
+					if (SirenixEditorGUI.BeginFadeGroup(this, Property.State.Expanded) && Property.Children.Count > 0)
 					{
 						DrawColumnHeaders();
 						DrawTable();
@@ -144,10 +144,10 @@ namespace RinoGameFramework.Localize.Editor
 				}
 
 				SirenixEditorGUI.EndIndentedVertical();
-				if(Event.current.type == EventType.Repaint) SirenixEditorGUI.DrawBorders(rect, 1, 1, Attribute.HideToolbar ? 0 : 1, 1);
+				if (Event.current.type == EventType.Repaint) SirenixEditorGUI.DrawBorders(rect, 1, 1, Attribute.HideToolbar ? 0 : 1, 1);
 				DropZone(rect);
 				HandleObjectPickerEvents();
-				if(Event.current.type != EventType.Repaint) return;
+				if (Event.current.type != EventType.Repaint) return;
 
 				isFirstFrame = false;
 			}
@@ -156,57 +156,57 @@ namespace RinoGameFramework.Localize.Editor
 		private void OnChildValueChanged(int index)
 		{
 			IPropertyValueEntry valueEntry = Property.Children[index].ValueEntry;
-			if(valueEntry == null || !typeof(ScriptableObject).IsAssignableFrom(valueEntry.TypeOfValue)) return;
+			if (valueEntry == null || !typeof(ScriptableObject).IsAssignableFrom(valueEntry.TypeOfValue)) return;
 
-			for(int index1 = 0; index1 < valueEntry.ValueCount; ++index1)
+			for (int index1 = 0; index1 < valueEntry.ValueCount; ++index1)
 			{
 				Object weakValue = valueEntry.WeakValues[index1] as Object;
-				if((bool)weakValue) EditorUtility.SetDirty(weakValue);
+				if ((bool)weakValue) EditorUtility.SetDirty(weakValue);
 			}
 		}
 
 		private void DropZone(Rect rect)
 		{
-			if(isReadOnly) return;
+			if (isReadOnly) return;
 
 			EventType type = Event.current.type;
 
-			switch(type)
+			switch (type)
 			{
 				case EventType.DragUpdated:
 				case EventType.DragPerform:
-					if(!rect.Contains(Event.current.mousePosition)) break;
+					if (!rect.Contains(Event.current.mousePosition)) break;
 
 					Object[] objectArray = null;
-					if(DragAndDrop.objectReferences.Any(n => n != null && resolver.ElementType.IsAssignableFrom(n.GetType())))
+					if (DragAndDrop.objectReferences.Any(n => n != null && resolver.ElementType.IsAssignableFrom(n.GetType())))
 						objectArray = DragAndDrop.objectReferences.Where(x => x != null && resolver.ElementType.IsAssignableFrom(x.GetType()))
 												 .Reverse()
 												 .ToArray<Object>();
-					else if(resolver.ElementType.InheritsFrom(typeof(Component)))
+					else if (resolver.ElementType.InheritsFrom(typeof(Component)))
 						objectArray = (Object[])DragAndDrop.objectReferences.OfType<GameObject>()
 														   .Select(x => x.GetComponent(resolver.ElementType))
 														   .Where(x => x != null)
 														   .Reverse()
 														   .ToArray<Component>();
-					else if(resolver.ElementType.InheritsFrom(typeof(Sprite))
-							&& DragAndDrop.objectReferences.Any(n => n is Texture2D && AssetDatabase.Contains(n)))
+					else if (resolver.ElementType.InheritsFrom(typeof(Sprite))
+							 && DragAndDrop.objectReferences.Any(n => n is Texture2D && AssetDatabase.Contains(n)))
 						objectArray = (Object[])DragAndDrop.objectReferences.OfType<Texture2D>()
 														   .Select(x => AssetDatabase.LoadAssetAtPath<Sprite>(AssetDatabase.GetAssetPath(x)))
-														   .Where((Func<Sprite, bool>)(x => x != null))
+														   .Where((Func<Sprite, bool>)( x => x != null ))
 														   .Reverse<Sprite>()
 														   .ToArray<Sprite>();
-					if(objectArray == null || objectArray.Length == 0) break;
+					if (objectArray == null || objectArray.Length == 0) break;
 
 					DragAndDrop.visualMode = DragAndDropVisualMode.Copy;
 					Event.current.Use();
-					if(type != EventType.DragPerform) break;
+					if (type != EventType.DragPerform) break;
 
 					DragAndDrop.AcceptDrag();
 
-					foreach(Object @object in objectArray)
+					foreach (Object @object in objectArray)
 					{
 						object[] values = new object[Property.ParentValues.Count];
-						for(int index = 0; index < values.Length; ++index) values[index] = @object;
+						for (int index = 0; index < values.Length; ++index) values[index] = @object;
 						resolver.QueueAdd(values);
 					}
 
@@ -216,20 +216,20 @@ namespace RinoGameFramework.Localize.Editor
 
 		private void AddColumns(int rowIndexFrom, int rowIndexTo)
 		{
-			if(Event.current.type != EventType.Layout) return;
+			if (Event.current.type != EventType.Layout) return;
 
-			for(int index1 = rowIndexFrom; index1 < rowIndexTo; ++index1)
+			for (int index1 = rowIndexFrom; index1 < rowIndexTo; ++index1)
 			{
 				int num = 0;
 				InspectorProperty child1 = Property.Children[index1];
 
-				for(int index2 = 0; index2 < child1.Children.Count; ++index2)
+				for (int index2 = 0; index2 < child1.Children.Count; ++index2)
 				{
 					InspectorProperty child2 = child1.Children[index2];
 
-					if(seenColumnNames.Add(child2.Name))
+					if (seenColumnNames.Add(child2.Name))
 					{
-						if(GetColumnAttribute<HideInTablesAttribute>(child2) != null)
+						if (GetColumnAttribute<HideInTablesAttribute>(child2) != null)
 						{
 							++num;
 						}
@@ -241,7 +241,7 @@ namespace RinoGameFramework.Localize.Editor
 							int minWidth = Attribute.DefaultMinColumnWidth;
 							TableColumnWidthAttribute columnAttribute = GetColumnAttribute<TableColumnWidthAttribute>(child2);
 
-							if(columnAttribute != null)
+							if (columnAttribute != null)
 							{
 								preserveWidth = !columnAttribute.Resizable;
 								resizable = columnAttribute.Resizable;
@@ -269,19 +269,19 @@ namespace RinoGameFramework.Localize.Editor
 		{
 			Rect rect1 = GUILayoutUtility.GetRect(0.0f, 22f);
 			bool flag = Event.current.type == EventType.Repaint;
-			if(flag) SirenixGUIStyles.ToolbarBackground.Draw(rect1, GUIContent.none, 0);
+			if (flag) SirenixGUIStyles.ToolbarBackground.Draw(rect1, GUIContent.none, 0);
 
 			paging.DrawToolbarPagingButtons(ref rect1, Property.State.Expanded, true);
-			if(label == null) label = GUIHelper.TempContent("");
+			if (label == null) label = GUIHelper.TempContent("");
 			Rect rect4 = rect1;
 			rect4.x += 5f;
 			rect4.y += 3f;
 			rect4.height = 16f;
 
-			if(Property.Children.Count > 0)
+			if (Property.Children.Count > 0)
 			{
 				GUIHelper.PushHierarchyMode(false);
-				if(Attribute.AlwaysExpanded)
+				if (Attribute.AlwaysExpanded)
 					GUI.Label(rect4, label);
 				else
 					Property.State.Expanded = SirenixEditorGUI.Foldout(rect4, Property.State.Expanded, label);
@@ -289,7 +289,7 @@ namespace RinoGameFramework.Localize.Editor
 			}
 			else
 			{
-				if(!flag) return;
+				if (!flag) return;
 
 				GUI.Label(rect4, label);
 			}
@@ -297,13 +297,13 @@ namespace RinoGameFramework.Localize.Editor
 
 		private void DrawColumnHeaders()
 		{
-			if(Property.Children.Count == 0) return;
+			if (Property.Children.Count == 0) return;
 
 			this.columnHeaderRect = GUILayoutUtility.GetRect(0.0f, 21f);
 			++this.columnHeaderRect.height;
 			--this.columnHeaderRect.y;
 
-			if(Event.current.type == EventType.Repaint)
+			if (Event.current.type == EventType.Repaint)
 			{
 				SirenixEditorGUI.DrawBorders(this.columnHeaderRect, 1);
 				EditorGUI.DrawRect(this.columnHeaderRect, SirenixGUIStyles.ColumnTitleBg);
@@ -311,19 +311,19 @@ namespace RinoGameFramework.Localize.Editor
 
 			this.columnHeaderRect.width -= this.columnHeaderRect.width - table.ContentRect.width;
 			GUITableUtilities.ResizeColumns(this.columnHeaderRect, columns);
-			if(Event.current.type != EventType.Repaint) return;
+			if (Event.current.type != EventType.Repaint) return;
 
 			GUITableUtilities.DrawColumnHeaderSeperators(this.columnHeaderRect, columns, SirenixGUIStyles.BorderColor);
 			Rect columnHeaderRect = this.columnHeaderRect;
 
-			for(int index = 0; index < columns.Count; ++index)
+			for (int index = 0; index < columns.Count; ++index)
 			{
 				Column column = columns[index];
-				if(columnHeaderRect.x > (double)this.columnHeaderRect.xMax) break;
+				if (columnHeaderRect.x > (double)this.columnHeaderRect.xMax) break;
 
 				columnHeaderRect.width = column.ColWidth;
 				columnHeaderRect.xMax = Mathf.Min(this.columnHeaderRect.xMax, columnHeaderRect.xMax);
-				if(column.NiceName != null) GUI.Label(columnHeaderRect, column.NiceName, SirenixGUIStyles.LabelCentered);
+				if (column.NiceName != null) GUI.Label(columnHeaderRect, column.NiceName, SirenixGUIStyles.LabelCentered);
 				columnHeaderRect.x += column.ColWidth;
 			}
 		}
@@ -331,23 +331,23 @@ namespace RinoGameFramework.Localize.Editor
 		private void DrawTable()
 		{
 			GUIHelper.PushHierarchyMode(false);
-			table.DrawScrollView = Attribute.DrawScrollView && (paging.IsExpanded || !paging.IsEnabled);
+			table.DrawScrollView = Attribute.DrawScrollView && ( paging.IsExpanded || !paging.IsEnabled );
 			table.ScrollPos = scrollPos.Value;
 			table.BeginTable(paging.EndIndex - paging.StartIndex);
 			AddColumns(table.RowIndexFrom, table.RowIndexTo);
 			DrawListItemBackGrounds();
 			float xOffset = 0.0f;
 
-			for(int index = 0; index < columns.Count; ++index)
+			for (int index = 0; index < columns.Count; ++index)
 			{
 				Column column = columns[index];
 				int width = (int)column.ColWidth;
-				if(isFirstFrame && column.PreferWide) width = 200;
+				if (isFirstFrame && column.PreferWide) width = 200;
 				table.BeginColumn((int)xOffset, width);
 				GUIHelper.PushLabelWidth(width * 0.3f);
 				xOffset += column.ColWidth;
 
-				for(int rowIndexFrom = table.RowIndexFrom; rowIndexFrom < table.RowIndexTo; ++rowIndexFrom)
+				for (int rowIndexFrom = table.RowIndexFrom; rowIndexFrom < table.RowIndexTo; ++rowIndexFrom)
 				{
 					table.BeginCell(rowIndexFrom);
 					DrawCell(column, rowIndexFrom);
@@ -363,7 +363,7 @@ namespace RinoGameFramework.Localize.Editor
 			scrollPos.Value = table.ScrollPos;
 			DrawColumnSeperators();
 			GUIHelper.PopHierarchyMode();
-			if(columns.Count <= 0 || columns[0].ColumnType != ColumnType.Index) return;
+			if (columns.Count <= 0 || columns[0].ColumnType != ColumnType.Index) return;
 
 			columns[0].ColWidth = indexLabelWidth;
 			columns[0].MinWidth = indexLabelWidth;
@@ -371,7 +371,7 @@ namespace RinoGameFramework.Localize.Editor
 
 		private void DrawColumnSeperators()
 		{
-			if(Event.current.type != EventType.Repaint) return;
+			if (Event.current.type != EventType.Repaint) return;
 
 			Color borderColor = SirenixGUIStyles.BorderColor;
 			borderColor.a *= 0.4f;
@@ -380,9 +380,9 @@ namespace RinoGameFramework.Localize.Editor
 
 		private void DrawListItemBackGrounds()
 		{
-			if(Event.current.type != EventType.Repaint) return;
+			if (Event.current.type != EventType.Repaint) return;
 
-			for(int rowIndexFrom = table.RowIndexFrom; rowIndexFrom < table.RowIndexTo; ++rowIndexFrom)
+			for (int rowIndexFrom = table.RowIndexFrom; rowIndexFrom < table.RowIndexTo; ++rowIndexFrom)
 			{
 				Color color = new Color();
 				EditorGUI.DrawRect(table.GetRowRect(rowIndexFrom),
@@ -392,7 +392,7 @@ namespace RinoGameFramework.Localize.Editor
 
 		private void DrawRightClickContextMenuAreas()
 		{
-			for(int rowIndexFrom = table.RowIndexFrom; rowIndexFrom < table.RowIndexTo; ++rowIndexFrom)
+			for (int rowIndexFrom = table.RowIndexFrom; rowIndexFrom < table.RowIndexTo; ++rowIndexFrom)
 			{
 				Rect rowRect = table.GetRowRect(rowIndexFrom);
 				Property.Children[rowIndexFrom].Update();
@@ -404,39 +404,39 @@ namespace RinoGameFramework.Localize.Editor
 		{
 			rowIndex += paging.StartIndex;
 
-			if(col.ColumnType == ColumnType.Index)
+			if (col.ColumnType == ColumnType.Index)
 			{
 				Rect rect = GUILayoutUtility.GetRect(0.0f, 16f);
 				rect.xMin += 5f;
 				rect.width -= 2f;
-				if(Event.current.type != EventType.Repaint) return;
+				if (Event.current.type != EventType.Repaint) return;
 
 				indexLabel.text = rowIndex.ToString();
 				GUI.Label(rect, indexLabel, SirenixGUIStyles.Label);
 				indexLabelWidth = Mathf.Max(indexLabelWidth, (int)SirenixGUIStyles.Label.CalcSize(indexLabel).x + 15);
 			}
-			else if(col.ColumnType == ColumnType.DeleteButton)
+			else if (col.ColumnType == ColumnType.DeleteButton)
 			{
-				if(!SirenixEditorGUI.SDFIconButton(GUILayoutUtility.GetRect(20f, 20f).AlignCenter(13f, 13f),
-												   SdfIconType.X,
-												   IconAlignment.LeftOfText,
-												   SirenixGUIStyles.IconButton))
+				if (!SirenixEditorGUI.SDFIconButton(GUILayoutUtility.GetRect(20f, 20f).AlignCenter(13f, 13f),
+													SdfIconType.X,
+													IconAlignment.LeftOfText,
+													SirenixGUIStyles.IconButton))
 					return;
 
 				resolver.QueueRemoveAt(rowIndex);
 			}
-			else if(col.ColumnType == ColumnType.Language)
+			else if (col.ColumnType == ColumnType.Language)
 			{
 				var value = Property.Children[rowIndex].ValueEntry.WeakSmartValue as LocalizeData;
 				var language = value!.LocalizeValue;
 				var localizeStringStruct = language!.FirstOrDefault(x => x.LanguageType.Language == col.Name);
 
-				if(localizeStringStruct == null)
+				if (localizeStringStruct == null)
 				{
 					return;
 				}
 
-				switch(value.DataType)
+				switch (value.DataType)
 				{
 					case LocalizeDataType.String:
 						localizeStringStruct.StringValue = EditorGUI.TextField(EditorGUILayout.GetControlRect(), localizeStringStruct.StringValue);
@@ -455,7 +455,7 @@ namespace RinoGameFramework.Localize.Editor
 			}
 			else
 			{
-				if(col.ColumnType != ColumnType.Property) throw new NotImplementedException(col.ColumnType.ToString());
+				if (col.ColumnType != ColumnType.Property) throw new NotImplementedException(col.ColumnType.ToString());
 
 				var value = Property.Children[rowIndex].Children[col.Name];
 
@@ -465,31 +465,31 @@ namespace RinoGameFramework.Localize.Editor
 
 		private void HandleObjectPickerEvents()
 		{
-			if(!picker.IsReadyToClaim || Event.current.type != EventType.Repaint) return;
+			if (!picker.IsReadyToClaim || Event.current.type != EventType.Repaint) return;
 
 			object obj = picker.ClaimObject();
 			object[] values = new object[Property.Tree.WeakTargets.Count];
 			values[0] = obj;
-			for(int index = 1; index < values.Length; ++index) values[index] = SerializationUtility.CreateCopy(obj);
+			for (int index = 1; index < values.Length; ++index) values[index] = SerializationUtility.CreateCopy(obj);
 			resolver.QueueAdd(values);
 		}
 
 		private IEnumerable<InspectorProperty> EnumerateGroupMembers(InspectorProperty groupProperty)
 		{
-			for(int i = 0; i < groupProperty.Children.Count; ++i)
+			for (int i = 0; i < groupProperty.Children.Count; ++i)
 			{
-				if(groupProperty.Children[i].Info.PropertyType != PropertyType.Group)
+				if (groupProperty.Children[i].Info.PropertyType != PropertyType.Group)
 				{
 					yield return groupProperty.Children[i];
 				}
 				else
 				{
-					foreach(InspectorProperty enumerateGroupMember in EnumerateGroupMembers(groupProperty.Children[i])) yield return enumerateGroupMember;
+					foreach (InspectorProperty enumerateGroupMember in EnumerateGroupMembers(groupProperty.Children[i])) yield return enumerateGroupMember;
 				}
 			}
 		}
 
-		private T GetColumnAttribute<T>(InspectorProperty col) where T: Attribute =>
+		private T GetColumnAttribute<T>(InspectorProperty col) where T: System.Attribute =>
 			col.Info.PropertyType != PropertyType.Group ?
 				col.GetAttribute<T>() :
 				EnumerateGroupMembers(col).Select(c => c.GetAttribute<T>()).FirstOrDefault(c => c != null);

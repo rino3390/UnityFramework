@@ -1,6 +1,6 @@
 ﻿using Sirenix.OdinInspector;
 
-namespace RinoGameFramework.Localize.Editor
+namespace RinoGameFramework.Localize.Common
 {
 	public class LocalizeTableAttribute: TableListAttribute
 	{

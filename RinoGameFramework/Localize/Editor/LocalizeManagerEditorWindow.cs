@@ -1,4 +1,5 @@
-﻿using RinoGameFramework.Localize.Common;
+﻿using RinoGameFramework.Attribute;
+using RinoGameFramework.Localize.Common;
 using RinoGameFramework.Localize.DataScript;
 using RinoGameFramework.Utility;
 using RinoGameFramework.Utility.Editor;

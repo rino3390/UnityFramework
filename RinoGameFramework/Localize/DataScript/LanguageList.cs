@@ -1,7 +1,9 @@
-﻿using RinoGameFramework.Localize.Common;
-using RinoGameFramework.Utility.Editor.Validate;
+﻿using RinoGameFramework.Attribute;
+using RinoGameFramework.Localize.Common;
 using Sirenix.OdinInspector;
+#if UNITY_EDITOR
 using Sirenix.OdinInspector.Editor;
+#endif
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -19,7 +21,7 @@ namespace RinoGameFramework.Localize.DataScript
 		public List<LanguageType> LanguageName;
 		
 		[HideLabel,Header("預設語言")]
-		[ValueDropdown(nameof(LanguageNameDropDown))]
+		[ValueDropdown("LanguageNameDropDown")]
 		public string DefaultLanguage;
 
 		public void Reset()
