@@ -9,10 +9,9 @@ namespace RinoGameFramework.DDDCore.Domain
 		IEnumerable<EntityId> Keys { get; }
 		IEnumerable<TEntity> Values { get; }
 
-		void                  AddOrSet(TEntity entity);
-		void                  DeleteAll();
-		void                  DeleteById(EntityId Id);
-		TEntity                     FindById(EntityId Id);
+		void                        Save(TEntity entity);
+		void                        DeleteAll();
+		void                        DeleteById(EntityId Id);
 		(bool exist, TEntity value) GetExistEntity(EntityId Id);
 	}
 }

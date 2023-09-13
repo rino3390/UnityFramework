@@ -11,11 +11,11 @@ namespace RinoGameFramework.DDDCore.Domain
 
 		public TEntity this[TID Id]
 		{
-			get => FindById(Id);
+			get => GetExistEntity(Id).value;
 			set => entities[Id] = value;
 		}
 
-		public void AddOrSet(TEntity entity)
+		public void Save(TEntity entity)
 		{
 			if(entity == null) return;
 
@@ -35,17 +35,12 @@ namespace RinoGameFramework.DDDCore.Domain
 			}
 		}
 
-		public TEntity FindById(TID Id)
-		{
-			return GetExistEntity(Id).value;
-		}
-
 		public (bool exist, TEntity value) GetExistEntity(TID Id)
 		{
-			return (IsContainsId(Id), IsContainsId(Id) ? entities[Id] : default);
+			return (ContainsId(Id), ContainsId(Id) ? entities[Id] : default);
 		}
 
-		private bool IsContainsId(TID Id)
+		private bool ContainsId(TID Id)
 		{
 			return entities.ContainsKey(Id);
 		}

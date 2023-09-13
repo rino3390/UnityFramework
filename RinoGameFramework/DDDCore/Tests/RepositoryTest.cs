@@ -19,8 +19,8 @@ namespace RinoGameFramework.Tests
 			var entity = Substitute.ForPartsOf<Entity<string>>("Player");
 			var entity2 = Substitute.ForPartsOf<Entity<string>>("Player2");
 
-			repository.AddOrSet(entity);
-			repository.AddOrSet(entity2);
+			repository.Save(entity);
+			repository.Save(entity2);
 
 			Assert.AreEqual(2, repository.Count, "Repository 儲存數量不正確");
 			Assert.AreEqual(entity, repository["Player"], "Repository [Player]  儲存內容不正確");
@@ -35,9 +35,9 @@ namespace RinoGameFramework.Tests
 			var entity2 = Substitute.ForPartsOf<Entity<string>>("Player");
 			var entity3 = Substitute.ForPartsOf<Entity<string>>("Player2");
 
-			repository.AddOrSet(entity);
-			repository.AddOrSet(entity2);
-			repository.AddOrSet(entity3);
+			repository.Save(entity);
+			repository.Save(entity2);
+			repository.Save(entity3);
 
 			Assert.AreEqual(2, repository.Count, "Repository 儲存數量不正確");
 			Assert.AreEqual(entity2, repository["Player"], "Repository [Player] 讀取的儲存內容不正確");
@@ -52,9 +52,9 @@ namespace RinoGameFramework.Tests
 			var entity2 = Substitute.ForPartsOf<Entity<(int, string)>>((1, "Player2"));
 			var entity3 = Substitute.ForPartsOf<Entity<(int, string)>>((2, "Player"));
 
-			repository.AddOrSet(entity);
-			repository.AddOrSet(entity2);
-			repository.AddOrSet(entity3);
+			repository.Save(entity);
+			repository.Save(entity2);
+			repository.Save(entity3);
 
 			Assert.AreEqual(3, repository.Count, "Repository 儲存數量不正確");
 			Assert.AreEqual(entity, repository[(1, "Player")], "Repository [1, Player] 儲存內容不正確");
@@ -71,10 +71,10 @@ namespace RinoGameFramework.Tests
 			var entity3 = Substitute.ForPartsOf<Entity<(int, string)>>((1, "Player2"));
 			var entity4 = Substitute.ForPartsOf<Entity<(int, string)>>((1, "Player2"));
 
-			repository.AddOrSet(entity);
-			repository.AddOrSet(entity2);
-			repository.AddOrSet(entity3);
-			repository.AddOrSet(entity4);
+			repository.Save(entity);
+			repository.Save(entity2);
+			repository.Save(entity3);
+			repository.Save(entity4);
 
 			Assert.AreEqual(2, repository.Count, "Repository 儲存數量不正確");
 			Assert.AreEqual(entity2, repository[(1, "Player")], "Repository [1, Player] 儲存內容不正確");
@@ -88,8 +88,8 @@ namespace RinoGameFramework.Tests
 			var entity = Substitute.ForPartsOf<Entity<string>>("Player");
 			var entity2 = Substitute.ForPartsOf<Entity<string>>("Player2");
 
-			repository.AddOrSet(entity);
-			repository.AddOrSet(entity2);
+			repository.Save(entity);
+			repository.Save(entity2);
 
 			Assert.AreEqual(2, repository.Count, "Repository 儲存數量不正確");
 
@@ -105,8 +105,8 @@ namespace RinoGameFramework.Tests
 			var entity = Substitute.ForPartsOf<Entity<(int, string)>>((1, "Player"));
 			var entity2 = Substitute.ForPartsOf<Entity<(int, string)>>((1, "Player2"));
 
-			repository.AddOrSet(entity);
-			repository.AddOrSet(entity2);
+			repository.Save(entity);
+			repository.Save(entity2);
 
 			Assert.AreEqual(2, repository.Count, "Repository 儲存數量不正確");
 
@@ -122,8 +122,8 @@ namespace RinoGameFramework.Tests
 			var entity = Substitute.ForPartsOf<Entity<string>>("Player");
 			var entity2 = Substitute.ForPartsOf<Entity<string>>("Player2");
 
-			repository.AddOrSet(entity);
-			repository.AddOrSet(entity2);
+			repository.Save(entity);
+			repository.Save(entity2);
 
 			Assert.AreEqual(2, repository.Count, "Repository 儲存數量不正確");
 
@@ -136,7 +136,7 @@ namespace RinoGameFramework.Tests
 		{
 			var repository = new Repository<Entity<string>, string>();
 
-			repository.AddOrSet(null);
+			repository.Save(null);
 
 			Assert.AreEqual(0, repository.Count, "Repository 儲存數量不正確");
 		}
@@ -164,8 +164,8 @@ namespace RinoGameFramework.Tests
 			var entity = Substitute.ForPartsOf<Entity<string>>("Player");
 			var entity2 = Substitute.ForPartsOf<Entity<string>>("Player2");
 
-			repository.AddOrSet(entity);
-			repository.AddOrSet(entity2);
+			repository.Save(entity);
+			repository.Save(entity2);
 
 			Assert.AreEqual(new[] { "Player", "Player2" }, repository.Keys, "Repository Keys 不正確");
 		}
