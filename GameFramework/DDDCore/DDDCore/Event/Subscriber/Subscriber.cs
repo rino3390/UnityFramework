@@ -1,8 +1,8 @@
-﻿using RinoGameFramework.DDDCore.Event.CoreEvent;
-using RinoGameFramework.DDDCore.Event.EventBus;
+﻿using GameFramework.DDDCore.Event.CoreEvent;
+using GameFramework.DDDCore.Event.EventBus;
 using System;
 
-namespace RinoGameFramework.DDDCore.Event.Subscriber
+namespace GameFramework.DDDCore.Event.Subscriber
 {
 	public class Subscriber
 	{

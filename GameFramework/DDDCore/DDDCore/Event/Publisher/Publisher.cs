@@ -1,8 +1,8 @@
-﻿using RinoGameFramework.DDDCore.Event.CoreEvent;
-using RinoGameFramework.DDDCore.Event.EventBus;
+﻿using GameFramework.DDDCore.Event.CoreEvent;
+using GameFramework.DDDCore.Event.EventBus;
 using System.Collections.Generic;
 
-namespace RinoGameFramework.DDDCore.Event.Publisher
+namespace GameFramework.DDDCore.Event.Publisher
 {
 	public class Publisher
 	{

@@ -1,8 +1,8 @@
-﻿using RinoGameFramework.DDDCore.Event.CoreEvent;
+﻿using GameFramework.DDDCore.Event.CoreEvent;
 using System;
 using System.Collections.Generic;
 
-namespace RinoGameFramework.DDDCore.Event.EventBus
+namespace GameFramework.DDDCore.Event.EventBus
 {
 	public interface IEventBus
 	{

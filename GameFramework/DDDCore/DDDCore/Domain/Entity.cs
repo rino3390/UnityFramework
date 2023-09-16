@@ -1,4 +1,4 @@
-﻿namespace RinoGameFramework.DDDCore.Domain
+﻿namespace GameFramework.DDDCore.Domain
 {
 	public class Entity<T>
 	{

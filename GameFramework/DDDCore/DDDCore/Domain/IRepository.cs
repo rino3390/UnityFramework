@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace RinoGameFramework.DDDCore.Domain
+namespace GameFramework.DDDCore.Domain
 {
 	public interface IRepository<TEntity, EntityId> where TEntity: Entity<EntityId>
 	{

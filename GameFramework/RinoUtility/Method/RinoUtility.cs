@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RinoGameFramework.Utility
+namespace GameFramework.Utility
 {
 	public class RinoUtility
 	{

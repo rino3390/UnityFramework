@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace RinoGameFramework.Utility.Editor
+namespace GameFramework.Utility.Editor
 {
 	public class RinoEditorUtility
 	{

@@ -1,6 +1,6 @@
 ﻿#if ODIN_INSPECTOR
-using RinoGameFramework.Attribute;
-using RinoGameFramework.Utility.Editor.Validate;
+using GameFramework.Attribute;
+using GameFramework.Utility.Editor.Validate;
 using Sirenix.OdinInspector.Editor;
 using Sirenix.OdinInspector.Editor.Validation;
 using System.Collections;
@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 [assembly : RegisterValidator(typeof(UniqueListValidator<>))]
-namespace RinoGameFramework.Utility.Editor.Validate
+namespace GameFramework.Utility.Editor.Validate
 {
 	public class UniqueListValidator<T>: AttributeValidator<UniqueListAttribute, T>
 	{
