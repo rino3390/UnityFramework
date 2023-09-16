@@ -4,17 +4,16 @@
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
-        "TestFrameWork",
-        "Domain",
         "Controller",
         "Model",
         "Utility",
-        "CoreEvent",
         "Event",
         "Repository",
-        "EventPublish",
-        "EventSubscribe",
-        "EventBus"
+        "Rino.EventBus",
+        "Rino.CoreEvent",
+        "Rino.Subscriber",
+        "Rino.Publisher",
+        "Zenject"
     ],
     "includePlatforms": [
         "Editor"

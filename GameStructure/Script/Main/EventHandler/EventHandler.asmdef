@@ -1,12 +1,11 @@
 {
-    "name": "Manager",
+    "name": "EventHandler",
     "rootNamespace": "",
     "references": [
-        "GUID:29ecfc2168b7a5647b61da710ba9f7da",
+        "GUID:abf4ab25da54249439ee76a3411a75f8",
+        "GUID:33a5e60e6f14c8e459c100fd4c800ac6",
         "GUID:e5bc2b3e7bad8714ea3ced039f78a606",
-        "GUID:75469ad4d38634e559750d17036d5f7c",
-        "GUID:a081ce3ef1a288348addd334a5b82fa5",
-        "GUID:560b04d1a97f54a4e82edc0cbbb69285"
+        "GUID:ec68657d36af2d241bae1c1d56ae57e7"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
