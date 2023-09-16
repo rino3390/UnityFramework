@@ -1,4 +1,5 @@
-﻿using RinoGameFramework.Attribute;
+﻿#if ODIN_INSPECTOR
+using RinoGameFramework.Attribute;
 using RinoGameFramework.Utility.Editor.Validate;
 using Sirenix.OdinInspector.Editor;
 using Sirenix.OdinInspector.Editor.Validation;
@@ -30,3 +31,4 @@ namespace RinoGameFramework.Utility.Editor.Validate
 		}
 	}
 }
+#endif
