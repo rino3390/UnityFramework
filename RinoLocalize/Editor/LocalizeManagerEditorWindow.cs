@@ -20,15 +20,13 @@ namespace RinoLocalize.Editor
 		[InlineEditor(InlineEditorObjectFieldModes.Hidden)]
 		public LanguageList languageList;
 
-		private LocalizeDataSet localizeDataSet;
-
-		[Space(10), PropertyOrder(2), ShowIf("localizeDataType", LocalizeDataType.String)]
+		[Space(10), PropertyOrder(2), ShowIf("localizeDataType", LocalizeDataType.Audio)]
 		[HorizontalGroup("Editor")]
 		[VerticalGroup("Editor/LocalizeData")]
-		[SerializeField, LabelText("本地化文字資料")]
+		[SerializeField, LabelText("本地化音效資料")]
 		[ListDrawerSettings(HideAddButton = true, ListElementLabelName = "DisplayName", NumberOfItemsPerPage = 20, ShowFoldout = false)]
 		[DisableContextMenu(true, true), Searchable, LocalizeTable, UniqueList("含有相同路徑的重複ID")]
-		public List<LocalizeData> LocalizeStringDatas;
+		public List<LocalizeData> LocalizeAudioDatas;
 
 		[Space(10), PropertyOrder(2), ShowIf("localizeDataType", LocalizeDataType.Image)]
 		[HorizontalGroup("Editor")]
@@ -38,31 +36,24 @@ namespace RinoLocalize.Editor
 		[DisableContextMenu(true, true), Searchable, LocalizeTable, UniqueList("含有相同路徑的重複ID")]
 		public List<LocalizeData> LocalizeImageDatas;
 
-		[Space(10), PropertyOrder(2), ShowIf("localizeDataType", LocalizeDataType.Audio)]
+		[Space(10), PropertyOrder(2), ShowIf("localizeDataType", LocalizeDataType.String)]
 		[HorizontalGroup("Editor")]
 		[VerticalGroup("Editor/LocalizeData")]
-		[SerializeField, LabelText("本地化音效資料")]
+		[SerializeField, LabelText("本地化文字資料")]
 		[ListDrawerSettings(HideAddButton = true, ListElementLabelName = "DisplayName", NumberOfItemsPerPage = 20, ShowFoldout = false)]
 		[DisableContextMenu(true, true), Searchable, LocalizeTable, UniqueList("含有相同路徑的重複ID")]
-		public List<LocalizeData> LocalizeAudioDatas;
+		public List<LocalizeData> LocalizeStringDatas;
+
+		private LocalizeDataSet localizeDataSet;
 
 		private LocalizeDataType localizeDataType;
 
-		protected override void OnEnable()
-		{
-			localizeDataSet = RinoEditorUtility.FindAsset<LocalizeDataSet>();
-			LocalizeStringDatas = localizeDataSet.LocalizeStringDatas;
-			LocalizeImageDatas = localizeDataSet.LocalizeImageDatas;
-			LocalizeAudioDatas = localizeDataSet.LocalizeAudioDatas;
-
-			languageList = RinoEditorUtility.FindAsset<LanguageList>();
-			languageList.OnLanguageChange += (_, _) => ModifyLanguage();
-			languageList.OnLanguageAdd += _ => ModifyLanguage();
-			languageList.OnLanguageInsert += (_, _) => ModifyLanguage();
-			languageList.OnLanguageRemove += _ => ModifyLanguage();
-
-			SetNewLocalizeData();
-		}
+		[HorizontalGroup("Editor")]
+		[VerticalGroup("Editor/LocalizeData")]
+		[SerializeField, PropertyOrder(-1), BoxGroup("Editor/LocalizeData/Create")]
+		[HideLabel]
+		[ValidateInput("@LocalizeData?.CheckId", "含有相同路徑的重複ID")]
+		private LocalizeData LocalizeData;
 
 		[MenuItem("Tools/RinoWeeb/LocalizeManager")]
 		public static void OpenWindow()
@@ -78,7 +69,7 @@ namespace RinoLocalize.Editor
 		public void StringPage()
 		{
 			localizeDataType = LocalizeDataType.String;
-			SetNewLocalizeData();
+			ModifyLanguage();
 		}
 
 		[Button("圖片資料", Icon = SdfIconType.ImageFill), PropertyOrder(-2), PropertySpace(10, 10)]
@@ -88,7 +79,7 @@ namespace RinoLocalize.Editor
 		public void ImagePage()
 		{
 			localizeDataType = LocalizeDataType.Image;
-			SetNewLocalizeData();
+			ModifyLanguage();
 		}
 
 		[Button("音效資料", Icon = SdfIconType.MusicNoteBeamed), PropertyOrder(-2), PropertySpace(10, 10)]
@@ -98,15 +89,8 @@ namespace RinoLocalize.Editor
 		public void AudioPage()
 		{
 			localizeDataType = LocalizeDataType.Audio;
-			SetNewLocalizeData();
+			ModifyLanguage();
 		}
-
-		[HorizontalGroup("Editor")]
-		[VerticalGroup("Editor/LocalizeData")]
-		[SerializeField, PropertyOrder(-1), BoxGroup("Editor/LocalizeData/Create")]
-		[HideLabel]
-		[ValidateInput("@LocalizeData?.CheckId", "含有相同路徑的重複ID")]
-		private LocalizeData LocalizeData;
 
 		[HorizontalGroup("Editor")]
 		[VerticalGroup("Editor/LocalizeData")]
@@ -144,6 +128,15 @@ namespace RinoLocalize.Editor
 			SetNewLocalizeData();
 		}
 
+		private void ModifyLanguage()
+		{
+			LocalizeData.LocalizeValue.Clear();
+			foreach(var languageType in languageList.LanguageName)
+			{
+				LocalizeData.LocalizeValue.Add(new LocalizeStruct { LanguageType = languageType, DataType = localizeDataType });
+			}	
+		}
+
 		private void SetNewLocalizeData()
 		{
 			LocalizeData = new LocalizeData
@@ -157,13 +150,20 @@ namespace RinoLocalize.Editor
 			}
 		}
 
-		private void ModifyLanguage()
+		protected override void OnEnable()
 		{
-			LocalizeData.LocalizeValue.Clear();
-			foreach(var languageType in languageList.LanguageName)
-			{
-				LocalizeData.LocalizeValue.Add(new LocalizeStruct { LanguageType = languageType, DataType = localizeDataType });
-			}	
+			localizeDataSet = RinoEditorUtility.FindAsset<LocalizeDataSet>();
+			LocalizeStringDatas = localizeDataSet.LocalizeStringDatas;
+			LocalizeImageDatas = localizeDataSet.LocalizeImageDatas;
+			LocalizeAudioDatas = localizeDataSet.LocalizeAudioDatas;
+
+			languageList = RinoEditorUtility.FindAsset<LanguageList>();
+			languageList.OnLanguageChange += (_, _) => ModifyLanguage();
+			languageList.OnLanguageAdd += _ => ModifyLanguage();
+			languageList.OnLanguageInsert += (_, _) => ModifyLanguage();
+			languageList.OnLanguageRemove += _ => ModifyLanguage();
+
+			SetNewLocalizeData();
 		}
 	}
 }
