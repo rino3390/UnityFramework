@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace GameFramework.Utility
+namespace GameFramework.RinoUtility.Method
 {
-	public class RinoUtility
+	public class GUID
 	{
 		public static string NewGuid()
 		{

@@ -1,0 +1,23 @@
+{
+    "name": "Rino.LocalizeEditor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:662cbe46cbfd2104fbb9db11cc3e53ee",
+        "GUID:6546d7765b4165b40850b3667f981c26",
+        "GUID:4f60c9524a190674f8bcc6b4cc5e0d4f",
+        "GUID:1869d6e0ebc79c5439d156300d47fa4e"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [
+        "ODIN_INSPECTOR"
+    ],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

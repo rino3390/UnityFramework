@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace GameFramework.DDDCore.Domain
+namespace GameFramework.DDDCore.DDDCore.Domain
 {
 	public interface IRepository<TEntity, EntityId> where TEntity: Entity<EntityId>
 	{

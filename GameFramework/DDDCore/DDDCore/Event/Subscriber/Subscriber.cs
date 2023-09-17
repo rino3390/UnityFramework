@@ -1,8 +1,8 @@
-﻿using GameFramework.DDDCore.Event.CoreEvent;
-using GameFramework.DDDCore.Event.EventBus;
+﻿using GameFramework.DDDCore.DDDCore.Event.CoreEvent;
+using GameFramework.DDDCore.DDDCore.Event.EventBus;
 using System;
 
-namespace GameFramework.DDDCore.Event.Subscriber
+namespace GameFramework.DDDCore.DDDCore.Event.Subscriber
 {
 	public class Subscriber
 	{

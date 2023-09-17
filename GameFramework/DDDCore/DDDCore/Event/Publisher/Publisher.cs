@@ -1,8 +1,8 @@
-﻿using GameFramework.DDDCore.Event.CoreEvent;
-using GameFramework.DDDCore.Event.EventBus;
+﻿using GameFramework.DDDCore.DDDCore.Event.CoreEvent;
+using GameFramework.DDDCore.DDDCore.Event.EventBus;
 using System.Collections.Generic;
 
-namespace GameFramework.DDDCore.Event.Publisher
+namespace GameFramework.DDDCore.DDDCore.Event.Publisher
 {
 	public class Publisher
 	{

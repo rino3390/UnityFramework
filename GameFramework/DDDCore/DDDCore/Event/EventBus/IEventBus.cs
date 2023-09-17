@@ -1,8 +1,8 @@
-﻿using GameFramework.DDDCore.Event.CoreEvent;
+﻿using GameFramework.DDDCore.DDDCore.Event.CoreEvent;
 using System;
 using System.Collections.Generic;
 
-namespace GameFramework.DDDCore.Event.EventBus
+namespace GameFramework.DDDCore.DDDCore.Event.EventBus
 {
 	public interface IEventBus
 	{

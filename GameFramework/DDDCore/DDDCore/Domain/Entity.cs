@@ -1,4 +1,4 @@
-﻿namespace GameFramework.DDDCore.Domain
+﻿namespace GameFramework.DDDCore.DDDCore.Domain
 {
 	public class Entity<T>
 	{
