@@ -56,10 +56,10 @@ namespace RinoLocalize.Editor
 			LocalizeAudioDatas = localizeDataSet.LocalizeAudioDatas;
 
 			languageList = RinoEditorUtility.FindAsset<LanguageList>();
-			languageList.OnLanguageChange += (_, _) => SetNewLocalizeData();
-			languageList.OnLanguageAdd += _ => SetNewLocalizeData();
-			languageList.OnLanguageInsert += (_, _) => SetNewLocalizeData();
-			languageList.OnLanguageRemove += _ => SetNewLocalizeData();
+			languageList.OnLanguageChange += (_, _) => ModifyLanguage();
+			languageList.OnLanguageAdd += _ => ModifyLanguage();
+			languageList.OnLanguageInsert += (_, _) => ModifyLanguage();
+			languageList.OnLanguageRemove += _ => ModifyLanguage();
 
 			SetNewLocalizeData();
 		}
@@ -148,7 +148,6 @@ namespace RinoLocalize.Editor
 		{
 			LocalizeData = new LocalizeData
 			{
-				LanguageId = LocalizeData?.LanguageId,
 				DataType = localizeDataType,
 			};
 
@@ -156,6 +155,15 @@ namespace RinoLocalize.Editor
 			{
 				LocalizeData.LocalizeValue.Add(new LocalizeStruct { LanguageType = languageType, DataType = localizeDataType });
 			}
+		}
+
+		private void ModifyLanguage()
+		{
+			LocalizeData.LocalizeValue.Clear();
+			foreach(var languageType in languageList.LanguageName)
+			{
+				LocalizeData.LocalizeValue.Add(new LocalizeStruct { LanguageType = languageType, DataType = localizeDataType });
+			}	
 		}
 	}
 }
