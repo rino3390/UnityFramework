@@ -1,6 +1,9 @@
 # Unity Game Framework Package by Rino
 
 原本是各自一個package，但後來決定整合成一個Framework package
+```
+https://github.com/rino3390/UnityFramework.git?path=RinoGameFramework
+```
 
 包含
 
