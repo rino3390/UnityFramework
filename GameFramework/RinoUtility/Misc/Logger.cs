@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 
-namespace GameFramework.RinoUtility.Method
+namespace GameFramework.RinoUtility.Misc
 {
 	public class Logger
 	{

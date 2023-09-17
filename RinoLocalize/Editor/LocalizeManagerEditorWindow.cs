@@ -10,7 +10,7 @@ using System;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
-using GUID = GameFramework.RinoUtility.Method.GUID;
+using GUID = GameFramework.RinoUtility.Misc.GUID;
 
 namespace RinoLocalize.Editor
 {

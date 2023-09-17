@@ -1,4 +1,4 @@
-﻿using GameFramework.RinoUtility.Method;
+﻿using GameFramework.RinoUtility.Misc;
 using Sirenix.OdinInspector;
 using System;
 using UnityEngine;
