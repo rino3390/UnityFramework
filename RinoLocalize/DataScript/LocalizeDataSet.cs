@@ -14,17 +14,17 @@ namespace RinoLocalize.DataScript
 	public class LocalizeDataSet: SerializedScriptableObject
 	{
 		[SerializeField, LabelText("本地化文字資料"), TabGroup("文字資料")]
-		[ListDrawerSettings(HideAddButton = true, ListElementLabelName = "DisplayName", NumberOfItemsPerPage = 20)]
+		[ListDrawerSettings(HideAddButton = true, ListElementLabelName = "DisplayName", NumberOfItemsPerPage = 20, ShowFoldout = false)]
 		[DisableContextMenu(true, true), Searchable, LocalizeTable, UniqueList("含有相同路徑的重複ID")]
 		public List<LocalizeData> LocalizeStringDatas;
 
 		[SerializeField, LabelText("本地化圖片資料"), TabGroup("圖片資料")]
-		[ListDrawerSettings(HideAddButton = true, ListElementLabelName = "DisplayName", NumberOfItemsPerPage = 20)]
+		[ListDrawerSettings(HideAddButton = true, ListElementLabelName = "DisplayName", NumberOfItemsPerPage = 20, ShowFoldout = false)]
 		[DisableContextMenu(true, true), Searchable, LocalizeTable, UniqueList("含有相同路徑的重複ID")]
 		public List<LocalizeData> LocalizeImageDatas;
 
 		[SerializeField, LabelText("本地化音效資料"), TabGroup("音效資料")]
-		[ListDrawerSettings(HideAddButton = true, ListElementLabelName = "DisplayName", NumberOfItemsPerPage = 20)]
+		[ListDrawerSettings(HideAddButton = true, ListElementLabelName = "DisplayName", NumberOfItemsPerPage = 20, ShowFoldout = false)]
 		[DisableContextMenu(true, true), Searchable, LocalizeTable, UniqueList("含有相同路徑的重複ID")]
 		public List<LocalizeData> LocalizeAudioDatas;
 
