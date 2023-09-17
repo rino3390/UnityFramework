@@ -1,10 +1,10 @@
-﻿using GameFramework.DDDCore.DDDCore.Domain;
-using GameFramework.DDDCore.DDDCore.TestFrameWork;
+﻿using GameFramework.DDDCore.Domain;
+using GameFramework.DDDCore.TestFrameWork;
 using NSubstitute;
 using NUnit.Framework;
 using System.Linq;
 
-namespace GameFramework.DDDCore.Tests
+namespace GameFramework.DDDCore
 {
 	[TestFixture]
 	public class RepositoryTest: TestFramework

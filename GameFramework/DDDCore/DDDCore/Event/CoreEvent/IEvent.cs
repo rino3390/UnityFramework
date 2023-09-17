@@ -1,4 +1,4 @@
-﻿namespace GameFramework.DDDCore.DDDCore.Event.CoreEvent
+﻿namespace GameFramework.DDDCore.Event.CoreEvent
 {
 	public interface IEvent
 	{

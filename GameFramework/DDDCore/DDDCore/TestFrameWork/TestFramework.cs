@@ -1,11 +1,11 @@
-using GameFramework.DDDCore.DDDCore.Event.EventBus;
-using GameFramework.DDDCore.DDDCore.Event.Publisher;
-using GameFramework.DDDCore.DDDCore.Event.Subscriber;
+using GameFramework.DDDCore.Event.EventBus;
+using GameFramework.DDDCore.Event.Publisher;
+using GameFramework.DDDCore.Event.Subscriber;
 using NSubstitute;
 using NUnit.Framework;
 using System;
 
-namespace GameFramework.DDDCore.DDDCore.TestFrameWork
+namespace GameFramework.DDDCore.TestFrameWork
 {
 	public class TestFramework
 	{
