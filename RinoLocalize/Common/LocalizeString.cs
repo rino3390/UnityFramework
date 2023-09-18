@@ -2,6 +2,7 @@
 {
 	public struct LocalizeString
 	{
-		public (string language, string value) Value;
+		public string Language;
+		public string Value;
 	}
 }

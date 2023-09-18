@@ -4,6 +4,7 @@ namespace RinoLocalize.Common
 {
 	public struct LocalizeAudio
 	{
-		public (string language, AudioClip value) Value;
+		public string Language;
+		public AudioClip Value;
 	}
 }

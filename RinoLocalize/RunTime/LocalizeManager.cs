@@ -1,5 +1,7 @@
 ﻿using RinoLocalize.DataScript;
 using System;
+using System.Linq;
+using UnityEngine;
 
 namespace RinoLocalize.RunTime
 {
@@ -7,12 +9,12 @@ namespace RinoLocalize.RunTime
 	{
 		public event Action<string> OnLanguageChange;
 
-		public string CurrentLanguage;
-		private readonly LanguageList languageList;
+		public string CurrentLanguage { get; private set; }
 
+		private readonly LanguageList languageList;
 		private LocalizeDataSet localizeDataSet;
 
-		public LocalizeManager(LanguageList languageList,LocalizeDataSet localizeDataSet)
+		public LocalizeManager(LanguageList languageList, LocalizeDataSet localizeDataSet)
 		{
 			this.languageList = languageList;
 			this.localizeDataSet = localizeDataSet;
@@ -21,7 +23,27 @@ namespace RinoLocalize.RunTime
 
 		public void ChangeLanguage(string language)
 		{
+			if(languageList.LanguageName.All(l=> l.Language != language))
+			{
+				Debug.LogError($"Language {language} not found");
+				return;
+			}
 			OnLanguageChange?.Invoke(language);
+		}
+		
+		public string GetLocalizeString(string id)
+		{
+			return localizeDataSet.GetString(id).Find(x => x.Language == CurrentLanguage).Value;
+		}
+
+		public Sprite GetLocalizeImage(string id)
+		{
+			return localizeDataSet.GetImage(id).Find(x => x.Language == CurrentLanguage).Value;
+		}
+
+		public AudioClip GetLocalizeAudio(string id)
+		{
+			return localizeDataSet.GetAudio(id).Find(x => x.Language == CurrentLanguage).Value;
 		}
 	}
 }

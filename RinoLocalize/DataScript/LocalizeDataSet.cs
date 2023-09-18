@@ -43,7 +43,7 @@ namespace RinoLocalize.DataScript
 			LocalizeAudioDatas.Add(data);
 		}
 
-		public List<LocalizeString> GetStringByGUID(string Id)
+		public List<LocalizeString> GetString(string Id)
 		{
 			var data = LocalizeStringDatas.Find(x => x.Id == Id);
 
@@ -54,32 +54,15 @@ namespace RinoLocalize.DataScript
 
 			var value = data.LocalizeValue.Select(x => new LocalizeString
 							{
-								Value = (x.LanguageType.Language, x.StringValue)
+								Language = x.LanguageType.Language,
+								Value =  x.StringValue
 							})
 							.ToList();
 
 			return value;
 		}
 
-		public List<LocalizeString> GetString(string Id)
-		{
-			var data = LocalizeStringDatas.Find(x => RootId(x) == Id);
-
-			if(data == null)
-			{
-				throw new MissingReferenceException($"{Id} 字串資料不存在");
-			}
-
-			var value = data.LocalizeValue.Select(x => new LocalizeString
-							{
-								Value = (x.LanguageType.Language, x.StringValue)
-							})
-							.ToList();
-
-			return value;
-		}
-
-		public List<LocalizeImage> GetImageByGUID(string Id)
+		public List<LocalizeImage> GetImage(string Id)
 		{
 			var data = LocalizeImageDatas.Find(x => x.Id == Id);
 
@@ -90,32 +73,15 @@ namespace RinoLocalize.DataScript
 
 			var value = data.LocalizeValue.Select(x => new LocalizeImage
 							{
-								Value = (x.LanguageType.Language, x.ImageValue)
+								Language = x.LanguageType.Language,
+								Value = x.ImageValue
 							})
 							.ToList();
 
 			return value;
 		}
 
-		public List<LocalizeImage> GetImage(string Id)
-		{
-			var data = LocalizeImageDatas.Find(x => RootId(x) == Id);
-
-			if(data == null)
-			{
-				throw new MissingReferenceException($"{Id} 圖片資料不存在");
-			}
-
-			var value = data.LocalizeValue.Select(x => new LocalizeImage
-							{
-								Value = (x.LanguageType.Language, x.ImageValue)
-							})
-							.ToList();
-
-			return value;
-		}
-
-		public List<LocalizeAudio> GetAudioByGUID(string Id)
+		public List<LocalizeAudio> GetAudio(string Id)
 		{
 			var data = LocalizeAudioDatas.Find(x => x.Id == Id);
 
@@ -126,32 +92,15 @@ namespace RinoLocalize.DataScript
 
 			var value = data.LocalizeValue.Select(x => new LocalizeAudio
 							{
-								Value = (x.LanguageType.Language, x.AudioValue)
+								Language = x.LanguageType.Language,
+								Value = x.AudioValue
 							})
 							.ToList();
 
 			return value;
 		}
 
-		public List<LocalizeAudio> GetAudio(string Id)
-		{
-			var data = LocalizeAudioDatas.Find(x => RootId(x) == Id);
-
-			if(data == null)
-			{
-				throw new MissingReferenceException($"{Id} 音效資料不存在");
-			}
-
-			var value = data.LocalizeValue.Select(x => new LocalizeAudio
-							{
-								Value = (x.LanguageType.Language, x.AudioValue)
-							})
-							.ToList();
-
-			return value;
-		}
-
-		private static string RootId(LocalizeData localize)
+		public static string RootId(LocalizeData localize)
 		{
 			return ( string.IsNullOrEmpty(localize.Root) ? "" : localize.Root + "/" ) + localize.LanguageId;
 		}
@@ -178,10 +127,10 @@ namespace RinoLocalize.DataScript
 
 		public List<(string id, string root)> AudioDataIdList =>
 			LocalizeAudioDatas.Select(languageData => (languageData.Id, RootId(languageData))).ToList();
-
+		
 		public IEnumerable LocalizeStringDropDown()
 		{
-			return LocalizeStringDatas.Select(languageData => new ValueDropdownItem(RootId(languageData) + languageData.LanguageId, languageData.Id));
+			return LocalizeStringDatas.Select(languageData => new ValueDropdownItem(RootId(languageData), languageData.Id));
 		}
 
 		public IEnumerable LocalizeImageDropDown()

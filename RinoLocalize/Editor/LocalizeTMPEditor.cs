@@ -8,35 +8,38 @@ namespace RinoLocalize.Editor
 	[CustomEditor(typeof(LocalizeTMP))]
 	public class LocalizeTMPEditor: TMP_EditorPanelUI
 	{
-		SerializedProperty customTextProp;
+		private InspectorProperty localizeStringId;
+
+		private PropertyTree objectTree;
+		private InspectorProperty useLocalize;
+
+		private void DrawSingle()
+		{
+			objectTree ??= PropertyTree.Create(serializedObject);
+			localizeStringId = objectTree.GetPropertyAtPath("LocalizeStingId");
+			useLocalize = objectTree.GetPropertyAtPath("UseLocalize");
+		}
+
+		protected override void OnDisable()
+		{
+			base.OnDisable();
+			objectTree.Dispose();
+		}
 
 		protected override void OnEnable()
 		{
 			base.OnEnable();
-			customTextProp = serializedObject.FindProperty("LocalizeStingId");
 			DrawSingle();
 		}
 
 		public override void OnInspectorGUI()
 		{
-			myObjectTree.BeginDraw(true);
-			property1.Draw();
-			myObjectTree.EndDraw();
+			objectTree.BeginDraw(true);
+			useLocalize.Draw();
+			localizeStringId.Draw();
+			objectTree.EndDraw();
 
 			base.OnInspectorGUI();
-		}
-
-		PropertyTree myObjectTree;
-		private InspectorProperty property1;
-
-		void DrawSingle()
-		{
-			if (this.myObjectTree == null)
-			{
-				this.myObjectTree = PropertyTree.Create(serializedObject);
-			}
-			property1 = myObjectTree.GetPropertyAtPath("LocalizeStingId");
-
 		}
 	}
 }

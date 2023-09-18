@@ -4,6 +4,7 @@ namespace RinoLocalize.Common
 {
 	public struct LocalizeImage
 	{
-		public (string language, Sprite value) Value;
+		public string Language;
+		public Sprite Value;
 	}
 }
