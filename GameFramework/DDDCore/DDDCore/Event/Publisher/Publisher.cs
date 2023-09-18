@@ -12,11 +12,11 @@ namespace GameFramework.DDDCore.Event.Publisher
 			this.eventBus = eventBus;
 		}
 		
-		public void Publish<TEvent>(TEvent @event) where TEvent : IEvent
+		public void Publish(IEvent @event) 
 		{
 			eventBus.Publish(@event);
 		}
-		public void Publish<TEvent>(List<TEvent> events) where TEvent : IEvent
+		public void Publish(List<IEvent> events)
 		{
 			eventBus.Publish(events);
 		}

@@ -8,7 +8,7 @@ namespace GameFramework.DDDCore.Event.EventBus
 	{
 		void Subscribe<TEvent>(Action<TEvent> callBack) where TEvent : IEvent;
 		void UnSubscribe<TEvent>(Action<TEvent> callBack) where TEvent : IEvent;
-		void Publish<TEvent>(TEvent @event) where TEvent : IEvent;
-		void Publish<TEvent>(List<TEvent> @event) where TEvent : IEvent;
+		void Publish(IEvent @event);
+		void Publish(List<IEvent> @event);
 	}
 }
