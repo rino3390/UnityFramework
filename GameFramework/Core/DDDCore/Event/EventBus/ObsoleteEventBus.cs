@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace GameFramework.DDDCore.Event.EventBus
 {
-	public class ObsoleteEventBus: IEventBus
+	public class ObsoleteEventBus
 	{
 		private readonly Dictionary<Type, List<Action<IEvent>>> _callBacks = new();
 

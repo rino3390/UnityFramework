@@ -1,10 +1,10 @@
 {
-    "name": "Rino.EventBus",
+    "name": "Rino.TestCore",
     "rootNamespace": "",
-    "references": [
-        "GUID:33a5e60e6f14c8e459c100fd4c800ac6"
+    "references": [],
+    "includePlatforms": [
+        "Editor"
     ],
-    "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,

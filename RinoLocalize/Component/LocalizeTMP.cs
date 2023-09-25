@@ -55,11 +55,7 @@ namespace RinoLocalize.Component
 		private IEnumerable LocalizeStingIdDropDown()
 		{
 			var localizeDataSet = RinoEditorUtility.FindAsset<LocalizeDataSet>();
-			if(localizeDataSet == null)
-			{
-				return null;
-			}
-			return localizeDataSet.LocalizeStringDropDown();
+			return localizeDataSet == null ? null : localizeDataSet.LocalizeStringDropDown();
 		}
 	#endif
 	}
