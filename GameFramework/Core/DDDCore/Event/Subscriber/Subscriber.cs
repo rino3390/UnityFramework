@@ -1,9 +1,6 @@
-﻿using GameFramework.DDDCore.Event.CoreEvent;
-using GameFramework.DDDCore.Event.EventBus;
-using GameFramework.RinoUtility.MessagePipeFilter;
-using System;
+﻿using System;
 
-namespace GameFramework.DDDCore.Event.Subscriber
+namespace GameFramework.Core.Event
 {
 	public class Subscriber
 	{
@@ -14,7 +11,7 @@ namespace GameFramework.DDDCore.Event.Subscriber
 			this.eventBus = eventBus;
 		}
 
-		public void Subscribe<TEvent, TValue>(Action<TEvent> eventHandler, params WhereFilter<TValue>[] filter) where TEvent: IEvent
+		public void Subscribe<TEvent>(Action<TEvent> eventHandler, params Func<TEvent, bool>[] filter) where TEvent: IEvent
 		{
 			eventBus.Subscribe(eventHandler, filter);
 		}

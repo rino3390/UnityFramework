@@ -1,14 +1,14 @@
-using GameFramework.DDDCore.Event.EventBus;
-using GameFramework.DDDCore.Event.Publisher;
-using GameFramework.DDDCore.Event.Subscriber;
+using GameFramework.Core.Event;
 using NSubstitute;
 using NUnit.Framework;
 using System;
+using Zenject;
 
-namespace GameFramework.DDDCore.TestFrameWork
+namespace GameFramework.Core
 {
 	public class TestFramework
 	{
+		protected DiContainer container;
 		protected Publisher publisher;
 		protected Subscriber subscriber;
 		protected IEventBus eventBus;
@@ -21,6 +21,10 @@ namespace GameFramework.DDDCore.TestFrameWork
 			subscriber = new Subscriber(eventBus);
 		}
 
+		protected Scenario Scenario()
+		{
+			return new Scenario();
+		}
 		protected string NewGuid()
 		{
 			return Guid.NewGuid().ToString();

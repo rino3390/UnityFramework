@@ -7,7 +7,10 @@
         "Rino.Domain",
         "Rino.EventBus",
         "Rino.CoreEvent",
-        "Rino.TestFramework"
+        "Rino.TestFramework",
+        "MessagePipe",
+        "Rino.Utility",
+        "UniTask"
     ],
     "includePlatforms": [
         "Editor"
@@ -17,7 +20,8 @@
     "overrideReferences": true,
     "precompiledReferences": [
         "nunit.framework.dll",
-        "NSubstitute.dll"
+        "NSubstitute.dll",
+        "FluentAssertions.dll"
     ],
     "autoReferenced": false,
     "defineConstraints": [

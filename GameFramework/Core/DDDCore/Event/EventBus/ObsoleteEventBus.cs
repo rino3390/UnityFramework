@@ -1,8 +1,7 @@
-﻿using GameFramework.DDDCore.Event.CoreEvent;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
-namespace GameFramework.DDDCore.Event.EventBus
+namespace GameFramework.Core.Event
 {
 	public class ObsoleteEventBus
 	{

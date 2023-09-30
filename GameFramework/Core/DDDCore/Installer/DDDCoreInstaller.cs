@@ -1,8 +1,8 @@
-﻿using GameFramework.DDDCore.Event.CoreEvent;
+﻿using GameFramework.Core.Event;
 using MessagePipe;
 using Zenject;
 
-namespace GameFramework.DDDCore.Installer
+namespace GameFramework.Core.Installer
 {
 	public class DDDCoreInstaller: Installer<DDDCoreInstaller>
 	{
@@ -10,7 +10,9 @@ namespace GameFramework.DDDCore.Installer
 		{
 			var options = Container.BindMessagePipe();
 			Container.BindMessageBroker<IEvent>(options);
-			
+			Container.BindInterfacesAndSelfTo<EventBus>().AsSingle();
+			Container.Bind<Subscriber>().AsSingle();
+			Container.Bind<Publisher>().AsSingle();
 		}
 	}
 }
