@@ -12,7 +12,7 @@ namespace RinoLocalize.RunTime
 		public string CurrentLanguage { get; private set; }
 
 		private readonly LanguageList languageList;
-		private LocalizeDataSet localizeDataSet;
+		private readonly LocalizeDataSet localizeDataSet;
 
 		public LocalizeManager(LanguageList languageList, LocalizeDataSet localizeDataSet)
 		{
