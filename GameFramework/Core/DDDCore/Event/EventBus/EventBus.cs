@@ -11,7 +11,7 @@ namespace GameFramework.Core.Event
 		private readonly ISubscriber<IEvent> subscriber;
 		private readonly IAsyncPublisher<IEvent> asyncPublisher;
 		private readonly IAsyncSubscriber<IEvent> asyncSubscriber;
-		private readonly Dictionary<(Type, Action<IEvent>), IDisposable> disposables = new();
+		private readonly Dictionary<(Type, Delegate), List<IDisposable>> disposables = new();
 
 		public EventBus(IPublisher<IEvent> publisher,
 						ISubscriber<IEvent> subscriber,
@@ -30,10 +30,13 @@ namespace GameFramework.Core.Event
 
 			subscriber.Subscribe(e => callBack((TEvent)e), e => e is TEvent @event && filter(@event), filters).AddTo(bag);
 
-			if(disposables.TryGetValue(( typeof(TEvent), callBack as Action<IEvent> ), out var disposable)) return;
+			if(!disposables.TryGetValue(( typeof(TEvent),callBack ), out var disposable))
+			{
+				disposable = new List<IDisposable>();
+			}
 
-			disposable = bag.Build();
-			disposables.Add(( typeof(TEvent), callBack as Action<IEvent> ), disposable);
+			disposable.Add(bag.Build());
+			disposables[( typeof(TEvent), callBack )] = disposable;
 		}
 
 		public void SubscribeAsync<TEvent>(Func<TEvent, UniTask> callBack, Func<TEvent, bool> filter, params AsyncMessageHandlerFilter<IEvent>[] filters) where TEvent: IEvent
@@ -43,10 +46,10 @@ namespace GameFramework.Core.Event
 
 		public void UnSubscribe<TEvent>(Action<TEvent> callBack) where TEvent: IEvent
 		{
-			if(!disposables.TryGetValue(( typeof(TEvent), callBack as Action<IEvent> ), out var disposable)) return;
+			if(!disposables.TryGetValue(( typeof(TEvent), callBack ), out var disposable)) return;
 
-			disposable.Dispose();
-			disposables.Remove(( typeof(TEvent), callBack as Action<IEvent> ));
+			disposable.ForEach(x=> x.Dispose());
+			disposables.Remove(( typeof(TEvent),callBack ));
 		}
 
 		public void Publish(IEvent @event)

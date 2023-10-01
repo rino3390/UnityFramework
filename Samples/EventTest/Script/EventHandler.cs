@@ -63,6 +63,7 @@ namespace Samples.EventTest
 		private void Awake()
 		{
 			subscriber.Subscribe<FakeEvent1>(OnFakeEvent1, x => x.ID == "1");
+			subscriber.Subscribe<FakeEvent1>(OnFakeEvent3);
 			subscriber.Subscribe<FakeEvent2>(OnFakeEvent2, x => x.ID > 5);
 
 			subscriber.SubscribeAsync<FakeEvent1>(AsyncFakeEvent);
@@ -72,6 +73,11 @@ namespace Samples.EventTest
 		private void OnFakeEvent1(FakeEvent1 obj)
 		{
 			Debug.Log($"OnFakeEvent1");
+		}
+		
+		private void OnFakeEvent3(FakeEvent1 obj)
+		{
+			Debug.Log($"OnFakeEvent3");
 		}
 
 		private void OnFakeEvent2(FakeEvent2 obj)
