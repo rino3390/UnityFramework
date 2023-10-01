@@ -14,14 +14,38 @@ namespace Samples.EventTest
 		[Inject]
 		private Publisher publisher;
 
-		[Button]
+		[Button("訂閱 FakeEvent1")]
+		public void SubscribeFakeEvent1()
+		{
+			subscriber.Subscribe<FakeEvent1>(OnFakeEvent1, x => x.ID == "1");
+		}
+
+		[Button("訂閱 FakeEvent2")]
+		public void SubscribeFakeEvent2()
+		{
+			subscriber.Subscribe<FakeEvent2>(OnFakeEvent2, x => x.ID > 5);
+		}
+		
+		[Button("取消訂閱 FakeEvent1")]
+		public void UnSubscribeFakeEvent1()
+		{
+			subscriber.UnSubscribe<FakeEvent1>(OnFakeEvent1);
+		}
+
+		[Button("取消訂閱 FakeEvent2")]
+		public void UnSubscribeFakeEvent2()
+		{
+			subscriber.UnSubscribe<FakeEvent2>(OnFakeEvent2);
+		}
+
+		[Button("發送 FakeEvent1")]
 		[InfoBox("訂閱 ID = 1 的事件")]
 		public void SendFakeEvent1(string id)
 		{
 			publisher.Publish(new FakeEvent1(id));
 		}
 
-		[Button]
+		[Button("發送 FakeEvent2")]
 		[InfoBox("訂閱 ID > 5 的事件")]
 		public void SendFakeEvent2(int id)
 		{
@@ -48,7 +72,6 @@ namespace Samples.EventTest
 		private void OnFakeEvent1(FakeEvent1 obj)
 		{
 			Debug.Log($"OnFakeEvent1");
-			UniTask.Delay(10000);
 		}
 
 		private void OnFakeEvent2(FakeEvent2 obj)
