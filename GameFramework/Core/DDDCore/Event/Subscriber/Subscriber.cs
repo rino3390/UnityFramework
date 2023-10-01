@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MessagePipe;
+using System;
 
 namespace GameFramework.Core.Event
 {
@@ -11,11 +12,16 @@ namespace GameFramework.Core.Event
 			this.eventBus = eventBus;
 		}
 
-		public void Subscribe<TEvent>(Action<TEvent> eventHandler, params Func<TEvent, bool>[] filter) where TEvent: IEvent
+		public void Subscribe<TEvent>(Action<TEvent> eventHandler, Func<TEvent, bool> filter, params MessageHandlerFilter<IEvent>[] filters) where TEvent: IEvent
 		{
-			eventBus.Subscribe(eventHandler, filter);
+			eventBus.Subscribe(eventHandler, filter, filters);
 		}
 
+		public void Subscribe<TEvent>(Action<TEvent> eventHandler, params MessageHandlerFilter<IEvent>[] filters) where TEvent: IEvent
+		{
+			eventBus.Subscribe(eventHandler, filters);
+		}
+		
 		public void UnSubscribe<TEvent>(Action<TEvent> eventHandler) where TEvent: IEvent
 		{
 			eventBus.UnSubscribe(eventHandler);

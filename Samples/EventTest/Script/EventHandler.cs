@@ -17,7 +17,10 @@ namespace Samples.EventTest
 		[InfoBox("訂閱 ID = 1 的事件")]
 		public void SendFakeEvent1(string id)
 		{
-			publisher.Publish(new FakeEvent1(id));
+			for(int i = 0; i < 1000; i++)
+			{
+				publisher.Publish(new FakeEvent1(id));
+			}
 		}
 
 		[Button]

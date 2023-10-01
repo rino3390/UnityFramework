@@ -2,7 +2,6 @@
 using MessagePipe;
 using NSubstitute;
 using NUnit.Framework;
-using System;
 
 namespace GameFramework.Core.Tests
 {

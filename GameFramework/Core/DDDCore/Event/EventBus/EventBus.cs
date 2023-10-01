@@ -18,16 +18,18 @@ namespace GameFramework.Core.Event
 			this.subscriber = subscriber;
 		}
 
-		public void Subscribe<TEvent>(Action<TEvent> callBack, params Func<TEvent, bool>[] filter) where TEvent: IEvent
+		public void Subscribe<TEvent>(Action<TEvent> callBack, params MessageHandlerFilter<IEvent>[] filters) where TEvent: IEvent
+		{
+			Subscribe(callBack, _ => true, filters);
+		}
+
+		public void Subscribe<TEvent>(Action<TEvent> callBack, Func<TEvent, bool> filter, params MessageHandlerFilter<IEvent>[] filters) where TEvent: IEvent
 		{
 			var bag = DisposableBag.CreateBuilder();
-			
-			var whereFilters = new List<WhereFilter> { new(e => e.GetType() == typeof(TEvent)) };
-			filter.Select(f => new WhereFilter(e => e is TEvent @event && f(@event))).ForEach(f => whereFilters.Add(f));
-			
-			subscriber.Subscribe(e => callBack((TEvent)e), whereFilters.ToArray()).AddTo(bag);
-			if(disposables.TryGetValue(( typeof(TEvent), callBack as Action<IEvent> ), out var disposable)) return;
 
+			subscriber.Subscribe(e => callBack((TEvent)e), e => e is TEvent @event && filter(@event), filters).AddTo(bag);
+			
+			if(disposables.TryGetValue(( typeof(TEvent), callBack as Action<IEvent> ), out var disposable)) return;
 			disposable = bag.Build();
 			disposables.Add(( typeof(TEvent), callBack as Action<IEvent> ), disposable);
 		}
