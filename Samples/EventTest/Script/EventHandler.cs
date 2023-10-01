@@ -1,4 +1,5 @@
-﻿using GameFramework.Core.Event;
+﻿using Cysharp.Threading.Tasks;
+using GameFramework.Core.Event;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Zenject;
@@ -12,15 +13,12 @@ namespace Samples.EventTest
 
 		[Inject]
 		private Publisher publisher;
-		
+
 		[Button]
 		[InfoBox("訂閱 ID = 1 的事件")]
 		public void SendFakeEvent1(string id)
 		{
-			for(int i = 0; i < 1000; i++)
-			{
-				publisher.Publish(new FakeEvent1(id));
-			}
+			publisher.Publish(new FakeEvent1(id));
 		}
 
 		[Button]
@@ -30,20 +28,45 @@ namespace Samples.EventTest
 			publisher.Publish(new FakeEvent2(id));
 		}
 
+		[Button]
+		[InfoBox("異步訂閱事件")]
+		public async void SendAsyncFakeEvent()
+		{
+			await publisher.AsyncPublish(new FakeEvent1("1"));
+			Debug.Log($"SendAsyncFakeEvent End");
+		}
+
 		private void Awake()
 		{
 			subscriber.Subscribe<FakeEvent1>(OnFakeEvent1, x => x.ID == "1");
-			subscriber.Subscribe<FakeEvent2>(OnFakeEvent2, x=> x.ID > 5);
+			subscriber.Subscribe<FakeEvent2>(OnFakeEvent2, x => x.ID > 5);
+
+			subscriber.SubscribeAsync<FakeEvent1>(AsyncFakeEvent);
+			subscriber.SubscribeAsync<FakeEvent1>(AsyncFakeEvent2);
 		}
 
 		private void OnFakeEvent1(FakeEvent1 obj)
 		{
-			Debug.Log($"OnFakeEvent1");	
+			Debug.Log($"OnFakeEvent1");
+			UniTask.Delay(10000);
 		}
 
 		private void OnFakeEvent2(FakeEvent2 obj)
 		{
 			Debug.Log($"OnFakeEvent2");
+		}
+
+		private async UniTask AsyncFakeEvent(FakeEvent1 arg)
+		{
+			Debug.Log($"AsyncFakeEvent");
+			await UniTask.Delay(10000);
+			Debug.Log($"AsyncFakeEvent End");
+		}
+
+		private UniTask AsyncFakeEvent2(FakeEvent1 arg)
+		{
+			Debug.Log($"AsyncFakeEvent2");
+			return UniTask.CompletedTask;
 		}
 	}
 }
