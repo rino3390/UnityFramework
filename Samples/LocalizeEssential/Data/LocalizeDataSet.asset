@@ -21,23 +21,6 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  LocalizeStringDatas:
-  - Id: 9bac1dd2-9bd9-41e3-8ffb-9a884195d1ae
-    LanguageId: A
-    Root: 
-    LocalizeValue:
-    - LanguageType:
-        Language: "\u7E41\u9AD4\u4E2D\u6587"
-      StringValue: 
-      ImageValue: {fileID: 0}
-      AudioValue: {fileID: 0}
-      DataType: 0
-    - LanguageType:
-        Language: English
-      StringValue: 
-      ImageValue: {fileID: 0}
-      AudioValue: {fileID: 0}
-      DataType: 0
-    DataType: 0
+  LocalizeStringDatas: []
   LocalizeImageDatas: []
   LocalizeAudioDatas: []

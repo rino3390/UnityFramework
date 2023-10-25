@@ -8,9 +8,12 @@ namespace RinoLocalize.Common
 	[Serializable]
 	public class LanguageType
 	{
-		public string Id { get; private set; } = GUID.NewGuid();
+		[SerializeField, HideInInspector]
+		private string _id = GUID.NewGuid();
 
-		[HideLabel, Required("語言類型不能為空"),Delayed]
+		public string Id => _id;
+
+		[HideLabel, Required("語言類型不能為空"), Delayed]
 		public string Language = string.Empty;
 
 		public override bool Equals(object obj)

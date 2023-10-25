@@ -1,12 +1,13 @@
 ﻿#if UNITY_EDITOR
 using GameFramework.RinoUtility.Editor;
-using GameFramework.RinoUtility.Misc;
 using RinoLocalize.DataScript;
 using Sirenix.OdinInspector;
 using Sirenix.OdinInspector.Editor;
 using Sirenix.Utilities.Editor;
 using System;
+using UnityEditor;
 using UnityEngine;
+using GUID = GameFramework.RinoUtility.Misc.GUID;
 
 namespace RinoLocalize.Common
 {
@@ -95,6 +96,8 @@ namespace RinoLocalize.Common
 					throw new ArgumentOutOfRangeException();
 			}
 			OnCreate?.Invoke();
+			EditorUtility.SetDirty(localizeDataSet);
+			AssetDatabase.SaveAssets();
 		}
 	}
 }

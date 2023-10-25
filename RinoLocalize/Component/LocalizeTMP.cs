@@ -1,13 +1,11 @@
-﻿using ModestTree.Util;
-using RinoLocalize.Common;
+﻿using RinoLocalize.Common;
+using RinoLocalize.DataScript;
 using RinoLocalize.RunTime;
 using Sirenix.OdinInspector;
-using TMPro;
-using Zenject;
-using RinoLocalize.DataScript;
-using System;
 using System.Collections;
 using System.Linq;
+using TMPro;
+using Zenject;
 #if UNITY_EDITOR
 using GameFramework.RinoUtility.Editor;
 using UnityEditor;
@@ -25,7 +23,7 @@ namespace RinoLocalize.Component
 
 		[HideLabel, ShowInInspector]
 		private OpenCreateLocalizePopWindow openPop;
-		
+
 		[Inject]
 		private LocalizeManager localizeManager;
 
@@ -74,10 +72,11 @@ namespace RinoLocalize.Component
 			var localizeDataSet = RinoEditorUtility.FindAsset<LocalizeDataSet>();
 			return localizeDataSet == null ? null : localizeDataSet.LocalizeStringDropDown();
 		}
+
 		private bool HasLocalizeData()
 		{
 			var localizeDataSet = RinoEditorUtility.FindAsset<LocalizeDataSet>();
-			return localizeDataSet.LocalizeStringDatas.Any(x=> x.Id == LocalizeStingId);
+			return localizeDataSet.LocalizeStringDatas.Any(x => x.Id == LocalizeStingId);
 		}
 	#endif
 	}

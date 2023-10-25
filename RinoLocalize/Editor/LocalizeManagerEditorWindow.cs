@@ -18,6 +18,7 @@ namespace RinoLocalize.Editor
 	{
 		[HorizontalGroup("Editor", 0.2f, MarginRight = 10), PropertyOrder(-3), PropertySpace(10)]
 		[InlineEditor(InlineEditorObjectFieldModes.Hidden)]
+		[SerializeField]
 		public LanguageList languageList;
 
 		[Space(10), PropertyOrder(2), ShowIf("localizeDataType", LocalizeDataType.Audio)]
@@ -44,6 +45,7 @@ namespace RinoLocalize.Editor
 		[DisableContextMenu(true, true), Searchable, LocalizeTable, UniqueList("含有相同路徑的重複ID")]
 		public List<LocalizeData> LocalizeStringDatas;
 
+		[SerializeField, HideInInspector]
 		private LocalizeDataSet localizeDataSet;
 
 		private LocalizeDataType localizeDataType;
@@ -131,10 +133,11 @@ namespace RinoLocalize.Editor
 		private void ModifyLanguage()
 		{
 			LocalizeData.LocalizeValue.Clear();
+
 			foreach(var languageType in languageList.LanguageName)
 			{
 				LocalizeData.LocalizeValue.Add(new LocalizeStruct { LanguageType = languageType, DataType = localizeDataType });
-			}	
+			}
 		}
 
 		private void SetNewLocalizeData()
@@ -164,6 +167,12 @@ namespace RinoLocalize.Editor
 			languageList.OnLanguageRemove += _ => ModifyLanguage();
 
 			SetNewLocalizeData();
+		}
+
+		private void OnLostFocus()
+		{
+			EditorUtility.SetDirty(localizeDataSet);
+			AssetDatabase.SaveAssets();
 		}
 	}
 }

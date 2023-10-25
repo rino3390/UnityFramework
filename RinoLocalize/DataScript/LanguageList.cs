@@ -1,13 +1,13 @@
 ﻿using GameFramework.RinoUtility.Attribute;
 using RinoLocalize.Common;
 using Sirenix.OdinInspector;
-using Sirenix.OdinInspector.Editor;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 #if UNITY_EDITOR
+using Sirenix.OdinInspector.Editor;
 #endif
 
 namespace RinoLocalize.DataScript

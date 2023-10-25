@@ -22,6 +22,8 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   LanguageName:
-  - Language: "\u7E41\u9AD4\u4E2D\u6587"
-  - Language: English
-  DefaultLanguage: db2bd7b0-2cc2-4e8e-93ae-38581b68d84e
+  - _id: 7bb1edb0-3716-4a29-83e6-c9b8ee4c4ff1
+    Language: "\u7E41\u9AD4\u4E2D\u6587"
+  - _id: 36001a9b-8788-4ba0-a08f-0f77dd75dfbe
+    Language: English
+  DefaultLanguage: 7bb1edb0-3716-4a29-83e6-c9b8ee4c4ff1
