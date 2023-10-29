@@ -21,7 +21,7 @@ namespace RinoLocalize.DataScript
 		public List<LanguageType> LanguageName;
 		
 		[HideLabel,Header("預設語言")]
-		[ValueDropdown("LanguageNameDropDown")]
+		[ValueDropdown("LanguageNameDropDown"),ValidateInput("LanguageInList","沒有此語言")]
 		public string DefaultLanguage;
 
 		public void Reset()
@@ -93,7 +93,12 @@ namespace RinoLocalize.DataScript
 		
 		public IEnumerable LanguageNameDropDown()
 		{
-			return LanguageName.Select(x => new ValueDropdownItem(x.Language, x.Id));
+			return LanguageName.Select(x => new ValueDropdownItem(x.Language, x.Language));
+		}
+		
+		private bool LanguageInList(string language)
+		{
+			return LanguageName.Any(x => x.Language == language);
 		}
 	#endif
 	}

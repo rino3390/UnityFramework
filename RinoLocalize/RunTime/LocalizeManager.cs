@@ -28,6 +28,7 @@ namespace RinoLocalize.RunTime
 				Debug.LogError($"Language {language} not found");
 				return;
 			}
+			CurrentLanguage = language;
 			OnLanguageChange?.Invoke(language);
 		}
 		

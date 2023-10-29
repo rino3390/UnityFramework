@@ -5,10 +5,10 @@ using Sirenix.OdinInspector;
 using System.Collections;
 using System.Linq;
 using TMPro;
+using UnityEngine;
 using Zenject;
 #if UNITY_EDITOR
 using GameFramework.RinoUtility.Editor;
-using UnityEditor;
 #endif
 
 namespace RinoLocalize.Component
@@ -36,18 +36,26 @@ namespace RinoLocalize.Component
 		{
 			base.Awake();
 
-		#if UNITY_EDITOR
-			if(EditorApplication.isPlaying)
+			if(Application.isPlaying)
 			{
 				localizeManager.OnLanguageChange += OnLanguageChange;
 			}
-		#endif
+		}
+
+		protected override void OnEnable()
+		{
+			base.OnEnable();
+
+			if(Application.isPlaying)
+			{
+				SetLocalizeString();
+			}
 		}
 
 		public void ChangeLocalizeText(string id)
 		{
 			ChangeLocalizeId(id);
-			text = localizeManager.GetLocalizeString(LocalizeStingId);
+			SetLocalizeString();
 		}
 
 		private void ChangeLocalizeId(string id)
@@ -56,17 +64,20 @@ namespace RinoLocalize.Component
 			UseLocalize = true;
 		}
 
-		private void OnLanguageChange(string language)
+		private void SetLocalizeString()
 		{
-			if(!UseLocalize)
-			{
-				return;
-			}
-
 			text = localizeManager.GetLocalizeString(LocalizeStingId);
 		}
 
+		private void OnLanguageChange(string language)
+		{
+			if(!UseLocalize) return;
+
+			SetLocalizeString();
+		}
+
 	#if UNITY_EDITOR
+
 		private IEnumerable LocalizeStingIdDropDown()
 		{
 			var localizeDataSet = RinoEditorUtility.FindAsset<LocalizeDataSet>();
