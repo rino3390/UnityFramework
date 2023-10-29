@@ -1,9 +1,11 @@
 {
-    "name": "Rino.Utility",
+    "name": "Rino.EventBus",
     "rootNamespace": "",
     "references": [
+        "GUID:33a5e60e6f14c8e459c100fd4c800ac6",
         "GUID:08b38f39e2d9e594389b7a4cf4c2c338",
-        "GUID:0d8beb7f090555447a6cf5ce9e54dbb4"
+        "GUID:1869d6e0ebc79c5439d156300d47fa4e",
+        "GUID:f51ebe6a0ceec4240a699833d6309b23"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

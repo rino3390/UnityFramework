@@ -1,0 +1,34 @@
+{
+    "name": "CoreTest",
+    "rootNamespace": "",
+    "references": [
+        "UnityEngine.TestRunner",
+        "UnityEditor.TestRunner",
+        "Rino.Domain",
+        "Rino.EventBus",
+        "Rino.CoreEvent",
+        "Rino.TestFramework",
+        "Rino.Utility",
+        "MessagePipe.Zenject",
+        "MessagePipe",
+        "UniTask",
+        "Zenject"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "nunit.framework.dll",
+        "NSubstitute.dll",
+        "FluentAssertions.dll"
+    ],
+    "autoReferenced": false,
+    "defineConstraints": [
+        "UNITY_INCLUDE_TESTS"
+    ],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -1,4 +1,4 @@
-﻿namespace GameFramework.Attribute
+﻿namespace GameFramework.RinoUtility.Attribute
 {
 	public class UniqueListAttribute: System.Attribute
 	{

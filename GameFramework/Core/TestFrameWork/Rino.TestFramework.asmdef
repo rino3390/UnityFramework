@@ -1,0 +1,28 @@
+{
+    "name": "Rino.TestFramework",
+    "rootNamespace": "",
+    "references": [
+        "Zenject",
+        "MessagePipe",
+        "UnityEditor.TestRunner",
+        "Rino.CoreEvent",
+        "Rino.Publisher",
+        "Rino.Subscriber",
+        "Rino.EventBus",
+        "TestCore"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "NSubstitute.dll",
+        "FluentAssertions.dll"
+    ],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
