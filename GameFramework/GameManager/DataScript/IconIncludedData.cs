@@ -1,5 +1,4 @@
 ﻿using GameFramework.GameManager.Common;
-using RinoLocalize.RunTime;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -17,7 +16,8 @@ namespace GameFramework.GameManager.DataScript
 		[HorizontalGroup(LayoutConst.TopInfoLayout)]
 		[VerticalGroup(LayoutConst.TopInfoLayout + "/1")]
 		[PropertySpace(10,10)]
-		public LanguageString DataName;
+		// [ValueDropdown()]
+		public string DataName;
 
 		public override bool CheckValidate()
 		{
