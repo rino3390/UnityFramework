@@ -172,8 +172,7 @@ namespace RinoLocalize.Editor
 
 		private void OnLostFocus()
 		{
-			EditorUtility.SetDirty(localizeDataSet);
-			AssetDatabase.SaveAssets();
+			RinoEditorUtility.SaveSOData(new SerializedObject(localizeDataSet));
 		}
 	}
 }

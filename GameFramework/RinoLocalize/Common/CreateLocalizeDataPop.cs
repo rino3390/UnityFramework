@@ -96,8 +96,7 @@ namespace RinoLocalize.Common
 					throw new ArgumentOutOfRangeException();
 			}
 			OnCreate?.Invoke();
-			EditorUtility.SetDirty(localizeDataSet);
-			AssetDatabase.SaveAssets();
+			RinoEditorUtility.SaveSOData(new SerializedObject(localizeDataSet));
 		}
 	}
 }
