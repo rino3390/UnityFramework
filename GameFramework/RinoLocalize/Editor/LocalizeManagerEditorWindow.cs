@@ -156,6 +156,7 @@ namespace RinoLocalize.Editor
 		protected override void OnEnable()
 		{
 			localizeDataSet = RinoEditorUtility.FindAsset<LocalizeDataSet>();
+
 			LocalizeStringDatas = localizeDataSet.LocalizeStringDatas;
 			LocalizeImageDatas = localizeDataSet.LocalizeImageDatas;
 			LocalizeAudioDatas = localizeDataSet.LocalizeAudioDatas;
