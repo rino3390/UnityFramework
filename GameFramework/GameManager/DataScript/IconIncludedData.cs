@@ -1,4 +1,5 @@
 ﻿using GameFramework.GameManager.Common;
+using RinoLocalize.Common;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -16,8 +17,11 @@ namespace GameFramework.GameManager.DataScript
 		[HorizontalGroup(LayoutConst.TopInfoLayout)]
 		[VerticalGroup(LayoutConst.TopInfoLayout + "/1")]
 		[PropertySpace(10,10)]
-		// [ValueDropdown()]
+		[ValueDropdown("@LocalizeDrawer.LocalizeStingIdDropDown()")]
 		public string DataName;
+		
+		[HideLabel, ShowInInspector]
+		private OpenCreateLocalizePopWindow openPop;
 
 		public override bool CheckValidate()
 		{

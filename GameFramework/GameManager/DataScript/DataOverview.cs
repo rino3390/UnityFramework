@@ -1,11 +1,11 @@
-﻿using JetBrains.Annotations;
+﻿using GameFramework.RinoUtility.Editor;
+using JetBrains.Annotations;
 using Sirenix.OdinInspector;
 using Sirenix.Utilities.Editor;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -20,21 +20,17 @@ namespace GameFramework.GameManager.DataScript
 		///     根據傳入的 Data Id 回傳資料
 		/// </summary>
 		/// <param name="dataId">資料ID</param>
-		/// <param name="force">為true時強制取得資料，若無法取得會拋錯</param>
 		/// <returns></returns>
-		public T GetData(string dataId, bool force = false)
+		public T GetData(string dataId)
 		{
 			var data = Datas.Find(x => x.Id == dataId);
 
-			if(force && data == null)
+			if(data == null)
 			{
 				throw new ArgumentNullException($"找不到dataId: {dataId}");
 			}
 
-			var defaultData = CreateInstance(typeof(T)) as T;
-			defaultData!.Id = Guid.NewGuid().ToString();
-			var returnData = data == null ? defaultData : data;
-			return CreateDataInstance(returnData);
+			return data;
 		}
 
 		/// <summary>
@@ -43,40 +39,21 @@ namespace GameFramework.GameManager.DataScript
 		/// <returns></returns>
 		public T GetRandomData()
 		{
-			return CreateDataInstance(Datas[Random.Range(0, Datas.Count)]);
-		}
-
-		/// <summary>
-		///     回傳新的實例避免資料在程式中被更動
-		/// </summary>
-		/// <param name="data"></param>
-		/// <returns></returns>
-		private static T CreateDataInstance(T data)
-		{
-			return Instantiate(data);
+			if(Datas.Count == 0)
+			{
+				throw new ArgumentNullException($"找不到任何資料");
+			}
+			return Datas[Random.Range(0, Datas.Count)];
 		}
 
 	#if UNITY_EDITOR
-		public void UpdateDataList()
-		{
-			Datas = GetAllData();
-		}
-
-		private List<T> GetAllData()
-		{
-			var type = typeof(T).Name;
-			return AssetDatabase.FindAssets($"t:{type}")
-								.Select(guid => AssetDatabase.LoadAssetAtPath<T>(AssetDatabase.GUIDToAssetPath(guid)))
-								.OrderBy(x => x.AssetName)
-								.ToList();
-		}
 
 		[UsedImplicitly]
 		private void DrawCustomRefreshButton()
 		{
 			if(SirenixEditorGUI.ToolbarButton(EditorIcons.Refresh))
 			{
-				UpdateDataList();
+				Datas = RinoEditorUtility.FindAssets<T>();
 			}
 		}
 
