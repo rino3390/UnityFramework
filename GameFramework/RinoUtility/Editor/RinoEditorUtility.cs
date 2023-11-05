@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using UnityEditor;
 
 namespace GameFramework.RinoUtility.Editor
 {
@@ -19,6 +20,12 @@ namespace GameFramework.RinoUtility.Editor
 								  .Select(guid => UnityEditor.AssetDatabase.LoadAssetAtPath<T>(UnityEditor.AssetDatabase.GUIDToAssetPath(guid)))
 								  .FirstOrDefault();
 			return data;
+		}
+
+		public static void SaveSOData(SerializedObject serializedObject)
+		{
+			EditorUtility.SetDirty(serializedObject.targetObject);
+			AssetDatabase.SaveAssets();
 		}
 	}
 }
