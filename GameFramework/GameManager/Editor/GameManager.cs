@@ -1,5 +1,6 @@
 ﻿#if UNITY_EDITOR
 using GameFramework.GameManager.Editor.Utility;
+using Sirenix.OdinInspector;
 using Sirenix.OdinInspector.Editor;
 using Sirenix.Utilities;
 using Sirenix.Utilities.Editor;
@@ -14,6 +15,12 @@ namespace GameFramework.GameManager.Editor
 		object content; //用於讀取其他MenuTree的內容
 
 		private bool NeedRebuildTree; //重新繪製MenuTree
+
+		[Button(ButtonSizes.Large, Icon = SdfIconType.CardList, Name = "卡片管理")]
+		[ButtonGroup("Menu")]
+		public void CardWindow()
+		{
+		}
 
 		[MenuItem("Tools/GameManager")]
 		public static void OpenWindow()
@@ -33,7 +40,7 @@ namespace GameFramework.GameManager.Editor
 		//繪製整個Window，所以可以在這裡進行布局，姑且這樣認知
 		protected override void OnGUI()
 		{
-			if((NeedRebuildTree || menu.NeedRebuildTree) && Event.current.type == EventType.Layout)
+			if(( NeedRebuildTree || menu.NeedRebuildTree ) && Event.current.type == EventType.Layout)
 			{
 				ForceMenuTreeRebuild();
 				NeedRebuildTree = false;
@@ -48,7 +55,7 @@ namespace GameFramework.GameManager.Editor
 		//繪製右邊編輯視窗
 		protected override void DrawEditors()
 		{
-			if((NeedRebuildTree || menu.NeedRebuildTree) && Event.current.type == EventType.Layout || Event.current.type == EventType.Repaint)
+			if(( NeedRebuildTree || menu.NeedRebuildTree ) && Event.current.type == EventType.Layout || Event.current.type == EventType.Repaint)
 			{
 				content = this.MenuTree.Selection.SelectedValue;
 				NeedRebuildTree = false;
