@@ -3,7 +3,6 @@ using UnityEngine;
 
 namespace GameFramework.GameManager.Editor.Utility
 {
-	[CreateAssetMenu(fileName = "Tab", menuName = "GameManager/Tab", order = 0)]
 	public class GameEditorMenu : OdinMenuEditorWindow
 	{
 		public bool NeedRebuildTree;
