@@ -1,11 +1,11 @@
 ﻿using GameFramework.GameManager.Editor.EditorStruct;
+using Sirenix.OdinInspector;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace GameFramework.GameManager.DataScript
 {
-	public class GameManagerTabSetting: ScriptableObject
+	public class GameManagerTabSetting: SerializedScriptableObject
 	{
-		public List<EditorTabData> Tabs;
+		public List<EditorTabData> Tabs = new();
 	}
 }

@@ -1,10 +1,10 @@
 ﻿using GameFramework.GameManager.DataScript;
 using GameFramework.GameManagerBase.EditorBase;
 using GameFramework.RinoUtility.Editor;
-using Sirenix.OdinInspector;
 using Sirenix.OdinInspector.Editor;
 using Sirenix.Utilities;
 using Sirenix.Utilities.Editor;
+using System;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
@@ -18,7 +18,7 @@ namespace GameFramework.GameManager.Editor
 		private GameManagerTabSetting tabSetting;
 		private bool NeedRebuildTree; //重新繪製MenuTree
 		private const int maxButtonsPerRow = 5;
-		private int tabIndex = 0;
+		private int tabIndex;
 
 		[MenuItem("Tools/GameManager")]
 		public static void OpenWindow()
@@ -37,7 +37,7 @@ namespace GameFramework.GameManager.Editor
 			if(tabSetting.Tabs.Count > 0)
 			{
 				tabIndex = 0;
-				menu = tabSetting.Tabs[tabIndex].CorrespondingWindow;
+				menu = CreateEditorMenuInstance(tabSetting.Tabs[tabIndex].CorrespondingWindow);
 			}
 		}
 
@@ -63,7 +63,7 @@ namespace GameFramework.GameManager.Editor
 		{
 			if(( NeedRebuildTree || menu.NeedRebuildTree ) && Event.current.type == EventType.Layout || Event.current.type == EventType.Repaint)
 			{
-				content = this.MenuTree.Selection.SelectedValue;
+				content = MenuTree.Selection.SelectedValue;
 				NeedRebuildTree = false;
 				menu.NeedRebuildTree = false;
 			}
@@ -93,7 +93,7 @@ namespace GameFramework.GameManager.Editor
 		{
 			// menu.BeginDraw(MenuTree);
 		}
-		
+
 		private void SwitchMenu<T>() where T: GameEditorMenu
 		{
 			// menu = CreateInstance<T>();
@@ -124,6 +124,11 @@ namespace GameFramework.GameManager.Editor
 			}
 
 			EditorGUILayout.EndHorizontal();
+		}
+
+		private GameEditorMenu CreateEditorMenuInstance(Type window)
+		{
+			return CreateInstance(window) as GameEditorMenu;
 		}
 	}
 }
