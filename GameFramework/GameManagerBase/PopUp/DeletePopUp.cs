@@ -1,4 +1,4 @@
-﻿using GameFramework.GameManager.DataScript;
+﻿using GameFramework.GameManagerBase.SOBase;
 using Sirenix.OdinInspector;
 using Sirenix.OdinInspector.Editor;
 using System;
@@ -6,7 +6,7 @@ using UnityEditor;
 using UnityEngine;
 
 #if UNITY_EDITOR
-namespace GameFramework.GameManager.Editor.PopUp
+namespace GameFramework.GameManagerBase.PopUp
 {
 	[Serializable]
 	public class DeletePopUp

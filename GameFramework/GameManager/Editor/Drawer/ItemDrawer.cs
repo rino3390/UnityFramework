@@ -1,4 +1,4 @@
-﻿using GameFramework.GameManager.DataScript;
+﻿using GameFramework.GameManagerBase.SOBase;
 using Sirenix.OdinInspector.Editor;
 using Sirenix.Utilities;
 using Sirenix.Utilities.Editor;

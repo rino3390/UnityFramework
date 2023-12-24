@@ -1,8 +1,8 @@
-﻿using GameFramework.GameManager.Common;
+﻿using GameFramework.GameManagerBase.Common;
 using GameFramework.RinoUtility.Misc;
 using Sirenix.OdinInspector;
 
-namespace GameFramework.GameManager.DataScript
+namespace GameFramework.GameManagerBase.SOBase
 {
 	public abstract class SODataBase: SerializedScriptableObject
 	{

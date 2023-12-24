@@ -1,7 +1,7 @@
 ﻿using Sirenix.OdinInspector.Editor;
 using UnityEngine;
 
-namespace GameFramework.GameManager.Common
+namespace GameFramework.GameManagerBase.EditorBase
 {
 	public abstract class GameEditorMenu : OdinMenuEditorWindow
 	{

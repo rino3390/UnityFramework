@@ -1,13 +1,13 @@
-﻿using GameFramework.GameManager.Common;
-using GameFramework.GameManager.DataScript;
-using GameFramework.GameManager.Editor.PopUp;
+﻿using GameFramework.GameManagerBase.EditorBase;
+using GameFramework.GameManagerBase.PopUp;
+using GameFramework.GameManagerBase.SOBase;
 using Sirenix.OdinInspector.Editor;
 using Sirenix.Utilities;
 using Sirenix.Utilities.Editor;
 using System.Linq;
 using UnityEngine;
 
-namespace GameFramework.GameManager.Editor.Extension
+namespace GameFramework.GameManagerBase.Extension
 {
 	public static class OdinMenuTreeExtension
 	{

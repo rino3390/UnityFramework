@@ -1,5 +1,5 @@
-﻿using GameFramework.GameManager.Common;
-using GameFramework.GameManager.Editor.Setting;
+﻿using GameFramework.GameManager.DataScript;
+using GameFramework.GameManagerBase.EditorBase;
 using GameFramework.RinoUtility.Editor;
 using Sirenix.OdinInspector;
 using Sirenix.OdinInspector.Editor;

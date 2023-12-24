@@ -1,4 +1,4 @@
-﻿namespace GameFramework.GameManager.Common
+﻿namespace GameFramework.GameManagerBase.Common
 {
 	public class LayoutConst
 	{

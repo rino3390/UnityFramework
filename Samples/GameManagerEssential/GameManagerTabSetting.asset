@@ -15,6 +15,7 @@ MonoBehaviour:
   Tabs:
   - TabIcon: 1368
     TabName: "\u672C\u5730\u5316\u8CC7\u6599"
-    HasIcon: 0
+    HasMenuTree: 0
+    HasIcon: 1
     IconSize: 28
     CorrespondingWindow: {fileID: 0}

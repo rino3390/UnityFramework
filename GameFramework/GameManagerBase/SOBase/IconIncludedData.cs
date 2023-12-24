@@ -1,9 +1,9 @@
-﻿using GameFramework.GameManager.Common;
+﻿using GameFramework.GameManagerBase.Common;
 using RinoLocalize.Common;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace GameFramework.GameManager.DataScript
+namespace GameFramework.GameManagerBase.SOBase
 {
 	public abstract class IconIncludedData: SODataBase
 	{

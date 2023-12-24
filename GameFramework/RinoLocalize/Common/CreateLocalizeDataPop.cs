@@ -1,5 +1,4 @@
-﻿#if UNITY_EDITOR
-using GameFramework.RinoUtility.Editor;
+﻿using GameFramework.RinoUtility.Editor;
 using RinoLocalize.DataScript;
 using Sirenix.OdinInspector;
 using Sirenix.OdinInspector.Editor;
@@ -38,6 +37,7 @@ namespace RinoLocalize.Common
 		}
 	}
 	
+#if UNITY_EDITOR
 	[Serializable]
 	public class CreateLocalizeDataPop
 	{
@@ -99,5 +99,5 @@ namespace RinoLocalize.Common
 			RinoEditorUtility.SaveSOData(new SerializedObject(localizeDataSet));
 		}
 	}
-}
 #endif
+}

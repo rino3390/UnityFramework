@@ -1,11 +1,11 @@
-﻿using Sirenix.OdinInspector;
-using Sirenix.OdinInspector.Editor;
+﻿using GameFramework.GameManagerBase.EditorBase;
+using Sirenix.OdinInspector;
 using System;
 using System.Collections;
 using System.Linq;
 using UnityEngine;
 
-namespace GameFramework.GameManager.Common
+namespace GameFramework.GameManager.Editor.EditorStruct
 {
 	[Serializable]
 	public class EditorTabData

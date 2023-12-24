@@ -1,4 +1,4 @@
-﻿using GameFramework.GameManager.DataScript;
+﻿using GameFramework.GameManagerBase.SOBase;
 using JetBrains.Annotations;
 using Sirenix.OdinInspector;
 using System.Linq;
@@ -6,7 +6,7 @@ using UnityEditor;
 using UnityEngine;
 using GUID = GameFramework.RinoUtility.Misc.GUID;
 
-namespace GameFramework.GameManager.Common
+namespace GameFramework.GameManagerBase.EditorBase
 {
 	public class CreateNewDataEditor<T> where T: SODataBase
 	{
@@ -22,7 +22,7 @@ namespace GameFramework.GameManager.Common
 		[Required("程式端尚未實作資料整合方法")]
 		[ShowInInspector, InlineEditor(InlineEditorObjectFieldModes.Hidden), HideLabel]
 		[PropertySpace(10)]
-		private readonly DataOverview<T> _dataOverview;
+		private DataSet<T> _dataSet;
 
 		public CreateNewDataEditor(string dataType, string dataRoot)
 		{
@@ -31,29 +31,12 @@ namespace GameFramework.GameManager.Common
 			SetNewData();
 
 			// 取得被實作的類
-			var overViewType = typeof(DataOverview<T>).Assembly.GetTypes()
-													  .FirstOrDefault(
-														  x => !x.IsAbstract && !x.IsGenericTypeDefinition && typeof(DataOverview<T>).IsAssignableFrom(x)
-													  );
-
-			if(overViewType == null)
-			{
-				return;
-			}
+			var overViewType = typeof(DataSet<T>);
 
 			var findAssets = AssetDatabase.FindAssets($"t:{overViewType.Name}");
-			_dataOverview = findAssets.Select(guid => AssetDatabase.LoadAssetAtPath<DataOverview<T>>(AssetDatabase.GUIDToAssetPath(guid))).FirstOrDefault();
-
-			if(_dataOverview == null)
-			{
-				//如果已實作繼承類就生成SO，否則回傳警告訊息
-				var dataOverview = ScriptableObject.CreateInstance(overViewType);
-				AssetDatabase.CreateAsset(dataOverview, "Assets/Game/Data/Overview/" + typeof(T).Name + "Overview.asset");
-				AssetDatabase.SaveAssets();
-				_dataOverview = (DataOverview<T>)dataOverview;
-			}
+			_dataSet = findAssets.Select(guid => AssetDatabase.LoadAssetAtPath<DataSet<T>>(AssetDatabase.GUIDToAssetPath((string)guid))).FirstOrDefault();
 		}
-
+		
 		[BoxGroup("$_dataType")]
 		[Button("Create")]
 		private void CreateNewData()
@@ -72,6 +55,15 @@ namespace GameFramework.GameManager.Common
 			Data.Id = GUID.NewGuid();
 			var root = _dataRoot.Split('/');
 			Data.AssetName = root[^2] + " - " + Data.Id;
+		}
+
+		[ShowIf("@_dataSet == null")]
+		private void CreateDataSet()
+		{
+			var dataSet = ScriptableObject.CreateInstance(typeof(DataSet<T>));
+			AssetDatabase.CreateAsset(dataSet, "Assets/Game/Data/Set/" + typeof(T).Name + "DataSet.asset");
+			AssetDatabase.SaveAssets();
+			_dataSet = (DataSet<T>)dataSet;
 		}
 	}
 }

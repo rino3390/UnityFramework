@@ -1,4 +1,4 @@
-﻿using GameFramework.GameManager.Common;
+﻿using GameFramework.GameManagerBase.EditorBase;
 using GameFramework.RinoUtility.Attribute;
 using GameFramework.RinoUtility.Editor;
 using RinoLocalize.Common;
