@@ -1,11 +1,10 @@
-﻿#if UNITY_EDITOR
-	using GameFramework.GameManager.DataScript;
-	using JetBrains.Annotations;
-	using Sirenix.OdinInspector;
-	using System.Linq;
-	using UnityEditor;
-	using UnityEngine;
-	using GUID = GameFramework.RinoUtility.Misc.GUID;
+﻿using GameFramework.GameManager.DataScript;
+using JetBrains.Annotations;
+using Sirenix.OdinInspector;
+using System.Linq;
+using UnityEditor;
+using UnityEngine;
+using GUID = GameFramework.RinoUtility.Misc.GUID;
 
 namespace GameFramework.GameManager.Common
 {
@@ -33,7 +32,9 @@ namespace GameFramework.GameManager.Common
 
 			// 取得被實作的類
 			var overViewType = typeof(DataOverview<T>).Assembly.GetTypes()
-													  .FirstOrDefault(x => !x.IsAbstract && !x.IsGenericTypeDefinition && typeof(DataOverview<T>).IsAssignableFrom(x));
+													  .FirstOrDefault(
+														  x => !x.IsAbstract && !x.IsGenericTypeDefinition && typeof(DataOverview<T>).IsAssignableFrom(x)
+													  );
 
 			if(overViewType == null)
 			{
@@ -41,9 +42,7 @@ namespace GameFramework.GameManager.Common
 			}
 
 			var findAssets = AssetDatabase.FindAssets($"t:{overViewType.Name}");
-			_dataOverview = findAssets
-							.Select(guid => AssetDatabase.LoadAssetAtPath<DataOverview<T>>(AssetDatabase.GUIDToAssetPath(guid)))
-							.FirstOrDefault();
+			_dataOverview = findAssets.Select(guid => AssetDatabase.LoadAssetAtPath<DataOverview<T>>(AssetDatabase.GUIDToAssetPath(guid))).FirstOrDefault();
 
 			if(_dataOverview == null)
 			{
@@ -76,4 +75,3 @@ namespace GameFramework.GameManager.Common
 		}
 	}
 }
-#endif

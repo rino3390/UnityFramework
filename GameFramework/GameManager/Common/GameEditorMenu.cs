@@ -7,10 +7,10 @@ namespace GameFramework.GameManager.Common
 	{
 		[HideInInspector]
 		public bool NeedRebuildTree;
-		public virtual OdinMenuTree menuTree => BuildMenuTree();
+		public OdinMenuTree menuTree => BuildMenuTree();
 
 		// public virtual void BeginDraw(OdinMenuTree tree) { }
-		//
+		
 		protected OdinMenuTree SetTree(float iconSize = 28, bool drawSearchToolbar=true)
 		{
 			var tree = new OdinMenuTree(true)

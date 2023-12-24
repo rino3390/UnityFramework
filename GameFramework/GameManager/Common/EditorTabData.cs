@@ -17,11 +17,15 @@ namespace GameFramework.GameManager.Common
 		public string TabName;
 
 		[FoldoutGroup("Editor 設定", true)]
-		[LabelText("左列繪製 Icon")]
+		[LabelText("是否有左側菜單")]
+		public bool HasMenuTree;
+		
+		[FoldoutGroup("Editor 設定")]
+		[ShowIf("HasMenuTree"),LabelText("左列繪製 Icon")]
 		public bool HasIcon;
 
 		[FoldoutGroup("Editor 設定")]
-		[ShowIf("HasIcon"),LabelText("Icon 大小")]
+		[ShowIf("@HasMenuTree && HasIcon"),LabelText("Icon 大小")]
 		public float IconSize = 28;
 
 		[FoldoutGroup("Editor 設定")]
