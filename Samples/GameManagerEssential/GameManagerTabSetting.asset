@@ -27,10 +27,40 @@ MonoBehaviour:
         Rino.GameManager]], mscorlib
     - Name: 
       Entry: 12
-      Data: 1
+      Data: 2
     - Name: 
       Entry: 7
       Data: 1|GameFramework.GameManager.Editor.EditorStruct.EditorTabData, Rino.GameManager
+    - Name: TabIcon
+      Entry: 3
+      Data: 0
+    - Name: TabName
+      Entry: 1
+      Data: AA
+    - Name: HasMenuTree
+      Entry: 5
+      Data: false
+    - Name: HasIcon
+      Entry: 5
+      Data: false
+    - Name: IconSize
+      Entry: 4
+      Data: 28
+    - Name: CorrespondingWindow
+      Entry: 7
+      Data: 2|System.RuntimeType, mscorlib
+    - Name: 
+      Entry: 1
+      Data: GameFramework.GameManager.Editor.EditorMenu.TestEditor, Rino.GameManager
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 3|GameFramework.GameManager.Editor.EditorStruct.EditorTabData, Rino.GameManager
     - Name: TabIcon
       Entry: 3
       Data: 1368
@@ -48,7 +78,7 @@ MonoBehaviour:
       Data: 28
     - Name: CorrespondingWindow
       Entry: 7
-      Data: 2|System.RuntimeType, mscorlib
+      Data: 4|System.RuntimeType, mscorlib
     - Name: 
       Entry: 1
       Data: RinoLocalize.Editor.LocalizeManagerEditorWindow, Rino.LocalizeEditor

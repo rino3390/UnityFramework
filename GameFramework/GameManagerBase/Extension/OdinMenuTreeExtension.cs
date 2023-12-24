@@ -17,14 +17,16 @@ namespace GameFramework.GameManagerBase.Extension
 			tree.Add(menuPath, new CreateNewDataEditor<T>(typeName,path));
 			tree.AddAllAssetsAtPath(menuPath, "Assets/"+path, typeof(T), true).ForEach(DrawDelete<T>);
 			tree.EnumerateTree().Where(x => x.Value as T).ForEach(x => x.Name = ((T)x.Value).AssetName);
-			
-			//加上Icon
-			tree.EnumerateTree().AddIcons<IconIncludedData>(x => x.Icon);
+
+			if(typeof(T) == typeof(IconIncludedData))
+			{
+				tree.EnumerateTree().AddIcons<IconIncludedData>(x => x.Icon);
+			}
 		}
 		
 		private static void DrawDelete<T>(OdinMenuItem menuItem) where T: SODataBase
 		{
-			menuItem.OnDrawItem += x =>
+			menuItem.OnDrawItem += _ =>
 			{
 				if( menuItem.Value == null || !(menuItem.Value as T) ) return;
 
