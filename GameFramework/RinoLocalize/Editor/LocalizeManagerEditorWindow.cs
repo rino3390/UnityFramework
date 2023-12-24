@@ -58,13 +58,6 @@ namespace RinoLocalize.Editor
 		[ValidateInput("@LocalizeData?.CheckId", "含有相同路徑的重複ID")]
 		private LocalizeData LocalizeData;
 
-		[MenuItem("Tools/RinoWeeb/LocalizeManager")]
-		public static void OpenWindow()
-		{
-			var window = GetWindow<LocalizeManagerEditorWindow>();
-			window.position = GUIHelper.GetEditorWindowRect().AlignCenter(1000, 700);
-		}
-
 		protected override OdinMenuTree BuildMenuTree()
 		{
 			MenuWidth = 0;
