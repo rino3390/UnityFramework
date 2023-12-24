@@ -24,7 +24,7 @@ namespace RinoLocalize.Common
 		public string Root;
 
 		[LabelText("本地化資料"), Space(5)]
-		[ListDrawerSettings(HideAddButton = true, HideRemoveButton = true, DraggableItems = false)]
+		[ListDrawerSettings(HideAddButton = true, HideRemoveButton = true, DraggableItems = false, DefaultExpandedState = true)]
 		[HideInTables, DisableContextMenu(true, true)]
 		public List<LocalizeStruct> LocalizeValue = new();
 

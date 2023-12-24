@@ -21,7 +21,7 @@ namespace GameFramework.GameManagerBase.SOBase
 		public string DataName;
 		
 		[HideLabel, ShowInInspector]
-		private OpenCreateLocalizePopWindow openPop;
+		private OpenCreateLocalizePopWindow openPop = new OpenCreateLocalizePopWindow(LocalizeDataType.String, _ => { });
 
 		public override bool CheckValidate()
 		{
