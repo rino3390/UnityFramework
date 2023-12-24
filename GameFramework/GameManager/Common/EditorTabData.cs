@@ -27,7 +27,7 @@ namespace GameFramework.GameManager.Common
 		[FoldoutGroup("Editor 設定")]
 		[ValueDropdown("GetWindowList"),LabelText("繪製視窗")]
 		[Required]
-		public OdinEditorWindow CorrespondingWindow;
+		public GameEditorMenu CorrespondingWindow;
 
 		public IEnumerable GetWindowList()
 		{
@@ -35,8 +35,7 @@ namespace GameFramework.GameManager.Common
 							 .SelectMany(s => s.GetTypes())
 							 .Where(x => !x.IsAbstract)
 							 .Where(x => !x.IsGenericTypeDefinition)
-							 .Where(x => typeof(OdinEditorWindow).IsAssignableFrom(x))
-							 .Where(x => x.Namespace != null && !x.Namespace.StartsWith("Sirenix"))
+							 .Where(x => typeof(GameEditorMenu).IsAssignableFrom(x))
 							 .Select(x => new ValueDropdownItem(x.Name, ScriptableObject.CreateInstance(x)));
 			return q;
 		}

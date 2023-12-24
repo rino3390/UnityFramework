@@ -1,12 +1,13 @@
 ﻿using Sirenix.OdinInspector.Editor;
 using UnityEngine;
 
-namespace GameFramework.GameManager.Editor.Utility
+namespace GameFramework.GameManager.Common
 {
-	public class GameEditorMenu : OdinMenuEditorWindow
+	public abstract class GameEditorMenu : OdinMenuEditorWindow
 	{
+		[HideInInspector]
 		public bool NeedRebuildTree;
-		// public virtual OdinMenuTree menuTree => BuildMenuTree();
+		public virtual OdinMenuTree menuTree => BuildMenuTree();
 
 		// public virtual void BeginDraw(OdinMenuTree tree) { }
 		//

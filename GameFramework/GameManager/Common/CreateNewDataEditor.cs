@@ -1,13 +1,13 @@
 ﻿#if UNITY_EDITOR
-using GameFramework.GameManager.DataScript;
-using JetBrains.Annotations;
-using Sirenix.OdinInspector;
-using System.Linq;
-using UnityEditor;
-using UnityEngine;
-using GUID = GameFramework.RinoUtility.Misc.GUID;
+	using GameFramework.GameManager.DataScript;
+	using JetBrains.Annotations;
+	using Sirenix.OdinInspector;
+	using System.Linq;
+	using UnityEditor;
+	using UnityEngine;
+	using GUID = GameFramework.RinoUtility.Misc.GUID;
 
-namespace GameFramework.GameManager.Editor.Utility
+namespace GameFramework.GameManager.Common
 {
 	public class CreateNewDataEditor<T> where T: SODataBase
 	{

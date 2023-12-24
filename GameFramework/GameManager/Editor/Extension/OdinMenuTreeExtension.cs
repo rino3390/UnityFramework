@@ -1,6 +1,6 @@
-﻿using GameFramework.GameManager.DataScript;
+﻿using GameFramework.GameManager.Common;
+using GameFramework.GameManager.DataScript;
 using GameFramework.GameManager.Editor.PopUp;
-using GameFramework.GameManager.Editor.Utility;
 using Sirenix.OdinInspector.Editor;
 using Sirenix.Utilities;
 using Sirenix.Utilities.Editor;

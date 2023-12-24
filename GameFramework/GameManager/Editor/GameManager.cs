@@ -1,5 +1,5 @@
-﻿using GameFramework.GameManager.Editor.Setting;
-using GameFramework.GameManager.Editor.Utility;
+﻿using GameFramework.GameManager.Common;
+using GameFramework.GameManager.Editor.Setting;
 using GameFramework.RinoUtility.Editor;
 using Sirenix.OdinInspector;
 using Sirenix.OdinInspector.Editor;
@@ -14,17 +14,17 @@ namespace GameFramework.GameManager.Editor
 	public class GameManager: OdinMenuEditorWindow
 	{
 		object content; //用於讀取其他MenuTree的內容
-		
+
 		private GameManagerTabSetting tabSetting;
 		private bool NeedRebuildTree; //重新繪製MenuTree
 		private const int maxButtonsPerRow = 5;
+		private int tabIndex = 0;
 
 		[MenuItem("Tools/GameManager")]
 		public static void OpenWindow()
 		{
-			// var window = GetWindow<GameManager>();
-			// window.position = GUIHelper.GetEditorWindowRect().AlignCenter(1000, 700);
-			GetWindow<GameManager>().Show();
+			var window = GetWindow<GameManager>();
+			window.position = GUIHelper.GetEditorWindowRect().AlignCenter(1000, 700);
 		}
 
 		private GameEditorMenu menu;
@@ -32,36 +32,20 @@ namespace GameFramework.GameManager.Editor
 		//初始化
 		protected override void Initialize()
 		{
-			menu = CreateInstance<GameEditorMenu>();
 			tabSetting = RinoEditorUtility.FindAsset<GameManagerTabSetting>();
+
+			if(tabSetting.Tabs.Count > 0)
+			{
+				tabIndex = 0;
+				menu = tabSetting.Tabs[tabIndex].CorrespondingWindow;
+			}
 		}
 
 		//繪製整個Window，所以可以在這裡進行布局，姑且這樣認知
 		protected override void OnGUI()
 		{
-			var buttonCount = 0;
-			EditorGUILayout.BeginHorizontal();
-
-			foreach(var tab in tabSetting.Tabs)
-			{
-				if(buttonCount >= maxButtonsPerRow)
-				{
-					EditorGUILayout.EndHorizontal();
-					EditorGUILayout.BeginHorizontal();
-					buttonCount = 0;
-				}
-
-				EditorGUILayout.BeginVertical(GUILayout.MaxHeight(30));
-
-				if(SirenixEditorGUI.SDFIconButton(tab.TabName,5f,tab.TabIcon))
-				{
-				}
-
-				EditorGUILayout.EndVertical();
-				buttonCount++;
-			}
-
-			EditorGUILayout.EndHorizontal();
+			DrawWindowTab();
+			MenuWidth = menu.MenuWidth;
 
 			if(( NeedRebuildTree || menu.NeedRebuildTree ) && Event.current.type == EventType.Layout)
 			{
@@ -69,8 +53,7 @@ namespace GameFramework.GameManager.Editor
 				NeedRebuildTree = false;
 				menu.NeedRebuildTree = false;
 			}
-
-			DrawEditor(2);
+			// DrawEditor(2);
 
 			base.OnGUI();
 		}
@@ -101,21 +84,46 @@ namespace GameFramework.GameManager.Editor
 		//新增條目到菜單
 		protected override OdinMenuTree BuildMenuTree()
 		{
-			// OdinMenuTree tree = menu.menuTree;
+			var tree = menu.menuTree;
 
-			return new OdinMenuTree();
+			return tree;
 		}
 
 		protected override void OnBeginDrawEditors()
 		{
 			// menu.BeginDraw(MenuTree);
 		}
-
+		
 		private void SwitchMenu<T>() where T: GameEditorMenu
 		{
 			// menu = CreateInstance<T>();
 			NeedRebuildTree = true;
 			MenuTree.Selection.Clear();
+		}
+
+		private void DrawWindowTab()
+		{
+			var buttonCount = 0;
+			EditorGUILayout.BeginHorizontal();
+
+			foreach(var tab in tabSetting.Tabs)
+			{
+				if(buttonCount >= maxButtonsPerRow)
+				{
+					EditorGUILayout.EndHorizontal();
+					EditorGUILayout.BeginHorizontal();
+					buttonCount = 0;
+				}
+
+				EditorGUILayout.BeginVertical(GUILayout.MaxHeight(30));
+
+				if(SirenixEditorGUI.SDFIconButton(tab.TabName, 5f, tab.TabIcon)) { }
+
+				EditorGUILayout.EndVertical();
+				buttonCount++;
+			}
+
+			EditorGUILayout.EndHorizontal();
 		}
 	}
 }
