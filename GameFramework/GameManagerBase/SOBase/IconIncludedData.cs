@@ -7,7 +7,7 @@ namespace GameFramework.GameManagerBase.SOBase
 {
 	public abstract class IconIncludedData: InfoData
 	{
-		[HideLabel, PreviewField(70)]
+		[HideLabel, PreviewField(70,ObjectFieldAlignment.Center)]
 		[Required]
 		[HorizontalGroup(LayoutConst.TopInfoLayout,200)]
 		[PropertyOrder(-1),PropertySpace(20)]
