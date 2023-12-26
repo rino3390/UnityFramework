@@ -1,6 +1,7 @@
 ﻿using GameFramework.GameManagerBase.SOBase;
 using JetBrains.Annotations;
 using Sirenix.OdinInspector;
+using Sirenix.Utilities.Editor;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
@@ -36,12 +37,19 @@ namespace GameFramework.GameManagerBase.EditorBase
 			var findAssets = AssetDatabase.FindAssets($"t:{overViewType.Name}");
 			_dataSet = findAssets.Select(guid => AssetDatabase.LoadAssetAtPath<DataSet<T>>(AssetDatabase.GUIDToAssetPath((string)guid))).FirstOrDefault();
 		}
+
+		[BoxGroup("$_dataType")]
+		[OnInspectorGUI,ShowIf("@!Data.IsDataLegal()")]
+		private void CreateNewDataInfoBox()
+		{
+			SirenixEditorGUI.ErrorMessageBox("資料尚未正確設定");
+		}
 		
 		[BoxGroup("$_dataType")]
-		[Button("Create")]
+		[Button("Create"),DisableIf("@!Data.IsDataLegal()"),GUIColor(0,1,0)]
 		private void CreateNewData()
 		{
-			if(!Data.CheckValidate()) return;
+			if(!Data.IsDataLegal()) return;
 
 			AssetDatabase.CreateAsset(Data, "Assets/" + _dataRoot + Data.AssetName + ".asset");
 			AssetDatabase.SaveAssets();

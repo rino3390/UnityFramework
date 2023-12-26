@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace GameFramework.GameManagerBase.SOBase
 {
-	public abstract class IconIncludedData: SODataBase
+	public abstract class IconIncludedData: InfoData
 	{
 		[HideLabel, PreviewField(70)]
 		[Required]
@@ -13,19 +13,9 @@ namespace GameFramework.GameManagerBase.SOBase
 		[PropertyOrder(-1),PropertySpace(20)]
 		public Sprite Icon;
 		
-		[LabelText("顯示名稱")]
-		[HorizontalGroup(LayoutConst.TopInfoLayout)]
-		[VerticalGroup(LayoutConst.TopInfoLayout + "/1")]
-		[PropertySpace(10,10)]
-		[ValueDropdown("@LocalizeDrawer.LocalizeStingIdDropDown()")]
-		public string DataName;
-		
-		[HideLabel, ShowInInspector]
-		private OpenCreateLocalizePopWindow openPop = new OpenCreateLocalizePopWindow(LocalizeDataType.String, _ => { });
-
-		public override bool CheckValidate()
+		public override bool IsDataLegal()
 		{
-			return Icon && base.CheckValidate();
+			return Icon && base.IsDataLegal();
 		}
 	}
 }

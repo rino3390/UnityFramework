@@ -6,7 +6,7 @@ namespace GameFramework.RinoUtility.Misc
 	{
 		public static bool OnlyEnglishAndNum(string checkString)
 		{
-			return Regex.IsMatch(checkString, @"^[a-zA-Z0-9 ]+$");
+			return Regex.IsMatch(checkString, @"^[a-zA-Z0-9-_ ]+$");
 		}
 	}
 }
