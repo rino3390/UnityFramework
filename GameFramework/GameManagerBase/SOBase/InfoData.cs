@@ -11,6 +11,7 @@ namespace GameFramework.GameManagerBase.SOBase
 		[VerticalGroup(LayoutConst.TopInfoLayout + "/1")]
 		[PropertySpace(10,10)]
 		[ValueDropdown("@LocalizeDrawer.LocalizeStingIdDropDown()")]
+		[Required("需要填寫名稱")]
 		public string DataName;
 		
 		[HideLabel, ShowInInspector]
