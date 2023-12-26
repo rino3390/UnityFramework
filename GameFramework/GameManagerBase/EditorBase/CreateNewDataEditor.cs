@@ -20,9 +20,9 @@ namespace GameFramework.GameManagerBase.EditorBase
 		private string _dataRoot => dataRoot + "/";
 
 		[UsedImplicitly]
-		private string _dataTypeLabel => "新增" + dataTypeLabel;
+		private string _createDataGroupLabel => "新增" + dataTypeLabel;
 
-		[BoxGroup("$_dataTypeLabel")]
+		[BoxGroup("$_createDataGroupLabel")]
 		[InlineEditor(InlineEditorObjectFieldModes.Hidden)]
 		public T Data;
 
@@ -49,26 +49,31 @@ namespace GameFramework.GameManagerBase.EditorBase
 			_dataSet = findAssets.Select(guid => AssetDatabase.LoadAssetAtPath<DataSet<T>>(AssetDatabase.GUIDToAssetPath(guid))).FirstOrDefault();
 		}
 
+		protected override void OnBeginDrawEditors()
+		{
+			
+		}
+
 		protected override OdinMenuTree BuildMenuTree()
 		{
 			var tree = SetTree().AddSelfMenu(this, dataTypeLabel);
 
 			if(addAllDataForMenu)
 			{
-				tree.AddAllAssets<T>(_dataRoot, drawDelete);
+				tree.AddAllAssets<T>(dataTypeLabel,_dataRoot, drawDelete);
 			}
 
 			return tree;
 		}
 
-		[BoxGroup("$_dataTypeLabel")]
+		[BoxGroup("$_createDataGroupLabel")]
 		[OnInspectorGUI, ShowIf("@!Data.IsDataLegal()")]
 		private void CreateNewDataInfoBox()
 		{
 			SirenixEditorGUI.ErrorMessageBox("資料尚未正確設定");
 		}
 
-		[BoxGroup("$_dataTypeLabel")]
+		[BoxGroup("$_createDataGroupLabel")]
 		[Button("Create"), DisableIf("@!Data.IsDataLegal()"), GUIColor(0, 1, 0)]
 		private void CreateNewData()
 		{

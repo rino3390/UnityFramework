@@ -16,9 +16,8 @@ namespace GameFramework.GameManagerBase.Extension
 			return tree;
 		}
 
-		public static OdinMenuTree AddAllAssets<T>(this OdinMenuTree tree, string path, bool drawDelete = true) where T: SODataBase
+		public static OdinMenuTree AddAllAssets<T>(this OdinMenuTree tree,string menuPath, string path, bool drawDelete = true) where T: SODataBase
 		{
-			var menuPath = path.Split('/').Last();
 			var menuItems = tree.AddAllAssetsAtPath(menuPath, "Assets/" + path, typeof(T), true);
 
 			if(drawDelete)

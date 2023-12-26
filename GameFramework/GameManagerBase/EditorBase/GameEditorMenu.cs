@@ -3,15 +3,16 @@ using UnityEngine;
 
 namespace GameFramework.GameManagerBase.EditorBase
 {
-	public abstract class GameEditorMenu : OdinMenuEditorWindow
+	public abstract class GameEditorMenu: OdinMenuEditorWindow
 	{
 		[HideInInspector]
 		public bool NeedRebuildTree;
+
 		public OdinMenuTree menuTree => BuildMenuTree();
 
 		// public virtual void BeginDraw(OdinMenuTree tree) { }
-		
-		protected OdinMenuTree SetTree(float iconSize = 28, bool drawSearchToolbar=true, float width = 180f)
+
+		protected OdinMenuTree SetTree(float iconSize = 28, bool drawSearchToolbar = true, float width = 220f)
 		{
 			MenuWidth = width;
 			var tree = new OdinMenuTree(true)
@@ -27,7 +28,7 @@ namespace GameFramework.GameManagerBase.EditorBase
 			};
 			return tree;
 		}
-		
+
 		protected override OdinMenuTree BuildMenuTree()
 		{
 			return SetTree();
