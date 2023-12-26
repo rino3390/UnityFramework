@@ -1,23 +1,27 @@
-﻿using GameFramework.GameManagerBase.SOBase;
+﻿using GameFramework.GameManagerBase.Extension;
+using GameFramework.GameManagerBase.SOBase;
 using JetBrains.Annotations;
 using Sirenix.OdinInspector;
 using Sirenix.OdinInspector.Editor;
 using Sirenix.Utilities.Editor;
 using System.Linq;
 using UnityEditor;
-using UnityEngine;
 using GUID = GameFramework.RinoUtility.Misc.GUID;
 
 namespace GameFramework.GameManagerBase.EditorBase
 {
-	public class CreateNewDataEditor<T>: GameEditorMenu where T: SODataBase
+	public abstract class CreateNewDataEditor<T>: GameEditorMenu where T: SODataBase
 	{
-		private readonly string _dataRoot;
+		protected abstract string dataRoot { get; }
+
+		protected abstract string dataTypeLabel { get; }
+
+		private string _dataRoot => dataRoot + "/";
 
 		[UsedImplicitly]
-		private readonly string _dataType;
+		private string _dataTypeLabel => "新增" + dataTypeLabel;
 
-		[BoxGroup("$_dataType")]
+		[BoxGroup("$_dataTypeLabel")]
 		[InlineEditor(InlineEditorObjectFieldModes.Hidden)]
 		public T Data;
 
@@ -26,33 +30,30 @@ namespace GameFramework.GameManagerBase.EditorBase
 		[PropertySpace(10)]
 		private DataSet<T> _dataSet;
 
-		public CreateNewDataEditor(string dataType, string dataRoot)
+		protected override void Initialize()
 		{
-			_dataRoot = dataRoot + "/";
-			_dataType = "新增" + dataType;
 			SetNewData();
 
-			// 取得被實作的類
 			var overViewType = typeof(DataSet<T>);
-
 			var findAssets = AssetDatabase.FindAssets($"t:{overViewType.Name}");
-			_dataSet = findAssets.Select(guid => AssetDatabase.LoadAssetAtPath<DataSet<T>>(AssetDatabase.GUIDToAssetPath((string)guid))).FirstOrDefault();
+			_dataSet = findAssets.Select(guid => AssetDatabase.LoadAssetAtPath<DataSet<T>>(AssetDatabase.GUIDToAssetPath(guid))).FirstOrDefault();
 		}
 
 		protected override OdinMenuTree BuildMenuTree()
 		{
-			return base.BuildMenuTree();
+			var tree = SetTree().AddSelfMenu(this, dataTypeLabel);
+			return tree;
 		}
 
-		[BoxGroup("$_dataType")]
-		[OnInspectorGUI,ShowIf("@!Data.IsDataLegal()")]
+		[BoxGroup("$_dataTypeLabel")]
+		[OnInspectorGUI, ShowIf("@!Data.IsDataLegal()")]
 		private void CreateNewDataInfoBox()
 		{
 			SirenixEditorGUI.ErrorMessageBox("資料尚未正確設定");
 		}
-		
-		[BoxGroup("$_dataType")]
-		[Button("Create"),DisableIf("@!Data.IsDataLegal()"),GUIColor(0,1,0)]
+
+		[BoxGroup("$_dataTypeLabel")]
+		[Button("Create"), DisableIf("@!Data.IsDataLegal()"), GUIColor(0, 1, 0)]
 		private void CreateNewData()
 		{
 			if(!Data.IsDataLegal()) return;
@@ -65,7 +66,7 @@ namespace GameFramework.GameManagerBase.EditorBase
 
 		private void SetNewData()
 		{
-			Data = ScriptableObject.CreateInstance<T>();
+			Data = CreateInstance<T>();
 			Data.Id = GUID.NewGuid();
 			var root = _dataRoot.Split('/');
 			Data.AssetName = root[^2] + " - " + Data.Id;
@@ -74,7 +75,7 @@ namespace GameFramework.GameManagerBase.EditorBase
 		[ShowIf("@_dataSet == null")]
 		private void CreateDataSet()
 		{
-			var dataSet = ScriptableObject.CreateInstance(typeof(DataSet<T>));
+			var dataSet = CreateInstance(typeof(DataSet<T>));
 			AssetDatabase.CreateAsset(dataSet, "Assets/Game/Data/Set/" + typeof(T).Name + "DataSet.asset");
 			AssetDatabase.SaveAssets();
 			_dataSet = (DataSet<T>)dataSet;
