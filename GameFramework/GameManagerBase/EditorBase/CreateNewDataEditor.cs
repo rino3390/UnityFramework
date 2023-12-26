@@ -30,6 +30,15 @@ namespace GameFramework.GameManagerBase.EditorBase
 		[PropertySpace(10)]
 		private DataSet<T> _dataSet;
 
+		private readonly bool addAllDataForMenu;
+		private readonly bool drawDelete;
+
+		protected CreateNewDataEditor(bool addAllDataForMenu = true, bool drawDelete = true)
+		{
+			this.drawDelete = drawDelete;
+			this.addAllDataForMenu = addAllDataForMenu;
+		}
+
 		protected override void Initialize()
 		{
 			SetNewData();
@@ -42,6 +51,11 @@ namespace GameFramework.GameManagerBase.EditorBase
 		protected override OdinMenuTree BuildMenuTree()
 		{
 			var tree = SetTree().AddSelfMenu(this, dataTypeLabel);
+
+			if(addAllDataForMenu)
+			{
+				tree.AddAllAssets<T>(_dataRoot, drawDelete);
+			}
 			return tree;
 		}
 
