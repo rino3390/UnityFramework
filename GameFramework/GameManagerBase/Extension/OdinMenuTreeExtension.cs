@@ -26,14 +26,11 @@ namespace GameFramework.GameManagerBase.Extension
 				menuItems.ForEach(DrawDelete<T>);
 			}
 
-			if(typeof(T) == typeof(IconIncludedData))
-			{
-				tree.EnumerateTree().AddIcons<IconIncludedData>(x => x.Icon);
-			}
+			tree.EnumerateTree().AddIcons<IconIncludedData>(x => x.Icon);
 			return tree;
 		}
 
-	public static void DrawDelete<T>(OdinMenuItem menuItem) where T: SODataBase
+		public static void DrawDelete<T>(OdinMenuItem menuItem) where T: SODataBase
 		{
 			menuItem.OnDrawItem += _ =>
 			{
