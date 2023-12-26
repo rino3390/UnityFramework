@@ -1,5 +1,6 @@
 ﻿using GameFramework.GameManagerBase.Extension;
 using GameFramework.GameManagerBase.SOBase;
+using GameFramework.RinoUtility.Editor;
 using JetBrains.Annotations;
 using Sirenix.OdinInspector;
 using Sirenix.OdinInspector.Editor;
@@ -56,6 +57,7 @@ namespace GameFramework.GameManagerBase.EditorBase
 			{
 				tree.AddAllAssets<T>(_dataRoot, drawDelete);
 			}
+
 			return tree;
 		}
 
@@ -71,10 +73,7 @@ namespace GameFramework.GameManagerBase.EditorBase
 		private void CreateNewData()
 		{
 			if(!Data.IsDataLegal()) return;
-
-			AssetDatabase.CreateAsset(Data, "Assets/" + _dataRoot + Data.AssetName + ".asset");
-			AssetDatabase.SaveAssets();
-
+			RinoEditorUtility.CreateSOData(Data, _dataRoot + Data.AssetName);
 			SetNewData();
 		}
 
@@ -90,8 +89,7 @@ namespace GameFramework.GameManagerBase.EditorBase
 		private void CreateDataSet()
 		{
 			var dataSet = CreateInstance(typeof(DataSet<T>));
-			AssetDatabase.CreateAsset(dataSet, "Assets/Game/Data/Set/" + typeof(T).Name + "DataSet.asset");
-			AssetDatabase.SaveAssets();
+			RinoEditorUtility.CreateSOData(dataSet, "Game/Data/Set/" + typeof(T).Name + "DataSet");
 			_dataSet = (DataSet<T>)dataSet;
 		}
 	}

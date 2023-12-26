@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
@@ -27,6 +28,24 @@ namespace GameFramework.RinoUtility.Editor
 		{
 			EditorUtility.SetDirty(serializedObject.targetObject);
 			AssetDatabase.SaveAssets();
+		}
+
+		public static void CreateSOData(ScriptableObject data, string path)
+		{
+			var dir = "Assets/" + path;
+			CreateDirectoryIfNotExist(dir);
+			AssetDatabase.CreateAsset(data, dir + ".asset");
+			AssetDatabase.SaveAssets();
+		}
+
+		public static void CreateDirectoryIfNotExist(string dir)
+		{
+			var directoryName = Path.GetDirectoryName(dir);
+
+			if(!Directory.Exists(directoryName))
+			{
+				Directory.CreateDirectory(directoryName!);
+			}
 		}
 	}
 }
