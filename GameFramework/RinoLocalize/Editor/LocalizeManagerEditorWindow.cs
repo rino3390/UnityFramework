@@ -1,4 +1,5 @@
 ﻿using GameFramework.GameManagerBase.EditorBase;
+using GameFramework.GameManagerBase.Extension;
 using GameFramework.RinoUtility.Attribute;
 using GameFramework.RinoUtility.Editor;
 using RinoLocalize.Common;
@@ -60,11 +61,7 @@ namespace RinoLocalize.Editor
 
 		protected override OdinMenuTree BuildMenuTree()
 		{
-			MenuWidth = 0;
-			OdinMenuTree tree = new OdinMenuTree(supportsMultiSelect: true)
-			{
-				{ "Home",this}
-			};
+			var tree = SetTree(width: 0).AddSelfMenu(this);
 			return tree;
 		}
 

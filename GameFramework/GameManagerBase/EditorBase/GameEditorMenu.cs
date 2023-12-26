@@ -11,8 +11,9 @@ namespace GameFramework.GameManagerBase.EditorBase
 
 		// public virtual void BeginDraw(OdinMenuTree tree) { }
 		
-		protected OdinMenuTree SetTree(float iconSize = 28, bool drawSearchToolbar=true)
+		protected OdinMenuTree SetTree(float iconSize = 28, bool drawSearchToolbar=true, float width = 180f)
 		{
+			MenuWidth = width;
 			var tree = new OdinMenuTree(true)
 			{
 				DefaultMenuStyle =

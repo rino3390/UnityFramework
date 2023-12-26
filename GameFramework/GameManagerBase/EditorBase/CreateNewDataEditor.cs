@@ -1,6 +1,7 @@
 ﻿using GameFramework.GameManagerBase.SOBase;
 using JetBrains.Annotations;
 using Sirenix.OdinInspector;
+using Sirenix.OdinInspector.Editor;
 using Sirenix.Utilities.Editor;
 using System.Linq;
 using UnityEditor;
@@ -9,7 +10,7 @@ using GUID = GameFramework.RinoUtility.Misc.GUID;
 
 namespace GameFramework.GameManagerBase.EditorBase
 {
-	public class CreateNewDataEditor<T> where T: SODataBase
+	public class CreateNewDataEditor<T>: GameEditorMenu where T: SODataBase
 	{
 		private readonly string _dataRoot;
 
@@ -36,6 +37,11 @@ namespace GameFramework.GameManagerBase.EditorBase
 
 			var findAssets = AssetDatabase.FindAssets($"t:{overViewType.Name}");
 			_dataSet = findAssets.Select(guid => AssetDatabase.LoadAssetAtPath<DataSet<T>>(AssetDatabase.GUIDToAssetPath((string)guid))).FirstOrDefault();
+		}
+
+		protected override OdinMenuTree BuildMenuTree()
+		{
+			return base.BuildMenuTree();
 		}
 
 		[BoxGroup("$_dataType")]
