@@ -55,12 +55,12 @@ namespace GameFramework.GameManager.Editor
 		
 			return tree;
 		}
-		// private void SwitchMenu<T>() where T: GameEditorMenu
-		// {
-		// 	// menu = CreateInstance<T>();
-		// 	NeedRebuildTree = true;
-		// 	MenuTree.Selection.Clear();
-		// }
+		
+		private void SwitchMenu(GameEditorMenu window)
+		{
+			menu = window;
+			menu.ForceMenuTreeRebuild();
+		}
 
 		private void DrawWindowTab()
 		{
@@ -78,7 +78,10 @@ namespace GameFramework.GameManager.Editor
 
 				EditorGUILayout.BeginVertical(GUILayout.MaxHeight(30));
 
-				if(SirenixEditorGUI.SDFIconButton(tab.TabName, 5f, tab.TabIcon)) { }
+				if(SirenixEditorGUI.SDFIconButton(tab.TabName, 5f, tab.TabIcon))
+				{
+					SwitchMenu(CreateEditorMenuInstance(tab.CorrespondingWindow));
+				}
 
 				EditorGUILayout.EndVertical();
 				buttonCount++;
