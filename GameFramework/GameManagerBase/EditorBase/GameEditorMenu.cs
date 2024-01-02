@@ -1,16 +1,15 @@
 ﻿using Sirenix.OdinInspector.Editor;
-using UnityEngine;
 
 namespace GameFramework.GameManagerBase.EditorBase
 {
 	public abstract class GameEditorMenu: OdinMenuEditorWindow
 	{
-		[HideInInspector]
-		public bool NeedRebuildTree;
-
 		public OdinMenuTree menuTree => BuildMenuTree();
 
-		// public virtual void BeginDraw(OdinMenuTree tree) { }
+		public void Draw()
+		{
+			OnGUI();
+		}
 
 		protected OdinMenuTree SetTree(float iconSize = 28, bool drawSearchToolbar = true, float width = 220f)
 		{

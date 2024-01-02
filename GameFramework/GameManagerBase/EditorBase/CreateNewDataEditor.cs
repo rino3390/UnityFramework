@@ -2,11 +2,13 @@
 using GameFramework.GameManagerBase.SOBase;
 using GameFramework.RinoUtility.Editor;
 using JetBrains.Annotations;
+using RinoLocalize.Common;
 using Sirenix.OdinInspector;
 using Sirenix.OdinInspector.Editor;
 using Sirenix.Utilities.Editor;
 using System.Linq;
 using UnityEditor;
+using UnityEngine;
 using GUID = GameFramework.RinoUtility.Misc.GUID;
 
 namespace GameFramework.GameManagerBase.EditorBase
@@ -51,7 +53,17 @@ namespace GameFramework.GameManagerBase.EditorBase
 
 		protected override void OnBeginDrawEditors()
 		{
-			
+			SirenixEditorGUI.BeginHorizontalToolbar(MenuTree.Config.SearchToolbarHeight);
+			{
+				GUILayout.FlexibleSpace();
+				if (SirenixEditorGUI.ToolbarButton(new GUIContent("新增本地化文字")))
+				{
+					var dataPop = new CreateLocalizeDataPop();
+					var window = InspectObjectInDropDown(dataPop);
+					dataPop.OpenWindow(LocalizeDataType.String,window);
+				}
+			}
+			SirenixEditorGUI.EndHorizontalToolbar();
 		}
 
 		protected override OdinMenuTree BuildMenuTree()
@@ -74,7 +86,7 @@ namespace GameFramework.GameManagerBase.EditorBase
 		}
 
 		[BoxGroup("$_createDataGroupLabel")]
-		[Button("Create"), DisableIf("@!Data.IsDataLegal()"), GUIColor(0, 1, 0)]
+		[Button("Create"), DisableIf("@!Data.IsDataLegal()"), GUIColor(0.67f, 1f, 0.65f)]
 		private void CreateNewData()
 		{
 			if(!Data.IsDataLegal()) return;

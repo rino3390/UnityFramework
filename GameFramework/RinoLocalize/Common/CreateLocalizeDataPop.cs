@@ -28,11 +28,10 @@ namespace RinoLocalize.Common
 			var btnRect = GUIHelper.GetCurrentLayoutRect();
 			var dataPop = new CreateLocalizeDataPop();
 			var window = OdinEditorWindow.InspectObjectInDropDown(dataPop, btnRect, btnRect.width);
-			dataPop.OpenWindow(localizeDataType);
+			dataPop.OpenWindow(localizeDataType,window);
 			dataPop.OnCreate += () =>
 			{
 				changeLocalizeId(dataPop.LocalizeData.Id);
-				window.Close();
 			};
 		}
 	}
@@ -50,7 +49,7 @@ namespace RinoLocalize.Common
 		
 		public event Action OnCreate;
 
-		public void OpenWindow(LocalizeDataType localizeDataType)
+		public void OpenWindow(LocalizeDataType localizeDataType, OdinEditorWindow odinEditorWindow)
 		{
 			var languageList = RinoEditorUtility.FindAsset<LanguageList>();
 			localizeDataSet = RinoEditorUtility.FindAsset<LocalizeDataSet>();
@@ -64,6 +63,8 @@ namespace RinoLocalize.Common
 			{
 				LocalizeData.LocalizeValue.Add(new LocalizeStruct { LanguageType = languageType, DataType = dataType });
 			}
+
+			OnCreate += odinEditorWindow.Close;
 		}
 		
 		[Button("Create"), GUIColor(0.67f, 1f, 0.65f)]	
@@ -96,6 +97,7 @@ namespace RinoLocalize.Common
 					throw new ArgumentOutOfRangeException();
 			}
 			OnCreate?.Invoke();
+			OnCreate = null;
 			RinoEditorUtility.SaveSOData(new SerializedObject(localizeDataSet));
 		}
 	}
