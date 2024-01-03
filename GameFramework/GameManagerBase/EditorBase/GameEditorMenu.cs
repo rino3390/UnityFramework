@@ -1,16 +1,19 @@
 ﻿using Sirenix.OdinInspector.Editor;
 
-namespace GameFramework.GameManager.Editor.Utility
+namespace GameFramework.GameManagerBase.EditorBase
 {
-	public class GameEditorMenu : OdinMenuEditorWindow
+	public abstract class GameEditorMenu: OdinMenuEditorWindow
 	{
-		public bool NeedRebuildTree;
-		public virtual OdinMenuTree menuTree => BuildMenuTree();
+		public OdinMenuTree menuTree => BuildMenuTree();
 
-		public virtual void BeginDraw(OdinMenuTree tree) { }
-
-		protected OdinMenuTree SetTree(float iconSize = 28, bool drawSearchToolbar=true)
+		public void Draw()
 		{
+			OnGUI();
+		}
+
+		protected OdinMenuTree SetTree(float iconSize = 28, bool drawSearchToolbar = true, float width = 220f)
+		{
+			MenuWidth = width;
 			var tree = new OdinMenuTree(true)
 			{
 				DefaultMenuStyle =
