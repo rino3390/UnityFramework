@@ -1,4 +1,6 @@
-﻿using GameFramework.RinoUtility.Attribute;
+﻿using GameFramework.GameManagerBase.EditorBase;
+using GameFramework.GameManagerBase.Extension;
+using GameFramework.RinoUtility.Attribute;
 using GameFramework.RinoUtility.Editor;
 using RinoLocalize.Common;
 using RinoLocalize.DataScript;
@@ -14,7 +16,7 @@ using GUID = GameFramework.RinoUtility.Misc.GUID;
 
 namespace RinoLocalize.Editor
 {
-	public class LocalizeManagerEditorWindow: OdinEditorWindow
+	public class LocalizeManagerEditorWindow: GameEditorMenu
 	{
 		[HorizontalGroup("Editor", 0.2f, MarginRight = 10), PropertyOrder(-3), PropertySpace(10)]
 		[InlineEditor(InlineEditorObjectFieldModes.Hidden)]
@@ -57,11 +59,10 @@ namespace RinoLocalize.Editor
 		[ValidateInput("@LocalizeData?.CheckId", "含有相同路徑的重複ID")]
 		private LocalizeData LocalizeData;
 
-		[MenuItem("Tools/RinoWeeb/LocalizeManager")]
-		public static void OpenWindow()
+		protected override OdinMenuTree BuildMenuTree()
 		{
-			var window = GetWindow<LocalizeManagerEditorWindow>();
-			window.position = GUIHelper.GetEditorWindowRect().AlignCenter(1000, 700);
+			var tree = SetTree(width: 0).AddSelfMenu(this);
+			return tree;
 		}
 
 		[Button("文字資料", Icon = SdfIconType.Fonts), PropertyOrder(-2), PropertySpace(10, 10)]

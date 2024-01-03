@@ -1,10 +1,10 @@
-﻿#if UNITY_EDITOR
-using GameFramework.GameManager.Editor.Utility;
-using Sirenix.OdinInspector;
+﻿using GameFramework.GameManager.DataScript;
+using GameFramework.GameManagerBase.EditorBase;
+using GameFramework.RinoUtility.Editor;
 using Sirenix.OdinInspector.Editor;
 using Sirenix.Utilities;
 using Sirenix.Utilities.Editor;
-using System.Collections.Generic;
+using System;
 using UnityEditor;
 using UnityEngine;
 
@@ -12,15 +12,11 @@ namespace GameFramework.GameManager.Editor
 {
 	public class GameManager: OdinMenuEditorWindow
 	{
-		object content; //用於讀取其他MenuTree的內容
+		private GameManagerTabSetting tabSetting;
+		private const int maxButtonsPerRow = 5;
 
-		private bool NeedRebuildTree; //重新繪製MenuTree
-
-		[Button(ButtonSizes.Large, Icon = SdfIconType.CardList, Name = "卡片管理")]
-		[ButtonGroup("Menu")]
-		public void CardWindow()
-		{
-		}
+		private GameEditorMenu menu;
+		private bool hasWindow = false;
 
 		[MenuItem("Tools/GameManager")]
 		public static void OpenWindow()
@@ -29,71 +25,87 @@ namespace GameFramework.GameManager.Editor
 			window.position = GUIHelper.GetEditorWindowRect().AlignCenter(1000, 700);
 		}
 
-		private GameEditorMenu menu;
-
-		//初始化
 		protected override void Initialize()
 		{
-			menu = CreateInstance<GameEditorMenu>();
+			tabSetting = RinoEditorUtility.FindAsset<GameManagerTabSetting>();
+
+			if(tabSetting == null)
+			{
+				var data = CreateInstance<GameManagerTabSetting>();
+				RinoEditorUtility.CreateSOData(data, "Data/GameManager/Tab");
+				tabSetting = data;
+			}
+
+			hasWindow = tabSetting!.Tabs.Count > 0;
+
+			if(hasWindow)
+			{
+				menu = CreateEditorMenuInstance(tabSetting.Tabs[0].CorrespondingWindow);
+			}
 		}
 
-		//繪製整個Window，所以可以在這裡進行布局，姑且這樣認知
 		protected override void OnGUI()
 		{
-			if(( NeedRebuildTree || menu.NeedRebuildTree ) && Event.current.type == EventType.Layout)
+			if(!hasWindow)
+			{
+				return;
+			}
+
+			DrawWindowTab();
+			MenuWidth = menu.MenuWidth;
+
+			if(Event.current.type == EventType.Layout)
 			{
 				ForceMenuTreeRebuild();
-				NeedRebuildTree = false;
-				menu.NeedRebuildTree = false;
 			}
 
-			DrawEditor(2);
-
-			base.OnGUI();
+			menu.Draw();
 		}
 
-		//繪製右邊編輯視窗
-		protected override void DrawEditors()
-		{
-			if(( NeedRebuildTree || menu.NeedRebuildTree ) && Event.current.type == EventType.Layout || Event.current.type == EventType.Repaint)
-			{
-				content = this.MenuTree.Selection.SelectedValue;
-				NeedRebuildTree = false;
-				menu.NeedRebuildTree = false;
-			}
-
-			DrawEditor(1);
-		}
-
-		//獲取要繪製的目標 (顯示在右邊編輯視窗)
-		protected override IEnumerable<object> GetTargets()
-		{
-			List<object> targets = new List<object>();
-			targets.Add(null);
-			targets.Add(content);
-			targets.Add(base.GetTarget());
-			return targets;
-		}
-
-		//新增條目到菜單
 		protected override OdinMenuTree BuildMenuTree()
 		{
-			OdinMenuTree tree = menu.menuTree;
+			var tree = hasWindow ? menu.menuTree : new OdinMenuTree();
 
 			return tree;
 		}
 
-		protected override void OnBeginDrawEditors()
+		private void SwitchMenu(GameEditorMenu window)
 		{
-			menu.BeginDraw(MenuTree);
+			menu = window;
+			menu.ForceMenuTreeRebuild();
 		}
 
-		private void SwitchMenu<T>() where T: GameEditorMenu
+		private void DrawWindowTab()
 		{
-			menu = CreateInstance<T>();
-			NeedRebuildTree = true;
-			MenuTree.Selection.Clear();
+			var buttonCount = 0;
+			EditorGUILayout.BeginHorizontal();
+
+			foreach(var tab in tabSetting.Tabs)
+			{
+				if(buttonCount >= maxButtonsPerRow)
+				{
+					EditorGUILayout.EndHorizontal();
+					EditorGUILayout.BeginHorizontal();
+					buttonCount = 0;
+				}
+
+				EditorGUILayout.BeginVertical(GUILayout.MaxHeight(30));
+
+				if(SirenixEditorGUI.SDFIconButton(tab.TabName, 5f, tab.TabIcon))
+				{
+					SwitchMenu(CreateEditorMenuInstance(tab.CorrespondingWindow));
+				}
+
+				EditorGUILayout.EndVertical();
+				buttonCount++;
+			}
+
+			EditorGUILayout.EndHorizontal();
+		}
+
+		private GameEditorMenu CreateEditorMenuInstance(Type window)
+		{
+			return CreateInstance(window) as GameEditorMenu;
 		}
 	}
 }
-#endif

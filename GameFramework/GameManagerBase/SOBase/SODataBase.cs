@@ -1,8 +1,8 @@
-﻿using GameFramework.GameManager.Common;
+﻿using GameFramework.GameManagerBase.Common;
 using GameFramework.RinoUtility.Misc;
 using Sirenix.OdinInspector;
 
-namespace GameFramework.GameManager.DataScript
+namespace GameFramework.GameManagerBase.SOBase
 {
 	public abstract class SODataBase: SerializedScriptableObject
 	{
@@ -15,13 +15,18 @@ namespace GameFramework.GameManager.DataScript
 		[HorizontalGroup(LayoutConst.TopInfoLayout)]
 		[VerticalGroup(LayoutConst.TopInfoLayout + "/1")]
 		[LabelText("檔案名稱")]
-		[PropertySpace(10), ValidateInput("CheckValidate")]
+		[PropertySpace(10), ValidateInput("IsAssetNameLegal","名稱只能為英數（含減號底線）")]
 		public string AssetName;
 
 	#if UNITY_EDITOR
-		public virtual bool CheckValidate()
+		private bool IsAssetNameLegal()
 		{
 			return !string.IsNullOrEmpty(AssetName) && RegexChecking.OnlyEnglishAndNum(AssetName);
+		}
+
+		public virtual bool IsDataLegal()
+		{
+			return IsAssetNameLegal();
 		}
 	#endif
 	}

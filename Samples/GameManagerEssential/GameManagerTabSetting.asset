@@ -1,0 +1,96 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9776bf220ed04bf5aab4157f1a40cf2b, type: 3}
+  m_Name: GameManagerTabSetting
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: Tabs
+      Entry: 7
+      Data: 0|System.Collections.Generic.List`1[[GameFramework.GameManager.Editor.EditorStruct.EditorTabData,
+        Rino.GameManager]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 2
+    - Name: 
+      Entry: 7
+      Data: 1|GameFramework.GameManager.Editor.EditorStruct.EditorTabData, Rino.GameManager
+    - Name: TabIcon
+      Entry: 3
+      Data: 0
+    - Name: TabName
+      Entry: 1
+      Data: AA
+    - Name: HasMenuTree
+      Entry: 5
+      Data: false
+    - Name: HasIcon
+      Entry: 5
+      Data: false
+    - Name: IconSize
+      Entry: 4
+      Data: 28
+    - Name: CorrespondingWindow
+      Entry: 7
+      Data: 2|System.RuntimeType, mscorlib
+    - Name: 
+      Entry: 1
+      Data: GameFramework.GameManager.Editor.EditorMenu.TestEditor, Rino.GameManager
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 3|GameFramework.GameManager.Editor.EditorStruct.EditorTabData, Rino.GameManager
+    - Name: TabIcon
+      Entry: 3
+      Data: 1368
+    - Name: TabName
+      Entry: 1
+      Data: "\u672C\u5730\u5316\u8CC7\u6599"
+    - Name: HasMenuTree
+      Entry: 5
+      Data: false
+    - Name: HasIcon
+      Entry: 5
+      Data: false
+    - Name: IconSize
+      Entry: 4
+      Data: 28
+    - Name: CorrespondingWindow
+      Entry: 7
+      Data: 4|System.RuntimeType, mscorlib
+    - Name: 
+      Entry: 1
+      Data: RinoLocalize.Editor.LocalizeManagerEditorWindow, Rino.LocalizeEditor
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 

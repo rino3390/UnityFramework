@@ -9,9 +9,9 @@ using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace GameFramework.GameManager.DataScript
+namespace GameFramework.GameManagerBase.SOBase
 {
-	public class DataOverview<T>: ScriptableObject where T: SODataBase
+	public class DataSet<T>: ScriptableObject where T: SODataBase
 	{
 		[ListDrawerSettings(OnTitleBarGUI = "DrawCustomRefreshButton", DraggableItems = false, NumberOfItemsPerPage = 20)]
 		public List<T> Datas = new();
