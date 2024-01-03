@@ -14,9 +14,9 @@ namespace GameFramework.GameManager.Editor
 	{
 		private GameManagerTabSetting tabSetting;
 		private const int maxButtonsPerRow = 5;
-		private int tabIndex;
 
 		private GameEditorMenu menu;
+		private bool hasWindow = false;
 
 		[MenuItem("Tools/GameManager")]
 		public static void OpenWindow()
@@ -29,15 +29,28 @@ namespace GameFramework.GameManager.Editor
 		{
 			tabSetting = RinoEditorUtility.FindAsset<GameManagerTabSetting>();
 
-			if(tabSetting.Tabs.Count > 0)
+			if(tabSetting == null)
 			{
-				tabIndex = 0;
-				menu = CreateEditorMenuInstance(tabSetting.Tabs[tabIndex].CorrespondingWindow);
+				var data = CreateInstance<GameManagerTabSetting>();
+				RinoEditorUtility.CreateSOData(data, "Data/GameManager/Tab");
+				tabSetting = data;
+			}
+
+			hasWindow = tabSetting!.Tabs.Count > 0;
+
+			if(hasWindow)
+			{
+				menu = CreateEditorMenuInstance(tabSetting.Tabs[0].CorrespondingWindow);
 			}
 		}
 
 		protected override void OnGUI()
 		{
+			if(!hasWindow)
+			{
+				return;
+			}
+
 			DrawWindowTab();
 			MenuWidth = menu.MenuWidth;
 
@@ -48,14 +61,14 @@ namespace GameFramework.GameManager.Editor
 
 			menu.Draw();
 		}
-		
+
 		protected override OdinMenuTree BuildMenuTree()
 		{
-			var tree = menu.menuTree;
-		
+			var tree = hasWindow ? menu.menuTree : new OdinMenuTree();
+
 			return tree;
 		}
-		
+
 		private void SwitchMenu(GameEditorMenu window)
 		{
 			menu = window;
