@@ -1,8 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using UnityEditor;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace GameFramework.RinoUtility.Editor
 {
@@ -46,6 +49,17 @@ namespace GameFramework.RinoUtility.Editor
 			{
 				Directory.CreateDirectory(directoryName!);
 			}
+		}
+
+		public static List<Type> GetDerivedClasses<T>(bool searchAbstract = false, bool searchGeneric = false) where T : class
+		{
+			var inheritedClasses = AppDomain.CurrentDomain.GetAssemblies()
+											.SelectMany(s => s.GetTypes())
+											.Where(x => searchAbstract ||!x.IsAbstract)
+											.Where(x => searchGeneric || !x.IsGenericTypeDefinition)
+											.Where(x => typeof(T).IsAssignableFrom(x))
+											.ToList();
+			return inheritedClasses;
 		}
 	}
 }

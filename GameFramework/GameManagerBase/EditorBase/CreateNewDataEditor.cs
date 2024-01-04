@@ -109,9 +109,17 @@ namespace GameFramework.GameManagerBase.EditorBase
 
 		private void CreateDataSet()
 		{
-			var dataSet = CreateInstance(typeof(DataSet<T>));
+			var dataSetType = RinoEditorUtility.GetDerivedClasses<DataSet<T>>().First();
+
+			if(dataSetType == null)
+			{
+				return;
+			}
+			
+			var dataSet = CreateInstance(dataSetType);
 			RinoEditorUtility.CreateSOData(dataSet, "Data/Set/" + typeof(T).Name + "DataSet");
 			_dataSet = (DataSet<T>)dataSet;
+			ForceMenuTreeRebuild();
 		}
 	}
 }
