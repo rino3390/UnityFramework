@@ -4,3 +4,9 @@ Plugins/
 Plugins.meta
 
 Temp/
+
+Data/
+
+GameFramework/GameManager/Editor/EditorMenu/
+
+Data.meta
