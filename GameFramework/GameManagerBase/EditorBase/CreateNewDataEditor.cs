@@ -49,6 +49,11 @@ namespace GameFramework.GameManagerBase.EditorBase
 			var overViewType = typeof(DataSet<T>);
 			var findAssets = AssetDatabase.FindAssets($"t:{overViewType.Name}");
 			_dataSet = findAssets.Select(guid => AssetDatabase.LoadAssetAtPath<DataSet<T>>(AssetDatabase.GUIDToAssetPath(guid))).FirstOrDefault();
+
+			if(_dataSet == null)
+			{
+				CreateDataSet();
+			}
 		}
 
 		protected override void OnBeginDrawEditors()
@@ -102,7 +107,6 @@ namespace GameFramework.GameManagerBase.EditorBase
 			Data.AssetName = root[^2] + " - " + Data.Id;
 		}
 
-		[ShowIf("@_dataSet == null")]
 		private void CreateDataSet()
 		{
 			var dataSet = CreateInstance(typeof(DataSet<T>));
