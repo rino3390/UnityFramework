@@ -25,14 +25,13 @@ namespace GameFramework.GameManager.Drawer
 			IconIncludedData item = this.ValueEntry.SmartValue;
 			Texture texture = null;
 
-			if(item && item.Icon)
+			if(item)
 			{
-				texture = item.Icon.texture;
+				if(item.Icon)
+				{
+					texture = item.Icon.texture;
+				}
 				GUI.Label(rect.AddXMin(50).AlignMiddle(16), EditorGUI.showMixedValue ? "-" : item.AssetName);
-			}
-			else
-			{
-				GUI.Label(rect.AddXMin(50).AlignMiddle(16), item.AssetName);
 			}
 
 			this.ValueEntry.WeakSmartValue = SirenixEditorFields.UnityPreviewObjectField(rect.AlignLeft(45), item, texture, this.ValueEntry.BaseValueType);
