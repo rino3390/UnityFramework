@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -21,10 +20,21 @@ namespace GameFramework.RinoUtility.Editor
 
 		public static T FindAsset<T>() where T: Object
 		{
-			var data = AssetDatabase.FindAssets($"t:{typeof(T).Name}")
+			return FindAssets<T>().FirstOrDefault();
+		}
+
+		public static List<T> FindAssetsWithInheritance<T>() where T: Object
+		{
+			var type = GetDerivedClasses<T>().FirstOrDefault();
+			var data = AssetDatabase.FindAssets($"t:{type}")
 									.Select(guid => AssetDatabase.LoadAssetAtPath<T>(AssetDatabase.GUIDToAssetPath(guid)))
-									.FirstOrDefault();
+									.ToList();
 			return data;
+		}
+		
+		public static T FindAssetWithInheritance<T>() where T: Object
+		{
+			return FindAssetsWithInheritance<T>().FirstOrDefault();
 		}
 
 		public static void SaveSOData(Object serializedObject)
@@ -51,11 +61,11 @@ namespace GameFramework.RinoUtility.Editor
 			}
 		}
 
-		public static List<Type> GetDerivedClasses<T>(bool searchAbstract = false, bool searchGeneric = false) where T : class
+		public static List<Type> GetDerivedClasses<T>(bool searchAbstract = false, bool searchGeneric = false)
 		{
 			var inheritedClasses = AppDomain.CurrentDomain.GetAssemblies()
 											.SelectMany(s => s.GetTypes())
-											.Where(x => searchAbstract ||!x.IsAbstract)
+											.Where(x => searchAbstract || !x.IsAbstract)
 											.Where(x => searchGeneric || !x.IsGenericTypeDefinition)
 											.Where(x => typeof(T).IsAssignableFrom(x))
 											.ToList();

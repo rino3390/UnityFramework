@@ -7,7 +7,6 @@ using Sirenix.OdinInspector;
 using Sirenix.OdinInspector.Editor;
 using Sirenix.Utilities.Editor;
 using System.Linq;
-using UnityEditor;
 using UnityEngine;
 using GUID = GameFramework.RinoUtility.Misc.GUID;
 
@@ -46,9 +45,7 @@ namespace GameFramework.GameManagerBase.EditorBase
 		{
 			SetNewData();
 
-			var overViewType = typeof(DataSet<T>);
-			var findAssets = AssetDatabase.FindAssets($"t:{overViewType.Name}");
-			_dataSet = findAssets.Select(guid => AssetDatabase.LoadAssetAtPath<DataSet<T>>(AssetDatabase.GUIDToAssetPath(guid))).FirstOrDefault();
+			_dataSet = RinoEditorUtility.FindAssetWithInheritance<DataSet<T>>();
 
 			if(_dataSet == null)
 			{
