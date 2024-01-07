@@ -4,6 +4,7 @@
 ### 更新內容
 * LocalizeManagerEditorWindow 新增本地化資料時需要存檔
 * 創建資料不檢查 Icon 但需要檢查名稱已填寫
+* 修正 DataSet 會重置問題
 
 ## [0.1.1] - 2024 / 1 / 5
 ### 更新內容
