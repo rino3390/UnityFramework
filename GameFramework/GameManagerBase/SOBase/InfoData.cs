@@ -12,5 +12,10 @@ namespace GameFramework.GameManagerBase.SOBase
 		[ValueDropdown("@LocalizeDrawer.LocalizeStingIdDropDown()")]
 		[Required("需要填寫名稱")]
 		public string DataName;
+
+		public override bool IsDataLegal()
+		{
+			return base.IsDataLegal() && !string.IsNullOrEmpty(DataName);
+		}
 	}
 }

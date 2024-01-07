@@ -54,11 +54,6 @@ namespace GameFramework.GameManager.Editor
 			DrawWindowTab();
 			MenuWidth = menu.MenuWidth;
 
-			if(Event.current.type == EventType.Layout)
-			{
-				ForceMenuTreeRebuild();
-			}
-
 			menu.Draw();
 		}
 
