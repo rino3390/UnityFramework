@@ -1,7 +1,9 @@
-﻿using GameFramework.RinoUtility.Editor;
+﻿#if UNITY_EDITOR
+using GameFramework.RinoUtility.Editor;
+using Sirenix.Utilities.Editor;
+#endif
 using JetBrains.Annotations;
 using Sirenix.OdinInspector;
-using Sirenix.Utilities.Editor;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -43,6 +45,7 @@ namespace GameFramework.GameManagerBase.SOBase
 			{
 				throw new ArgumentNullException($"找不到任何資料");
 			}
+
 			return Datas[Random.Range(0, Datas.Count)];
 		}
 
@@ -54,6 +57,7 @@ namespace GameFramework.GameManagerBase.SOBase
 			if(SirenixEditorGUI.ToolbarButton(EditorIcons.Refresh))
 			{
 				Datas = RinoEditorUtility.FindAssets<T>();
+				RinoEditorUtility.SaveSOData(this);
 			}
 		}
 
