@@ -98,7 +98,7 @@ namespace RinoLocalize.Common
 			}
 			OnCreate?.Invoke();
 			OnCreate = null;
-			RinoEditorUtility.SaveSOData(new SerializedObject(localizeDataSet));
+			RinoEditorUtility.SaveSOData(localizeDataSet);
 		}
 	}
 #endif

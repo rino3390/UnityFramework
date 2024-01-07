@@ -27,9 +27,9 @@ namespace GameFramework.RinoUtility.Editor
 			return data;
 		}
 
-		public static void SaveSOData(SerializedObject serializedObject)
+		public static void SaveSOData(Object serializedObject)
 		{
-			EditorUtility.SetDirty(serializedObject.targetObject);
+			EditorUtility.SetDirty(serializedObject);
 			AssetDatabase.SaveAssets();
 		}
 
