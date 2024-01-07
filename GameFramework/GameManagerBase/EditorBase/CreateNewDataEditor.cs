@@ -97,6 +97,7 @@ namespace GameFramework.GameManagerBase.EditorBase
 			if(!Data.IsDataLegal()) return;
 			RinoEditorUtility.CreateSOData(Data, _dataRoot + Data.AssetName);
 			SetNewData();
+			ForceMenuTreeRebuild();
 		}
 
 		private void SetNewData()
