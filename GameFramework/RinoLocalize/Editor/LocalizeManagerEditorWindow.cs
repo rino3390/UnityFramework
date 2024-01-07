@@ -99,7 +99,7 @@ namespace RinoLocalize.Editor
 		[VerticalGroup("Editor/LocalizeData")]
 		[Button("Create"), PropertyOrder(-1), BoxGroup("Editor/LocalizeData/Create"), GUIColor(0.67f, 1f, 0.65f)]
 		[PropertySpace(10, 10)]
-		public void CreateLocalizeString()
+		public void CreateLocalizeData()
 		{
 			if(!LocalizeData.CheckId)
 			{
@@ -127,6 +127,8 @@ namespace RinoLocalize.Editor
 				default:
 					throw new ArgumentOutOfRangeException();
 			}
+			
+			RinoEditorUtility.SaveSOData(localizeDataSet);
 
 			SetNewLocalizeData();
 		}
@@ -173,7 +175,7 @@ namespace RinoLocalize.Editor
 
 		private void OnLostFocus()
 		{
-			RinoEditorUtility.SaveSOData(new SerializedObject(localizeDataSet));
+			RinoEditorUtility.SaveSOData(localizeDataSet);
 		}
 	}
 }
