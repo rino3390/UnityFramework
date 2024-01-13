@@ -1,14 +1,14 @@
 ﻿namespace GameFramework.Core.Domain
 {
-	public class Entity<T>
+	public class Entity
 	{
-		private readonly T Id;
+		private readonly string Id;
 
-		protected Entity(T id)
+		protected Entity(string id)
 		{
 			Id = id;
 		}
 
-		public T GetId() => Id;
+		public string GetId() => Id;
 	}
 }
