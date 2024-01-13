@@ -2,16 +2,16 @@
 
 namespace GameFramework.Core.Domain
 {
-	public interface IRepository<TEntity, EntityId> where TEntity: Entity<EntityId>
+	public interface IRepository<TEntity> where TEntity: Entity
 	{
-		TEntity this[EntityId Id] { get; set; }
+		TEntity this[string Id] { get; set; }
 		int Count { get; }
-		IEnumerable<EntityId> Keys { get; }
+		IEnumerable<string> Keys { get; }
 		IEnumerable<TEntity> Values { get; }
 
 		void                        Save(TEntity entity);
 		void                        DeleteAll();
-		void                        DeleteById(EntityId Id);
-		(bool exist, TEntity value) GetExistEntity(EntityId Id);
+		void                        DeleteById(string Id);
+		(bool exist, TEntity value) GetExistEntity(string Id);
 	}
 }
