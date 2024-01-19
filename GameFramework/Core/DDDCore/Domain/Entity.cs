@@ -2,11 +2,11 @@
 {
 	public class Entity
 	{
-		public string ID { get; }
+		public string Id { get; }
 
 		protected Entity(string id)
 		{
-			ID = id;
+			Id = id;
 		}
 	}
 }

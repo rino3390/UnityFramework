@@ -22,7 +22,7 @@ namespace GameFramework.Core.Domain
 		{
 			if(entity == null) return;
 
-			entities[entity.ID] = entity;
+			entities[entity.Id] = entity;
 		}
 
 		public void DeleteAll()
