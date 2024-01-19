@@ -2,13 +2,11 @@
 {
 	public class Entity
 	{
-		private readonly string Id;
+		public string ID { get; }
 
 		protected Entity(string id)
 		{
-			Id = id;
+			ID = id;
 		}
-
-		public string GetId() => Id;
 	}
 }

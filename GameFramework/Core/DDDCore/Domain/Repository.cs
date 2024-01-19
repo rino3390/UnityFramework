@@ -11,15 +11,18 @@ namespace GameFramework.Core.Domain
 
 		public TEntity this[string Id]
 		{
-			get => GetExistEntity(Id).value;
-			set => entities[Id] = value;
+			get
+			{
+				GetExistEntity(Id, out var entity);
+				return entity;
+			}
 		}
 
 		public void Save(TEntity entity)
 		{
 			if(entity == null) return;
 
-			entities[entity.GetId()] = entity;
+			entities[entity.ID] = entity;
 		}
 
 		public void DeleteAll()
@@ -35,14 +38,9 @@ namespace GameFramework.Core.Domain
 			}
 		}
 
-		public (bool exist, TEntity value) GetExistEntity(string Id)
+		public bool GetExistEntity(string Id, out TEntity value)
 		{
-			return (ContainsId(Id), ContainsId(Id) ? entities[Id] : default);
-		}
-
-		private bool ContainsId(string Id)
-		{
-			return entities.ContainsKey(Id);
+			return entities.TryGetValue(Id, out value);
 		}
 	}
 }
