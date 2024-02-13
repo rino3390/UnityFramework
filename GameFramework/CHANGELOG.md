@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.1.3] - 2024 / 2 / 13
+### 更新內容
+* 將 GameManager 置頂於 Context Menu
+
 ## [0.1.2] - 2024 / 1 / 7
 ### 更新內容
 * LocalizeManagerEditorWindow 新增本地化資料時需要存檔
