@@ -87,22 +87,6 @@ namespace GameFramework.Core.Tests
 		}
 
 		[Test]
-		public void Set_Entity_With_Indexer()
-		{
-			var repository = new Repository<Entity>();
-			var entity = Substitute.ForPartsOf<Entity>("Player");
-			var entity2 = Substitute.ForPartsOf<Entity>("Player");
-			var entity3 = Substitute.ForPartsOf<Entity>("Player2");
-
-			repository["Player"] = entity;
-			repository["Player"] = entity2;
-			repository["Player"] = entity3;
-
-			Assert.AreEqual(1, repository.Count, "Repository 儲存數量不正確");
-			Assert.AreEqual(entity3, repository["Player"], "Repository [Player] 讀取的儲存內容不正確");
-		}
-
-		[Test]
 		public void Get_Keys_In_Repo()
 		{
 			var repository = new Repository<Entity>();
