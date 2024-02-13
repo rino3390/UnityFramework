@@ -18,7 +18,7 @@ namespace GameFramework.GameManager.Editor
 		private GameEditorMenu menu;
 		private bool hasWindow = false;
 
-		[MenuItem("Tools/GameManager",priority = 10)]
+		[MenuItem("Tools/GameManager",priority = -10)]
 		public static void OpenWindow()
 		{
 			var window = GetWindow<GameManager>();
