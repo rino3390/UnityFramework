@@ -8,7 +8,7 @@ namespace GameFramework.GameManagerBase.EditorBase
 
 		public void Draw()
 		{
-			OnGUI();
+			base.OnImGUI();
 		}
 
 		protected OdinMenuTree SetTree(float iconSize = 28, bool drawSearchToolbar = true, float width = 220f)
