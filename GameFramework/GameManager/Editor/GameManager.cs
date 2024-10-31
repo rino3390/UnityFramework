@@ -44,7 +44,7 @@ namespace GameFramework.GameManager.Editor
 			}
 		}
 
-		protected override void OnGUI()
+		protected override void OnImGUI()
 		{
 			if(!hasWindow)
 			{
@@ -55,6 +55,14 @@ namespace GameFramework.GameManager.Editor
 			MenuWidth = menu.MenuWidth;
 
 			menu.Draw();
+		}
+
+		/// <summary>
+		/// 不複寫就會畫兩次GUI
+		/// </summary>
+		[Obsolete("Rename this to OnImGUI()", true)]
+		protected override void OnGUI()
+		{
 		}
 
 		protected override OdinMenuTree BuildMenuTree()
