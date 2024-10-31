@@ -2,7 +2,6 @@
 using GameFramework.GameManagerBase.SOBase;
 using GameFramework.RinoUtility.Editor;
 using JetBrains.Annotations;
-using RinoLocalize.Common;
 using Sirenix.OdinInspector;
 using Sirenix.OdinInspector.Editor;
 using Sirenix.Utilities.Editor;
@@ -58,12 +57,6 @@ namespace GameFramework.GameManagerBase.EditorBase
 			SirenixEditorGUI.BeginHorizontalToolbar(MenuTree.Config.SearchToolbarHeight);
 			{
 				GUILayout.FlexibleSpace();
-				if (SirenixEditorGUI.ToolbarButton(new GUIContent("新增本地化文字")))
-				{
-					var dataPop = new CreateLocalizeDataPop();
-					var window = InspectObjectInDropDown(dataPop);
-					dataPop.OpenWindow(LocalizeDataType.String,window);
-				}
 			}
 			SirenixEditorGUI.EndHorizontalToolbar();
 		}
