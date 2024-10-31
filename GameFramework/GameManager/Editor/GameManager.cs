@@ -1,7 +1,9 @@
 ﻿using GameFramework.GameManager.DataScript;
 using GameFramework.GameManagerBase.EditorBase;
 using GameFramework.RinoUtility.Editor;
+using Sirenix.OdinInspector;
 using Sirenix.OdinInspector.Editor;
+using Sirenix.OdinInspector.Modules.Localization.Editor;
 using Sirenix.Utilities;
 using Sirenix.Utilities.Editor;
 using System;
@@ -22,7 +24,7 @@ namespace GameFramework.GameManager.Editor
 		public static void OpenWindow()
 		{
 			var window = GetWindow<GameManager>();
-			window.position = GUIHelper.GetEditorWindowRect().AlignCenter(1000, 700);
+			window.position = GUIHelper.GetEditorWindowRect().AlignCenter(1500, 800);
 		}
 
 		protected override void Initialize()
@@ -103,7 +105,25 @@ namespace GameFramework.GameManager.Editor
 				buttonCount++;
 			}
 
+			AddOdinLocalizeWindowButton(buttonCount);
+
 			EditorGUILayout.EndHorizontal();
+		}
+
+		private static void AddOdinLocalizeWindowButton(int buttonCount)
+		{
+			if(buttonCount >= maxButtonsPerRow)
+			{
+				EditorGUILayout.EndHorizontal();
+				EditorGUILayout.BeginHorizontal();
+			}
+
+			EditorGUILayout.BeginVertical(GUILayout.MaxHeight(30));
+			if(SirenixEditorGUI.SDFIconButton("本地化資料", 5f, SdfIconType.Translate))
+			{
+				OdinLocalizationEditorWindow.OpenFromMenu();
+			}
+			EditorGUILayout.EndVertical();
 		}
 
 		private GameEditorMenu CreateEditorMenuInstance(Type window)

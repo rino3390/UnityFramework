@@ -52,15 +52,6 @@ namespace GameFramework.GameManagerBase.EditorBase
 			}
 		}
 
-		protected override void OnBeginDrawEditors()
-		{
-			SirenixEditorGUI.BeginHorizontalToolbar(MenuTree.Config.SearchToolbarHeight);
-			{
-				GUILayout.FlexibleSpace();
-			}
-			SirenixEditorGUI.EndHorizontalToolbar();
-		}
-
 		protected override OdinMenuTree BuildMenuTree()
 		{
 			var tree = SetTree().AddSelfMenu(this, dataTypeLabel);
