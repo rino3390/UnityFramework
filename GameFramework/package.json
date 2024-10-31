@@ -14,12 +14,5 @@
   "author": {
     "name": "Rino",
     "email": "purinnya3390@gmail.com"
-  },
-  "samples": [
-    {
-      "displayName": "Localize Essentials",
-      "description": "使用本地化資料時的必備檔案",
-      "path": "RinoLocalize/Samples~"
-    }
-  ]
+  }
 }
