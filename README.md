@@ -5,6 +5,17 @@
 https://github.com/rino3390/UnityFramework.git?path=GameFramework
 ```
 
+### Package Manager設定
+```
+package.openupm.com
+https://package.openupm.com
+
+com.svermeulen.extenject
+com.cysharp.messagepipe
+com.cysharp.unitask
+com.neuecc.unirx
+```
+
 包含
 
 * DDD Core
